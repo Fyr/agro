@@ -1,0 +1,1 @@
+<?=$this->element('icon_add', array('plugin' => 'core', 'href' => '#gridEditRec', 'class' => ' nyroModal'))?>

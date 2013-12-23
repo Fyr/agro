@@ -1,0 +1,45 @@
+.ddnMenu {
+	width: 170px;
+}
+.ddnHeader {
+	background: #5e7385 url(/ddaccordion/img/bkg_ddn.gif) repeat-x;
+	padding: 5px;
+}
+.ddnHeader:hover, .ddnSelected {
+	background: #ebeff2 url(/ddaccordion/img/bkg_ddn_selected.gif) repeat-x;
+	cursor: pointer;
+}
+.ddnSubmenu {
+	border: 1px solid #ebeff2;
+	padding: 3px 0;
+}
+.ddnHeader a {
+	color: #fff;
+	font-weight: bold;
+	margin-left: 5px;
+	text-decoration: none;
+}
+.ddnHeader:hover a, .ddnSelected a {
+	color: #355065;
+}
+.ddnHeader a:hover {
+	text-decoration: underline;
+}
+.ddnHeader img {
+	position: relative;
+	top: 2px;
+}
+.ddnSubmenu a, .ddnSubmenu a:visited {
+	color: #4869a9;
+	display: block;
+	padding: 3px 5px;
+	text-decoration: none;
+	border-top: 1px solid #ebeff2;
+}
+.ddnSubmenu a.first {
+	border-top-style: none;
+}
+.ddnSubmenu a:hover {
+	color: #729ae9;
+	text-decoration: underline;
+}

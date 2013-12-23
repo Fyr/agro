@@ -1,0 +1,14 @@
+div.tooltip {
+	display: inline;
+}
+#tooltip {
+	position: absolute;
+	z-index: 100;
+	border: 1px solid #226699;
+	background-color: #E6F5FD;
+	color: #000;
+}
+
+#tooltip div {
+	padding: 5px;
+}

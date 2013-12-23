@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<Styles>
+
+	<Style name="Quote" element="div">
+		<Attribute name="class" value="quote" />
+	</Style>
+	<Style name="Spoiler" element="div">
+		<Attribute name="class" value="spoiler" />
+	</Style>
+	<Style name="Hide text" element="div">
+		<Attribute name="class" value="hide" />
+	</Style>
+	<Style name="Preformatted Text" element="pre" />
+	<Style name="Heading 1" element="h1" />
+	<Style name="Heading 2" element="h2" />
+	<Style name="Heading 3" element="h3" />
+	<Style name="Heading 4" element="h4" />
+	<Style name="Heading 5" element="h5" />
+	<Style name="Heading 6" element="h6" />
+
+</Styles>

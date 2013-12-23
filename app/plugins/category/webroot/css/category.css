@@ -1,0 +1,9 @@
+#catList, #catTitle {
+	width: 300px;
+}
+#catList {
+	width: 304px;
+}
+#catForm .border {
+	border: 2px solid #ccc; 
+}

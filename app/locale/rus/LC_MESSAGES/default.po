@@ -1,0 +1,419 @@
+msgid "You are not authorized to access that location."
+msgstr "У вас нет прав доступа к данной странице!"
+
+msgid "Login failed. Invalid username or password."
+msgstr "Неверное имя пользователя или пароль!"
+
+msgid "This field cannot be left blank"
+msgstr "Поле должно быть заполнено"
+
+msgid "No records found"
+msgstr "Нет записей"
+
+msgid "read more"
+msgstr "подробнее"
+
+msgid "Login"
+msgstr "Логин-имя"
+
+msgid "Password"
+msgstr "Пароль"
+
+msgid "Jan"
+msgstr "Янв"
+
+msgid "Feb"
+msgstr "Фев"
+
+msgid "Mar"
+msgstr "Март"
+
+msgid "Apr"
+msgstr "Апр"
+
+msgid "May"
+msgstr "Май"
+
+msgid "Jun"
+msgstr "Июнь"
+
+msgid "Jul"
+msgstr "Июль"
+
+msgid "Articles"
+msgstr "Статьи"
+
+msgid "News"
+msgstr "Новости"
+
+msgid "Sorting"
+msgstr "Сортировка"
+
+msgid "Photos"
+msgstr "Наши невесты"
+
+msgid "Pages"
+msgstr "Страницы"
+
+msgid "Comments"
+msgstr "Отзывы"
+
+msgid "Brands"
+msgstr "Бренды"
+
+msgid "New Brand"
+msgstr "Новый Бренд"
+
+msgid "Edit Brand"
+msgstr "Редактирование Бренда"
+
+msgid "FAQs"
+msgstr "Вопросы/Ответы"
+
+msgid "Products"
+msgstr "Каталог продукции"
+
+msgid "Today"
+msgstr "Сегодня"
+
+msgid "Yeerday"
+msgstr "Вчера"
+
+msgid "back to top"
+msgstr "К началу"
+
+msgid "Processing..."
+msgstr "Пожалуйста, подождите..."
+
+msgid "Title"
+msgstr "Название"
+
+msgid "Page ID"
+msgstr "ID страницы"
+
+msgid "Body"
+msgstr "Текст"
+
+msgid "Manage files"
+msgstr "Загрузка файлов"
+
+msgid "Save"
+msgstr "Сохранить"
+
+msgid "Add file"
+msgstr "Добавить"
+
+msgid "Upload files"
+msgstr "Загрузить файлы"
+
+msgid "View page"
+msgstr "Просмотр"
+
+msgid "Edit record"
+msgstr "Редактировать"
+
+msgid "Delete record"
+msgstr "Удалить"
+
+msgid "Add record"
+msgstr "Добавить"
+
+msgid "Are you sure to delete checked records?"
+msgstr "Вы уверены, что хотите удалить помеченные записи?"
+
+msgid "Page"
+msgstr "Страница"
+
+msgid "Show"
+msgstr "Показать"
+
+msgid "Records checked"
+msgstr "Помечено записей"
+
+msgid "per page"
+msgstr "на странице"
+
+msgid "View"
+msgstr "Просмотр"
+
+msgid "of"
+msgstr "из"
+
+msgid "records"
+msgstr "записей"
+
+msgid "Manage categories"
+msgstr "Управление категориями"
+
+msgid "Category"
+msgstr "Категория"
+
+msgid "Subcategory"
+msgstr "Подкатегория"
+
+msgid "Edit product"
+msgstr "Редактирование продукта"
+
+msgid "New product"
+msgstr "Новый продукт"
+
+msgid "View article"
+msgstr "Посмотреть статью"
+
+msgid "View page"
+msgstr "Посмотреть страницу"
+
+msgid "Featured category"
+msgstr "Особая категория"
+
+msgid "Published"
+msgstr "Опубликовать"
+
+msgid "Featured"
+msgstr "Особый"
+
+msgid "Teaser" 
+msgstr "Анонс"
+
+msgid "Choose category"
+msgstr "Выберите категорию"
+
+msgid "Modified"
+msgstr "Изменено"
+
+msgid "Edit article"
+msgstr "Редактировать статью"
+msgid "Edit "News" article"
+msgstr "Редактировать новость"
+msgid "New article"
+msgstr "Новая статья"
+msgid "New "News" article"
+msgstr "Создать новость"
+
+msgid "New!!!"
+msgstr "Акция"
+
+msgid "New!"
+msgstr "Осн.каталог"
+
+msgid "Price"
+msgstr "Стоимость"
+
+msgid "Publish comments"
+msgstr "Опубликовать отзыв"
+
+msgid "Unpublish comments"
+msgstr "Скрыть отзыв"
+
+msgid "Article"
+msgstr "Статья"
+
+msgid "Created"
+msgstr "Создано"
+
+msgid "Username"
+msgstr "Пользователь"
+
+msgid "Users"
+msgstr "Пользователи"
+
+msgid "Photoslider"
+msgstr "Фото-ротация"
+
+msgid "Mailing"
+msgstr "Рассылка"
+msgid "New mailing"
+msgstr "Новая рассылка"
+msgid "Edit mailing"
+msgstr "Редактировать рассылку"
+msgid "Send mass mail"
+msgstr "Разослать всем"
+
+msgid "Last sent"
+msgstr "Отправлено"
+
+msgid "Mail title"
+msgstr "Название рассылки"
+
+msgid "Mail subject"
+msgstr "Название темы письма"
+
+msgid "Mail body"
+msgstr "Текст письма"
+
+msgid "Edit static page"
+msgstr "Редактировать текст страницы"
+
+msgid "New static page"
+msgstr "Новая страница"
+
+msgid "Your name"
+msgstr "Ваше имя"
+
+msgid "Your e-mail for reply"
+msgstr "Ваш E-mail для ответа"
+
+msgid "SPAM PROTECTION!"
+msgstr "ЗАЩИТА ОТ СПАМА!"
+
+msgid "Enter the text on image"
+msgstr "Введите текст на картинке"
+
+msgid "You have received a new message from "
+msgstr "Вы получили новое сообщение"
+
+msgid "Message"
+msgstr "Сообщение"
+
+msgid "Description"
+msgstr "Текст (описание)"
+
+msgid "Send"
+msgstr "Отправить"
+
+msgid "Username cannot be blank"
+msgstr "необходимо заполнить поле 'Имя пользователя'"
+
+msgid "Username length should be between 3 to 50 characters"
+msgstr "Имя пользователя должно быть от 3 до 50 символов"
+
+msgid "Incorrect e-mail address"
+msgstr "Неверный e-mail адрес"
+
+msgid "Text for captcha cannot be blank"
+msgstr "Введите текст на картинке"
+
+msgid "Text for captcha cannot be blank"
+msgstr "Введите текст на картинке"
+
+msgid "Incorrect text for captcha"
+msgstr "Неверный текст на картинке"
+
+msgid "Active"
+msgstr "В наличии"
+
+msgid "Brand"
+msgstr "Бренд"
+
+msgid "Categories"
+msgstr "Категории"
+
+msgid "Types"
+msgstr "Типы продукции"
+
+msgid "Subtypes"
+msgstr "Подтипы продукции"
+
+msgid "Type"
+msgstr "Тип продукции"
+
+msgid "Subtype"
+msgstr "Подтип продукции"
+
+msgid "Tech.parameters"
+msgstr "Технические параметры"
+
+msgid "Sorting order"
+msgstr "Порядок сортировки"
+
+msgid "New parameter"
+msgstr "Новый параметр"
+
+msgid "Required"
+msgstr "Обязательно"
+
+msgid "Options"
+msgstr "Опции"
+
+msgid "Each item on new line"
+msgstr "Каждая на новой строке"
+
+msgid "Boolean (yes|no)"
+msgstr "Логический (да|нет)"
+
+msgid "Integer"
+msgstr "Целое число"
+
+msgid "Float"
+msgstr "Дробное число (с точкой)"
+
+msgid "String (text)"
+msgstr "Строка текста"
+
+msgid "Text (textarea)"
+msgstr "Текст"
+
+msgid "Date"
+msgstr "Дата"
+
+msgid "Time"
+msgstr "Время"
+
+msgid "Dropdown menu list"
+msgstr "Выпадающий список"
+
+msgid "Previous"
+msgstr "Предыдущая"
+
+msgid "Next"
+msgstr "Следующая"
+
+msgid "Parameter"
+msgstr "Параметр"
+
+msgid "Value"
+msgstr "Значение"
+
+msgid "Similar products"
+msgstr "Похожие запчасти"
+
+msgid "All types"
+msgstr "любой тип"
+
+msgid "All brands"
+msgstr "любой бренд"
+
+msgid "Search"
+msgstr "Искать"
+
+msgid "Settings"
+msgstr "Настройки"
+
+msgid "Statistics"
+msgstr "Статистика"
+
+msgid "DateStart"
+msgstr "Дата начала периода: "
+
+msgid "DateEnd"
+msgstr "Дата конца периода: "
+
+msgid "DateStart"
+msgstr "Статистика"
+
+msgid "Price RUR"
+msgstr "Цена в RUR"
+
+msgid "Price prefix"
+msgstr "Префикс для цены"
+
+msgid "Price postfix"
+msgstr "Постфикс для цены"
+
+msgid "Price2 prefix"
+msgstr "Префикс для 2й цены"
+
+msgid "Price2 postfix"
+msgstr "Постфикс для 2й цены"
+
+msgid "RUR course"
+msgstr "Курс USD (цена * курс)"
+
+msgid "PU_DIV"
+msgstr "Разделитель разрядов для цен"
+
+msgid "Phone"
+msgstr "Тел."
+
+msgid "Address"
+msgstr "Адрес"

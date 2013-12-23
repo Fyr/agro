@@ -1,0 +1,23 @@
+.expandableBlockWidget .switch {
+	background: url('/core/img/icons/next.gif') no-repeat #fff; 
+	display: block;
+	height: 16px;
+	position: relative; 
+	top: 10px; 
+	left: 10px;
+	padding: 0 5px 0 17px;
+	text-decoration: none;
+	float: left;
+}
+.expandableBlockWidget .switch.down {
+	background-image: url('/core/img/icons/down.gif');
+}
+.expandableBlockWidget .container {
+	width: 570px; border: 2px solid #CCCCCC;
+}
+.expandableBlockWidget .container.collapse {
+	height: 0px; overflow: hidden;
+}
+.expandableBlockWidget .wrap {
+	margin: 10px;
+}

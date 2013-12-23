@@ -1,0 +1,26 @@
+<?
+/**
+ * Requires:
+ * - initialized $paginator (pagination object)
+ * 
+ * Params:
+ * @param (str) iconset - folder name of iconset (Possible values: 'iconset1' - default value, 'iconset2')
+ * 
+*/
+	$this->Html->css('/paginate/css/pagination', null, array('inline' => false));
+	$iconset = 'iconset1';
+	if ($paginator->numbers()) {
+?>
+<table align="center" class="pagination" border="0" cellpadding="0" cellspacing="0">
+<tr>
+	<td width="49%" align="right" style="font-size: 11px; padding-top: 2px;"><? __('Pages');?>:</td>
+	<td class="fixIcon" align="right"><?=$paginator->first('<img src="/paginate/img/'.$iconset.'/first.gif" alt=""/>', array('escape' => false))?></td>
+	<td class="fixIcon"><?=$paginator->prev('<img src="/paginate/img/'.$iconset.'/prev.gif" alt=""/>', array('escape' => false))?></td>
+	<td align="center" nowrap="nowrap" style="padding: 0px 5px;"><?=$paginator->numbers()?></td>
+	<td class="fixIcon"><?=$paginator->next('<img src="/paginate/img/'.$iconset.'/next.gif" alt=""/>', array('escape' => false))?></td>
+	<td class="fixIcon" width="49%"><?=$paginator->last('<img src="/paginate/img/'.$iconset.'/last.gif" alt=""/>', array('escape' => false))?></td>
+</tr>
+</table>
+<?
+	}
+?>

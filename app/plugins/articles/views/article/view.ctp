@@ -1,0 +1,1 @@
+<?=$this->element('article_view', array('pligin' => 'articles'))?>

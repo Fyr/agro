@@ -1,0 +1,12 @@
+table.pagination {
+	margin: 5px 0px;
+}
+.pagination td {
+	font-size: 14px;
+}
+.pagination img {
+	margin: 2px;
+}
+.pagination .current {
+	font-weight: bold;
+}

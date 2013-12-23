@@ -1,0 +1,1 @@
+<?=$this->element('icon_info', array('plugin' => 'core', 'title' => $row['Article']['body']))?>

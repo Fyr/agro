@@ -1,0 +1,2 @@
+<?//$this->element('icon_edit', array('plugin' => 'core', 'class' => 'nyroModal', 'href' => '#gridEditRec')); // '/admin/articlesEdit/'.$id?>
+<?=$this->element('icon_edit', array('plugin' => 'core', 'onclick' => 'grid_onEdit('.$id.')')); // '/admin/articlesEdit/'.$id?>

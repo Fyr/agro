@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /css/
+Disallow: /js/
+Disallow: /files/
+Sitemap: http://agromotors.by/sitemap.xml
+Host: agromotors.by

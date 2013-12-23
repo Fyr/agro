@@ -1,0 +1,18 @@
+.adminTable th {
+	background: #536575 url(/core/img/bkg_admin_table.gif) center repeat-x;
+	padding: 5px;
+	font-weight: normal;
+	text-align: center;
+	border-right: 1px solid #fff;
+}
+.adminTable th a {
+}
+.adminTable th, .adminTable th a, .adminTable th a:visited {
+	color: #fff;
+}
+.adminTable th a:hover {
+	font-weight: bold;
+}
+.adminTable .selected, .adminTable .selected a, .adminTable .selected a:visited {
+	font-weight: bold;
+}

@@ -1,0 +1,1 @@
+<?=$this->element('icon_del', array('plugin' => 'core', 'title' => __('Delete checked records', true), 'href' => 'javascript:void(0)', 'onclick' => 'grid_onCheckedDel()'))?>
