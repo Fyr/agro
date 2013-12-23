@@ -1,0 +1,1 @@
+<div class="submit"><div class="l"></div><input type="button" value="<? __($caption);?>" onclick="<?=$onclick?>" /><div class="r"></div></div>

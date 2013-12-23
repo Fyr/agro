@@ -1,0 +1,1 @@
+<?=$this->element('params_edit', array('plugin' => 'params', 'aParams' => $aParams, 'data' => array('ParamValue' => $aParamValues)));?>
