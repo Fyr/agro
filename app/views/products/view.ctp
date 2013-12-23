@@ -23,7 +23,7 @@
 ?>
 							<b><?__('Brand')?></b> : <?=$aArticle['Brand']['title']?><br />
 							<b><?__('Type')?></b> : <?=$aArticle['Category']['title']?><br />
-							
+
 <?
 	if ($aArticle['Article']['price']) {
 ?>
@@ -41,8 +41,8 @@
 						<div class="s-frame gallery">
 <?
 	foreach($aArticle['Media'] as $media) {
-		$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '140x100', $media['file'].$media['ext']);
-		$orig = $this->PHMedia->getUrl($media['object_type'], $media['id'], 'noresize', $media['file'].$media['ext']);
+		$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext'].'.png');
+		$orig = $this->PHMedia->getUrl($media['object_type'], $media['id'], 'noresize', $media['file'].$media['ext'].'.png');
 ?>
 							<div class="block three3">
 								<br/>
@@ -86,7 +86,7 @@
 	</table>
 <?
 	}
-?>	
+?>
 	<br />
 	<a href="/products/">Перейти в каталог</a>
 <?
