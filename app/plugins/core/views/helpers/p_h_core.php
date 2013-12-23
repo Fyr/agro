@@ -26,4 +26,27 @@ class PHCoreHelper extends Helper {
 		}
 		return $this->Html->script($js, array('inline' => false));
 	}
+
+	/**
+	 * Get file size in a user-friendly format
+	 *
+	 * @param mixed $fullFileName - file size or file name
+	 * @return str
+	 */
+	function getFileSize($fullFileName) {
+		if (is_numeric($fullFileName)) {
+			$bytes = $fullFileName;
+		} else {
+			$bytes = filesize($fullFileName);
+		}
+		$aSize = array('bytes', 'Kb', 'Mb', 'Gb');
+		$_ret = '';
+		$count = 0;
+		while ($bytes > 1024 && $count < count($aSize)) {
+			$bytes = $bytes / 1024;
+			$count++;
+		}
+		return '<span class="filesize">'.round($bytes, 2).'</span> '.$aSize[$count];
+	}
+
 }

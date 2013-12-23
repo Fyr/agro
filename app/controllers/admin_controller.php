@@ -392,4 +392,12 @@ class AdminController extends AppController {
 		$this->set('data2', $data2);
 	}
 
+	function utils() {
+
+	}
+
+	function removeImageCache() {
+		$this->set('stats', $this->Media->removeImageCache());
+	}
+
 }
