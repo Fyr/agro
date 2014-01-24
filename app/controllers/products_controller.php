@@ -27,12 +27,6 @@ class ProductsController extends SiteController {
 			$this->set('directSearch', true);
 		}
 
-		if ($catID && !(isset($this->params['page']) && intval($this->params['page']) > 1)) {
-			$relatedContent = $this->Article->find('first', array('conditions' => array(
-				'Article.object_type' => 'category', 'Article.object_id' => $catID, 'Article.published' => 1
-			)));
-			$this->set('relatedContent', $relatedContent);
-		}
 		if ($this->categoryID) {
 			$this->set('cat_autoOpen', $this->categoryID);
 		}
@@ -62,11 +56,20 @@ class ProductsController extends SiteController {
 			$page_title = $category['Category']['title'];
 			$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', $page_title); // '/products/?data[filter][type_id]='.$categoryID =>
 
-			$this->pageTitle = 'Каталог продукции '.$page_title;
-			$this->data['SEO'] = array(
-				'keywords' => "каталог продукции {$page_title}, запчасти для тракторов {$page_title}, запчасти для спецтехники {$page_title}, запчасти для {$page_title}",
-				'descr' => "На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
+			$relatedContentSeo = null;
+			if (!(isset($this->params['page']) && intval($this->params['page']) > 1)) {
+				$relatedContent = $this->Article->find('first', array('conditions' => array(
+					'Article.object_type' => 'category', 'Article.object_id' => $categoryID, 'Article.published' => 1
+				)));
+				$this->set('relatedContent', $relatedContent);
+				$relatedContentSeo = $relatedContent['Seo'];
+			}
+			$this->data['SEO'] = $this->Seo->defaultSeo($relatedContentSeo,
+				'Каталог продукции '.$page_title,
+				"каталог продукции {$page_title}, запчасти для тракторов {$page_title}, запчасти для спецтехники {$page_title}, запчасти для {$page_title}",
+				"На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
 			);
+			$this->pageTitle = $this->data['SEO']['title'];
 		} elseif (isset($this->params['url']['data']['filter']['Article.object_id']) && $this->params['url']['data']['filter']['Article.object_id']) {
 			$subcategoryID = $this->params['url']['data']['filter']['Article.object_id'];
 			$subcategory = $this->Category->findById($subcategoryID);
@@ -76,11 +79,20 @@ class ProductsController extends SiteController {
 			$page_title = $subcategory['Category']['title'];
 			$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', '/products/?data[filter][type_id]='.$categoryID => $category['Category']['title'], $page_title); //
 
-			$this->pageTitle = 'Каталог продукции '.$page_title;
-			$this->data['SEO'] = array(
-				'keywords' => "каталог продукции {$page_title}, запчасти для тракторов {$page_title}, запчасти для спецтехники {$page_title}, запчасти для {$page_title}",
-				'descr' => "На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
+			$relatedContentSeo = null;
+			if (!(isset($this->params['page']) && intval($this->params['page']) > 1)) {
+				$relatedContent = $this->Article->find('first', array('conditions' => array(
+					'Article.object_type' => 'category', 'Article.object_id' => $subcategoryID, 'Article.published' => 1
+				)));
+				$this->set('relatedContent', $relatedContent);
+				$relatedContentSeo = $relatedContent['Seo'];
+			}
+			$this->data['SEO'] = $this->Seo->defaultSeo($relatedContentSeo,
+				'Каталог продукции '.$page_title,
+				"каталог продукции {$page_title}, запчасти для тракторов {$page_title}, запчасти для спецтехники {$page_title}, запчасти для {$page_title}",
+				"На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
 			);
+			$this->pageTitle = $this->data['SEO']['title'];
 		}
 
 		if (!$aFilters['conditions']) {
