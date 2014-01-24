@@ -6,7 +6,7 @@ class ArticleVarsHelper extends AppHelper {
 		$id = $aArticle['Article']['id'];
 		$url = $this->Router->url($aArticle);
 		$title = $aArticle['Article']['title'];
-		$teaser = $aArticle['Article']['teaser'];
+		$teaser = nl2br($aArticle['Article']['teaser']);
 		$src = '';
 		$featured = false;
 		if (isset($aArticle['Media'][0])) {

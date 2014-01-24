@@ -42,7 +42,6 @@ class ContactsController extends SiteController {
 				exit;
 			} else {
 				$this->aErrFields = $this->Contact->invalidFields();
-				// fdebug($this->aErrFields);
 			}
 				
 		}

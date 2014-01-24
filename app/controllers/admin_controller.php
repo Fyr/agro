@@ -5,7 +5,7 @@ class AdminController extends AppController {
 	var $components = array('Auth', 'articles.PCArticle', 'grid.PCGrid', 'params.PCParam');
 	var $helpers = array('Text', 'Session', 'core.PHFcke', 'core.PHCore', 'core.PHA', 'grid.PHGrid');
 
-	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'Brand', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand');
+	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'Brand', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory');
 	// var $helpers = array('Html'); // 'Form', 'Fck', 'Ia'
 
 	var $aMenu = array(
@@ -187,15 +187,20 @@ class AdminController extends AppController {
 	}
 
 	function typesList($parentID = null) {
+		$this->Article = $this->SiteCategory; // что работало все, что написано для Article в самом плагине
+
 		if ($parentID) {
-			$aType = $this->Category->findById($parentID);
+			$aType = $this->SiteCategory->findById($parentID);
+			$parentID = $aType['Category']['id'];
 			$this->set('aType', $aType);
 		}
-		$this->grid['Category'] = array(
-			'conditions' => array('object_type' => 'products', 'object_id' => $parentID),
-			'fields' => array('id', 'title', 'sorting'),
+		$this->grid['SiteCategory'] = array(
+			'conditions' => array('Article.object_type' => 'category', 'Category.object_id' => $parentID),
+			'fields' => array('Category.id', 'Category.title', 'Category.sorting'),
+			'order' => array('Category.id' => 'DESC'),
 			// 'captions' => array('Category.title' => __('Category', true)),
-			'hidden' => array('object_type', ),
+			/*
+			'hidden' => array('object_type'),
 			'filters' => array(
 				'object_type' => array(
 					'filterType' => 'hidden',
@@ -206,9 +211,37 @@ class AdminController extends AppController {
 					'value' => $parentID
 				)
 			)
-
+			*/
 		);
-		$this->PCGrid->paginate('Category');
+		$this->PCGrid->paginate('SiteCategory');
+	}
+
+	function typesEdit($id = 0) {
+		$this->Article = $this->SiteCategory; // что работало все, что написано для Article в самом плагине
+		$objectType = 'category';
+
+		if (isset($this->data['Article']) && $this->data['Article']) {
+			$this->data['Category']['title'] = $this->data['Article']['title'];
+			$this->data['Category']['object_type'] = 'products';
+		}
+		$aArticle = $this->PCArticle->adminEdit(&$id, &$lSaved);
+
+		if ($lSaved) {
+			$this->redirect('/admin/typesEdit/'.$id);
+		}
+
+		if ($id) {
+			unset($aArticle['Media']);
+			$aArticle['Media'] = $this->Media->getMedia('Article', $aArticle['Article']['id']);
+		} else {
+			$aArticle['Category']['sorting'] = 1;
+			$aArticle['Article']['published'] = 1;
+			$aArticle['Article']['sorting'] = 1;
+		}
+
+		$this->set('data', $this->data);
+		$this->set('aArticle', $aArticle);
+		$this->set('objectType', $objectType);
 	}
 
 	function tagsList() {
@@ -245,9 +278,10 @@ class AdminController extends AppController {
 		}
 	}
 
-	function assocParams($id = 0) {
+	function assocParams($article_id = 0) {
+		$aCategory = $this->SiteCategory->findById($article_id);
+		$id = $aCategory['Category']['id'];
 		$this->PCParam->adminBind('ProductParam', $id, &$lSaved);
-		$aCategory = $this->Category->findById($id);
 
 		if ($lSaved) {
 			$this->redirect('/admin/typesList/'.$aCategory['Category']['object_id']);
@@ -292,7 +326,7 @@ class AdminController extends AppController {
 
 		$types = $this->Category->find('all', array(
 			'conditions' => array('Category.object_type' => 'products'),
-			'order' => 'object_id'
+			'order' => array('Category.object_id', 'Category.sorting')
 		));
 		$aTypes = array();
 		foreach($types as $type) {
@@ -398,6 +432,15 @@ class AdminController extends AppController {
 
 	function removeImageCache() {
 		$this->set('stats', $this->Media->removeImageCache());
+	}
+
+	function update() {
+		$aRows = $this->Category->findAllByObject_type('products');
+		foreach($aRows as $row) {
+			$this->Article->save(array('id' => null, 'object_type' => 'category', 'object_id' => $row['Category']['id'], 'title' => $row['Category']['title']));
+		}
+		echo count($aRows).' records fixed';
+		exit;
 	}
 
 }

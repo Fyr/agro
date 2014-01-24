@@ -16,12 +16,25 @@ class ProductsController extends SiteController {
 		$this->categoryID = (isset($this->params['category']) && $this->params['category']) ? $this->getCategoryID($this->params['category']) : '';
 		$this->subcategoryID = (isset($this->params['subcategory']) && $this->params['subcategory']) ? $this->getCategoryID($this->params['subcategory']) : '';
 
+		$catID = 0;
 		if ($this->subcategoryID) {
 			$this->params['url']['data']['filter']['Article.object_id'] = $this->subcategoryID;
+			$catID = $this->subcategoryID;
 		} elseif ($this->categoryID) {
 			$this->params['url']['data']['filter']['type_id'] = $this->categoryID;
+			$catID = $this->categoryID;
 		} elseif (isset($this->params['url']['data']['filter'])) {
 			$this->set('directSearch', true);
+		}
+
+		if ($catID && !(isset($this->params['page']) && intval($this->params['page']) > 1)) {
+			$relatedContent = $this->Article->find('first', array('conditions' => array(
+				'Article.object_type' => 'category', 'Article.object_id' => $catID, 'Article.published' => 1
+			)));
+			$this->set('relatedContent', $relatedContent);
+		}
+		if ($this->categoryID) {
+			$this->set('cat_autoOpen', $this->categoryID);
 		}
 	}
 
@@ -83,8 +96,12 @@ class ProductsController extends SiteController {
 		$this->set('page_title', $page_title);
 	}
 
-	function view() {
-		$aArticle = $this->SiteProduct->findByPageId($this->params['id']);
+	function view($id = 0) {
+		if ($id) {
+			$aArticle = $this->SiteProduct->findById($id);
+		} else {
+			$aArticle = $this->SiteProduct->findByPageId($this->params['id']);
+		}
 		if (!$aArticle) {
 			$this->redirect('/404.html');
 		}

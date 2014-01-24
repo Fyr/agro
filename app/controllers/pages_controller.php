@@ -41,7 +41,7 @@ class PagesController extends SiteController {
 
 		$aArticle = $this->Article->findByPageId('home');
 		$this->set('contentArticle', $aArticle);
-		
+
 		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title'];
 		$this->data['SEO'] = $aArticle['Seo'];
 	}
@@ -67,37 +67,7 @@ class PagesController extends SiteController {
 		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title'];
 		$this->data['SEO'] = $aArticle['Seo'];
 	}
-	/*
-	function customers() {
-		$this->currMenu = 'products';
-		$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', 'For our customers');
-	}
 
-	function history() {
-		$this->currMenu = 'about';
-		$this->aBreadCrumbs = array('/' => 'Home', '/pages/mission' => 'About', 'History');
-	}
-
-	function mission() {
-		$this->currMenu = 'about';
-		$this->aBreadCrumbs = array('/' => 'Home', '/pages/mission' => 'About', 'Our mission');
-	}
-
-	function partners() {
-		$this->currMenu = 'partner';
-		$this->aBreadCrumbs = array('/' => 'Home', 'Dealers');
-	}
-
-	function roadmap() {
-		$this->currMenu = 'contacts';
-		$this->aBreadCrumbs = array('/' => 'Home', '/contacts/' => 'Contacts', 'Roadmap');
-	}
-
-	function sales() {
-		$this->currMenu = 'contacts';
-		$this->aBreadCrumbs = array('/' => 'Home', '/contacts/' => 'Contacts', 'Contact us');
-	}
-	*/
 	function inprogress() {
 	}
 

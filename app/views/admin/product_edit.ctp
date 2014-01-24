@@ -1,6 +1,6 @@
 <?
 	$this->Html->script('/articles/js/translit_utf', array('inline' => false));
-	
+
 	$id = $this->PHA->read($aArticle, 'Article.id');
 	$page_id = $this->PHA->read($aArticle, 'Article.page_id');
 	// $seo_block = $this->element('admin_edit', array('plugin' => 'seo', 'data' => $aArticle, 'object_type' => 'Article'));
