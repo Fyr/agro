@@ -31,6 +31,7 @@
 <?
 	}
 ?>
+							<b><?__('Active')?></b> : <?=($aArticle['Article']['active']) ? 'есть' : 'нет на складе'?><br />
 							<div style="margin-top: 20px">
 								<?=$this->element('article_view', array('plugin' => 'articles'))?>
 							</div>

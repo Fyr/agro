@@ -78,7 +78,6 @@
 					<li><?=implode(', ', $aPhones)?></li>
 				</ul>
 				<address><?=ADDRESS?></address>
-				<span class="copyright">Разработка сайта: <a href="mailto:fyr@tut.by">fyr@tut.by</a></span>
 			</div><!-- info -->
 		</div><!-- bottom -->
 		<div class="shadow-left"></div>

@@ -45,6 +45,7 @@
 	<td colspan="2">
 		<input type="checkbox" id="Article.published" name="data[Article][published]" value="1" <?=($this->PHA->read($aArticle, 'Article.published')) ? 'checked="checked"' : ''?> /> <? __('Published');?>
 		<input type="checkbox" id="Article.featured" name="data[Article][featured]" value="1" <?=($this->PHA->read($aArticle, 'Article.featured')) ? 'checked="checked"' : ''?> /> <? __('Featured');?>
+		<input type="checkbox" id="Article.active" name="data[Article][active]" value="1" <?=($this->PHA->read($aArticle, 'Article.active')) ? 'checked="checked"' : ''?> /> <? __('Active');?>
 	</td>
 </tr>
 <?//$this->element('std_input', array('plugin' => 'core', 'caption' => __('Title', true), 'class' => 'autocompleteOff', 'required' => true, 'field' => 'Article.title', 'data' => $aArticle, 'size' => 78))?>
