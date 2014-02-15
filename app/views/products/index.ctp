@@ -39,6 +39,8 @@
 <?
 			}
 ?>
+								<p class="price"><?=($article['Article']['active']) ? 'в наличии' : 'нет на складе'?></p>
+
 
 							</div>
 <?

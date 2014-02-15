@@ -417,3 +417,18 @@ msgstr "Тел."
 
 msgid "Address"
 msgstr "Адрес"
+
+msgid "Category"
+msgstr "Категория"
+
+msgid "New category"
+msgstr "Новая категория"
+
+msgid "New subcategory"
+msgstr "Новая подкатегория"
+
+msgid "Edit category"
+msgstr "Редактирование категории"
+
+msgid "Edit subcategory"
+msgstr "Редактирование подкатегории"

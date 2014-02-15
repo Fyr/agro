@@ -25,7 +25,14 @@ class SiteCategory extends Article {
 			'foreignKey' => 'object_id',
 			'conditions' => array('Media.object_type' => 'Article', 'Media.media_type' => 'image', 'Media.main' => 1),
 			'dependent' => true,
-			'order' => array('Media.main DESC', 'media_type')
+			'order' => array('Media.main DESC', 'media_type'),
+			'dependent' => true
 		)
 	);
+
+	function beforeDelete($cascade = false) {
+		$row = $this->findById($this->id);
+		$this->Category->delete($row['Category']['id']);
+		return true;
+	}
 }

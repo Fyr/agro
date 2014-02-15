@@ -23,6 +23,7 @@
 ?>
 							<b><?__('Brand')?></b> : <?=$aArticle['Brand']['title']?><br />
 							<b><?__('Type')?></b> : <?=$aArticle['Category']['title']?><br />
+							<b><?__('Active')?></b> : <?=($aArticle['Article']['active']) ? 'есть' : 'нет на складе'?><br />
 
 <?
 	if ($aArticle['Article']['price']) {
@@ -31,7 +32,7 @@
 <?
 	}
 ?>
-							<b><?__('Active')?></b> : <?=($aArticle['Article']['active']) ? 'есть' : 'нет на складе'?><br />
+							
 							<div style="margin-top: 20px">
 								<?=$this->element('article_view', array('plugin' => 'articles'))?>
 							</div>

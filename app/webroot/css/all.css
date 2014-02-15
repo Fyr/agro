@@ -237,7 +237,7 @@ form, fieldset{
 	behavior:url(/js/pie.htc);
 	padding:4px;
 	float:left;
-	margin:0 9px 8px 0;
+	margin:0 9px 5px 0;
 }
 .image a{
 	display:block;
