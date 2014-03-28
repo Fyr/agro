@@ -85,3 +85,13 @@
 .logos-move .mover {
 	width: 3000px;
 }
+.is_active {
+	position: absolute;
+	opacity: 0.8;
+}
+.floatR {
+	float: right;
+}
+.floatL {
+	float: left;
+}

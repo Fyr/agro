@@ -432,3 +432,18 @@ msgstr "Редактирование категории"
 
 msgid "Edit subcategory"
 msgstr "Редактирование подкатегории"
+
+msgid "Tagcloud"
+msgstr "Облако тэгов"
+
+msgid "Url"
+msgstr "URL"
+
+msgid "Size"
+msgstr "Размер"
+
+msgid "Companies"
+msgstr "Компании"
+
+msgid "Site"
+msgstr "Сайт"

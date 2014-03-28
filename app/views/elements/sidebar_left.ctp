@@ -8,4 +8,5 @@
 	if ($aFeaturedProducts) {
 		// $this->element('sbl_block', array('class' => 'products', 'content' => $this->element('sb_products')));
 	}
+	echo $this->element('tag_cloud');
 ?>

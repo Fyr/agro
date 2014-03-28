@@ -5,7 +5,7 @@ class AdminController extends AppController {
 	var $components = array('Auth', 'articles.PCArticle', 'grid.PCGrid', 'params.PCParam');
 	var $helpers = array('Text', 'Session', 'core.PHFcke', 'core.PHCore', 'core.PHA', 'grid.PHGrid');
 
-	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'Brand', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory');
+	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'Brand', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory', 'tags.TagcloudLink');
 	// var $helpers = array('Html'); // 'Form', 'Fck', 'Ia'
 
 	var $aMenu = array(
@@ -21,6 +21,7 @@ class AdminController extends AppController {
 		'Categories' => '/admin/tagsList/',
 		'Tech.parameters' => '/admin/paramsList/',
 		'Brands' => '/admin/brandList',
+		'tagcloud' => '/admin/tagcloud/',
 		'Settings' => '/admin/settings'
 	);
 	var $currMenu = '';
@@ -433,7 +434,15 @@ class AdminController extends AppController {
 	function removeImageCache() {
 		$this->set('stats', $this->Media->removeImageCache());
 	}
+	
+	function tagcloud() {
+		$this->grid['TagcloudLink'] = array(
+			'order' => array('size' => 'desc')
+		);
+		$this->PCGrid->paginate('TagcloudLink');
+	}
 
+	/*
 	function update() {
 		$aRows = $this->Category->findAllByObject_type('products');
 		foreach($aRows as $row) {
@@ -442,5 +451,7 @@ class AdminController extends AppController {
 		echo count($aRows).' records fixed';
 		exit;
 	}
+	*/
+	
 
 }

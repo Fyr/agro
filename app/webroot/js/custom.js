@@ -93,4 +93,5 @@ wra.find( '.arrow-right' ).mouseleave( function(){
 $('img[align=left]').css('margin', '10px 10px 10px 0px');
 $('img[align=right]').css('margin', '10px 0px 10px 10px');
 
+$('#tags').css('left', -1000);
 });

@@ -114,6 +114,9 @@ class SiteController extends AppController {
 		}
 		$this->set('aMenu', $this->aMenu);
 		$this->set('aBottomLinks', $this->aBottomLinks);
+		
+		$this->loadModel('TagcloudLink');
+		$this->set('aTagCloud', $this->TagcloudLink->find('all'));
 	}
 
 }

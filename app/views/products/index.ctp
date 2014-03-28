@@ -27,6 +27,17 @@
 			if ($src) {
 ?>
 										<div class="image" style="text-align:center">
+<?
+	if ($article['Article']['active']) {
+?>
+											<img class="is_active" src="/img/active_yes.png" alt="В наличии" />
+<?
+	} else {
+?>
+											<img class="is_active" src="/img/active_no.png" alt="Не на складе" />
+<?
+	}
+?>
 											<a href="<?=$url?>"><img src="<?=$src?>" alt="<?=$title?>" /></a>
 										</div>
 <?
@@ -39,8 +50,6 @@
 <?
 			}
 ?>
-								<p class="price"><?=($article['Article']['active']) ? 'в наличии' : 'нет на складе'?></p>
-
 
 							</div>
 <?

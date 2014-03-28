@@ -20,19 +20,25 @@
 			}
 		}
 	}
+	if ($aArticle['Article']['active']) {
 ?>
-							<b><?__('Brand')?></b> : <?=$aArticle['Brand']['title']?><br />
-							<b><?__('Type')?></b> : <?=$aArticle['Category']['title']?><br />
-							<b><?__('Active')?></b> : <?=($aArticle['Article']['active']) ? 'есть' : 'нет на складе'?><br />
-
+											<img class="floatR" src="/img/active_yes.png" alt="В наличии" />
 <?
-	if ($aArticle['Article']['price']) {
+	} else {
 ?>
-							<b><?__('Price')?></b> : <?=PU_.$aArticle['Article']['price']._PU?>
+											<img class="floatR" src="/img/active_no.png" alt="Не на складе" />
 <?
 	}
 ?>
-							
+							<b><?__('Brand')?></b> : <?=$aArticle['Brand']['title']?><br />
+							<b><?__('Type')?></b> : <?=$aArticle['Category']['title']?><br />
+<?
+	if ($aArticle['Article']['price']) {
+?>
+							<b><?__('Price')?></b> : <?=PU_.$aArticle['Article']['price']._PU?><br />
+<?
+	}
+?>
 							<div style="margin-top: 20px">
 								<?=$this->element('article_view', array('plugin' => 'articles'))?>
 							</div>
