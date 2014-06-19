@@ -1,6 +1,7 @@
 <?
 class ProductsController extends SiteController {
 	const PER_PAGE = 51;
+	const PARAM_TITLE_ID = 11; // id=10
 
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'core.PHCore', 'Time', 'core.PHTime', 'articles.HtmlArticle', 'ArticleVars');
@@ -161,7 +162,17 @@ class ProductsController extends SiteController {
 					$aSubtypes = $this->Category->find('list', array('conditions' => array('Category.object_id' => $value)));
 					$aConditions['Article.object_id'] = array_keys($aSubtypes);
 				} elseif ($key == 'Article.title') {
-					$aConditions[] = 'Article.title LIKE "%'.$value.'%"';
+					$aID = array(0);
+					if (!TEST_ENV) {
+						// для локалки пусть поиск работает просто по названию - у меня в тестовой БД нет данных для ParamValue
+						$aRows = $this->ParamValue->find('list', array(
+							'fields' => array('ParamValue.object_id', 'ParamValue.object_type'),
+							'conditions' => array('ParamValue.param_id' => self::PARAM_TITLE_ID, 'ParamValue.value LIKE "%'.$value.'%"'),
+							'groupby' => array('ParamValue.object_id')
+						));
+						$aID = ($aRows) ? array_keys($aRows) : $aID;
+					}
+					$aConditions[] = '(Article.title LIKE "%'.$value.'%" OR Article.id IN ('.implode(',', $aID).'))';
 				} elseif ($key == 'Tag.id') {
 					$aRows = $this->TagObject->find('list', array('fields' => array('TagObject.object_id', 'TagObject.object_type'), 'conditions' => array('TagObject.tag_id' => $value)));
 					$aConditions['Article.id'] = array_keys($aRows);
