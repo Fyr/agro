@@ -32,6 +32,8 @@
 <?=$this->element('std_input', array('plugin' => 'core', 'class' => 'autocompleteOff', 'caption' => __('Brand', true), 'field' => 'Article.brand_id', 'data' => $aArticle, 'required' => true, 'input' => 'dropdown', 'options' => $aBrandOptions))?>
 </table>
 <?
+	echo $this->element('wgt_exp_block', array('plugin' => 'core', 'id' => 'seo', 'caption' => 'SEO', 'content' => $seo_block));
+	
 	$tags_block = $this->element('tags_bind', array('plugin' => 'tags', 'aTags' => $aTags, 'object_type' => 'Article', 'object_id' => $id, 'aRelatedTags' => $aRelatedTags));
 	echo $this->element('wgt_exp_block', array('plugin' => 'core', 'id' => 'tags', 'caption' => __('Categories', true), 'content' => $tags_block));
 
