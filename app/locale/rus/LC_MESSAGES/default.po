@@ -26,7 +26,7 @@ msgid "Feb"
 msgstr "Фев"
 
 msgid "Mar"
-msgstr "Март"
+msgstr "Мар"
 
 msgid "Apr"
 msgstr "Апр"
@@ -35,10 +35,25 @@ msgid "May"
 msgstr "Май"
 
 msgid "Jun"
-msgstr "Июнь"
+msgstr "Июн"
 
 msgid "Jul"
-msgstr "Июль"
+msgstr "Июл"
+
+msgid "Aug"
+msgstr "Авг"
+
+msgid "Sep"
+msgstr "Сен"
+
+msgid "Oct"
+msgstr "Окт"
+
+msgid "Nov"
+msgstr "Ноя"
+
+msgid "Dec"
+msgstr "Дек"
 
 msgid "Articles"
 msgstr "Статьи"
