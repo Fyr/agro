@@ -14,7 +14,7 @@ class SiteCategory extends Article {
 
 	var $belongsTo = array(
 		'Category' => array(
-			'className' => 'category.Category',
+			'className' => 'article.Article',
 			'foreignKey' => 'object_id',
 			'dependent' => true
 		)
@@ -30,9 +30,15 @@ class SiteCategory extends Article {
 		)
 	);
 
-	function beforeDelete($cascade = false) {
-		$row = $this->findById($this->id);
-		$this->Category->delete($row['Category']['id']);
-		return true;
+	public function getTypesList() {
+		$types = $this->find('all', array(
+			'conditions' => array('Article.object_type' => array('category', 'subcategory')),
+			'order' => array('Article.object_id', 'Article.sorting')
+		));
+		$aTypes = array();
+		foreach($types as $type) {
+			$aTypes['type_'.$type['Article']['object_id']][] = $type['Article'];
+		}
+		return $aTypes;
 	}
 }

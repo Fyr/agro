@@ -5,13 +5,13 @@ class AdminController extends AppController {
 	var $components = array('Auth', 'articles.PCArticle', 'grid.PCGrid', 'params.PCParam');
 	var $helpers = array('Text', 'Session', 'core.PHFcke', 'core.PHCore', 'core.PHA', 'grid.PHGrid');
 
-	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'Brand', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory', 'tags.TagcloudLink');
+	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory', 'tags.TagcloudLink', 'SitePage');
 	// var $helpers = array('Html'); // 'Form', 'Fck', 'Ia'
 
 	var $aMenu = array(
-		'Pages' => '/admin/articlesList/Article.object_type:pages',
+		'Pages' => '/admin/pagesList/Article.object_type:pages',
 		// 'articles' => '/admin/articlesList/Article.object_type:articles',
-		'News' => '/admin/articlesList/Article.object_type:news',
+		'News' => '/admin/pagesList/Article.object_type:news',
 		// 'photos' => '/admin/articlesList/Article.object_type:photos',
 		// 'videos' => '/admin/articlesList/Article.object_type:videos',
 		// 'comments' => '/admin/commentsList/',
@@ -88,24 +88,18 @@ class AdminController extends AppController {
 		*/
 		// debug($categories);
 	}
-
+/*
 	function articlesList() {
 		$objectType = $this->params['named']['Article.object_type'];
 		$this->currMenu = $objectType;
 		if ($objectType == 'photos') {
-			$this->grid['SiteArticle'] = array(
+			$grid = array(
 				'conditions' => array('Article.object_type' => $objectType),
 				'fields' => array('modified', 'Article.title', 'featured', 'published'),
 				'hidden' => array('body')
 			);
-		} elseif ($objectType == 'pages') {
-			$this->grid['SiteArticle'] = array(
-				'conditions' => array('Article.object_type' => $objectType),
-				'fields' => array('title', 'page_id'),
-				'hidden' => array('body')
-			);
 		} else {
-			$this->grid['SiteArticle'] = array(
+			$grid = array(
 				'conditions' => array('Article.object_type' => $objectType),
 				'fields' => array('modified', 'Category.title', 'title', 'featured', 'published'),
 				'hidden' => array('body'),
@@ -119,6 +113,8 @@ class AdminController extends AppController {
 				)
 			);
 		}
+		
+		$this->grid['SiteArticle'] = $grid;
 		$this->PCGrid->paginate('SiteArticle');
 
 		$aTitles = array(
@@ -186,19 +182,101 @@ class AdminController extends AppController {
 			$this->Stat->setItem('Article', $id, 'photos', ($row && $row[0]['media_count']) ? $row[0]['media_count'] : 0);
 		}
 	}
+	*/
+	function pagesList() {
+		$objectType = $this->params['named']['Article.object_type'];
+		$this->currMenu = $objectType;
+		if ($objectType == 'pages') {
+			$grid = array(
+				'conditions' => array('Article.object_type' => $objectType),
+				'fields' => array('title', 'page_id'),
+				'hidden' => array('body')
+			);
+		} else { // if ($objectType == 'news')
+			$grid = array(
+				'conditions' => array('Article.object_type' => $objectType),
+				'fields' => array('title', 'page_id', 'featured', 'published'),
+				'hidden' => array('body')
+			);
+		}/* else {
+			$grid = array(
+				'conditions' => array('Article.object_type' => $objectType),
+				'fields' => array('modified', 'Category.title', 'title', 'featured', 'published'),
+				'hidden' => array('body'),
+				'captions' => array('Category.title' => __('Category', true)),
+				'filters' => array(
+					'Category.title' => array(
+						'filterType' => 'dropdown',
+						'filterOptions' => $this->Category->getOptions($objectType),
+						'conditions' => array('Article.object_id' => '{$value}')
+					)
+				)
+			);
+		}
+		*/
+		$this->Article = $this->SitePage;
+		$this->grid['SitePage'] = $grid;
+		$this->PCGrid->paginate('SitePage');
+
+		$aTitles = array(
+			'news' => __('News', true),
+			'pages' => __('Pages', true)
+		);
+		$this->set('pageTitle', $aTitles[$this->currMenu]);
+		$this->set('objectType', $objectType);
+	}
+	
+	function pagesEdit($id = 0) {
+		$this->Article = $this->SitePage;
+		$aArticle = $this->PCArticle->adminEdit(&$id, &$lSaved);
+		if ($lSaved) {
+			$this->redirect('/admin/pagesEdit/'.$id);
+			return;
+		}
+
+		if ($id) {
+			$objectType = $aArticle['Article']['object_type'];
+
+			unset($aArticle['Media']);
+			$aArticle['Media'] = $this->Media->getMedia('Page', $aArticle['Article']['id']);
+		} else {
+			$objectType = $this->params['named']['Article.object_type'];
+
+			// значения по умолчанию для статьи
+			$aArticle['Article']['published'] = 1;
+		}
+		$this->set('aArticle', $aArticle);
+
+		$this->currMenu = $objectType;
+		$this->set('aCategoryOptions', $this->Category->getOptions($objectType));
+		if ($id) {
+			$aTitles = array(
+				'news' => __('Edit "News" article', true),
+				'pages' => __('Edit static page', true)
+			);
+		} else {
+			$aTitles = array(
+				'news' => __('New "News" article', true),
+				'pages' => __('New static page', true)
+			);
+		}
+		$this->set('pageTitle', $aTitles[$this->currMenu]);
+		$this->set('objectType', $objectType);
+	}
+	
 
 	function typesList($parentID = null) {
 		$this->Article = $this->SiteCategory; // что работало все, что написано для Article в самом плагине
 
 		if ($parentID) {
 			$aType = $this->SiteCategory->findById($parentID);
-			$parentID = $aType['Category']['id'];
 			$this->set('aType', $aType);
 		}
+		$object_type = ($parentID) ? 'subcategory' : 'category';
 		$this->grid['SiteCategory'] = array(
-			'conditions' => array('Article.object_type' => 'category', 'Category.object_id' => $parentID),
-			'fields' => array('Category.id', 'Category.title', 'Category.sorting'),
-			'order' => array('Category.id' => 'DESC'),
+			'conditions' => array('Article.object_type' => $object_type, 'Article.object_id' => $parentID),
+			'fields' => array('Article.id', 'Article.title', 'Article.sorting'),
+			'order' => array('Article.sorting' => 'DESC'),
 			// 'captions' => array('Category.title' => __('Category', true)),
 			/*
 			'hidden' => array('object_type'),
@@ -219,11 +297,11 @@ class AdminController extends AppController {
 
 	function typesEdit($id = 0) {
 		$this->Article = $this->SiteCategory; // что работало все, что написано для Article в самом плагине
-		$objectType = 'category';
-
+		
 		if (isset($this->data['Article']) && $this->data['Article']) {
-			$this->data['Category']['title'] = $this->data['Article']['title'];
-			$this->data['Category']['object_type'] = 'products';
+			if (isset($this->data['Article']['object_id']) && !$this->data['Article']['object_id']) {
+				unset($this->data['Article']['object_id']); // object_id должно быть число или NULL
+			}
 		}
 		$aArticle = $this->PCArticle->adminEdit(&$id, &$lSaved);
 
@@ -234,15 +312,20 @@ class AdminController extends AppController {
 		if ($id) {
 			unset($aArticle['Media']);
 			$aArticle['Media'] = $this->Media->getMedia('Article', $aArticle['Article']['id']);
+			$parentID = $aArticle['Article']['object_id'];
 		} else {
-			$aArticle['Category']['sorting'] = 1;
 			$aArticle['Article']['published'] = 1;
 			$aArticle['Article']['sorting'] = 1;
+			$parentID = Set::extract($this->params, 'named.object_id');
+		}
+		if ($parentID) {
+			$aType = $this->SiteCategory->findById($parentID);
+			$this->set('aType', $aType);
 		}
 
 		$this->set('data', $this->data);
 		$this->set('aArticle', $aArticle);
-		$this->set('objectType', $objectType);
+		$this->set('parentID', $parentID);
 	}
 
 	function tagsList() {
@@ -281,11 +364,12 @@ class AdminController extends AppController {
 
 	function assocParams($article_id = 0) {
 		$aCategory = $this->SiteCategory->findById($article_id);
-		$id = $aCategory['Category']['id'];
-		$this->PCParam->adminBind('ProductParam', $id, &$lSaved);
+		$cat_id = $aCategory['Category']['id'];
+		$this->PCParam->adminBind('ProductParam', $article_id, &$lSaved);
 
 		if ($lSaved) {
-			$this->redirect('/admin/typesList/'.$aCategory['Category']['object_id']);
+			$this->redirect('/admin/typesList/'.$cat_id);
+			return;
 		}
 
 		$aParams = $this->Param->find('all', array('order' => 'title'));
@@ -293,27 +377,32 @@ class AdminController extends AppController {
 		$this->set('aCategory', $aCategory);
 		$this->set('aParams', $aParams);
 		$this->set('aParamTypes', $this->Param->getOptions());
-		$this->set('aBinded', $this->ParamObject->getBinded('ProductParam', $id));
+		$this->set('aBinded', $this->ParamObject->getBinded('ProductParam', $article_id));
 	}
 
 	function productsList() {
 		$objectType = 'products';
 		// $this->Brand->alias = 'Brand';
-		// $this->Article = $this->SiteProduct;
-		$this->grid['SiteProduct'] = array(
+		$this->Article = $this->SiteProduct;
+		$this->grid['Article'] = array(
 			'conditions' => array('Article.object_type' => $objectType),
-			'fields' => array('Article.modified', 'Category.title', 'Article.title', 'Article.featured', 'Article.published', 'Article.sorting'),
-			'captions' => array('Category.title' => __('Type', true)),
-			'order' => array('Article.sorting' => 'asc'),
+			'fields' => array('Article.id', 'Article.modified', 'Category.title', 'Subcategory.title', 'Article.title', 'Article.featured', 'Article.published', 'Article.price', 'Article.sorting'),
+			'captions' => array('Category.title' => __('Type', true), 'Subcategory.title' => __('Subtype', true)),
+			'order' => array('Article.id' => 'asc'),
 			'filters' => array(
 				'Category.title' => array(
 					'filterType' => 'dropdown',
-					'filterOptions' => $this->Category->getOptions($objectType),
-					'conditions' => array('Article.object_id' => '{$value}')
+					'filterOptions' => $this->SiteCategory->getObjectOptions('category'),
+					'conditions' => array('Article.cat_id' => '{$value}')
+				),
+				'Subcategory.title' => array(
+					'filterType' => 'dropdown',
+					'filterOptions' => $this->SiteCategory->getObjectOptions('subcategory'),
+					'conditions' => array('Article.subcat_id' => '{$value}')
 				)
 			)
 		);
-		$a = $this->PCGrid->paginate('SiteProduct');
+		$this->PCGrid->paginate('Article');
 	}
 
 	function productEdit($id = 0) {
@@ -323,26 +412,20 @@ class AdminController extends AppController {
 		if ($lSaved) {
 			$this->PCParam->valuesEdit('ProductParam', $id);
 			$this->redirect('/admin/productEdit/'.$id);
+			return;
 		}
+		
+		$this->set('aTypes', $this->SiteCategory->getTypesList());
 
-		$types = $this->Category->find('all', array(
-			'conditions' => array('Category.object_type' => 'products'),
-			'order' => array('Category.object_id', 'Category.sorting')
-		));
-		$aTypes = array();
-		foreach($types as $type) {
-			$aTypes['type_'.$type['Category']['object_id']][] = $type['Category'];
-		}
-		$this->set('aTypes', $aTypes);
-
+		// нужно для тех.параметров
 		$aCategoryOptions = $this->Category->getOptions($objectType);
 		$catID = 0;
-		$this->set('aCategoryOptions', $aCategoryOptions);
-
+		// $this->set('aCategoryOptions', $aCategoryOptions);
+		
 		if ($id) {
 			unset($aArticle['Media']);
 			$aArticle['Media'] = $this->Media->getMedia('Article', $aArticle['Article']['id']);
-			$catID = $aArticle['Category']['id'];
+			$catID = $aArticle['Article']['subcat_id'];
 		} else {
 			$aArticle['Article']['published'] = 1;
 			list($catID) = array_keys($aCategoryOptions);
@@ -453,5 +536,66 @@ class AdminController extends AppController {
 	}
 	*/
 	
+	function update2() {
+		$this->autoRender = false;
+		mkdir(PATH_FILES_UPLOAD.'/page', 0755);
+		$this->Media->removeImageCache();
+		
+		$aPages = $this->SitePage->find('all');
+		$this->Media->stats['files'] = 0;
+		foreach($aPages as $page) {
+			$this->Media->relocateMedia('Article', $page['Article']['object_id'], 'Page', $page['Article']['id']);
+			$body = str_replace('/media/router/index/article', '/media/router/index/page', $page['Article']['body']);
+			$this->SitePage->save(array('id' => $page['Article']['id'], 'body' => $body));
+			
+			$seo = $this->Seo->getObjectItem('Article', $page['Article']['object_id']);
+			$this->Seo->save(array('id' => $seo['Seo']['id'], 'object_type' => 'Page', 'object_id' => $page['Article']['id']));
+		}
+		echo 'Processed '.count($aPages).' news and pages, '.$this->Media->stats['files'].' media files<br>';
+		
+		$types = $this->Category->find('all', array(
+			'conditions' => array('Category.object_type' => 'products'),
+			'order' => array('id', 'sorting')
+		));
+		$aTypes = array();
+		foreach($types as $type) {
+			$conditions = array('Article.object_type' => 'category', 'Article.object_id' => $type['Category']['id']);
+			$article = $this->Article->find('first', compact('conditions'));
+			$type['Article'] = $article['Article'];
+			$aTypes[$type['Category']['id']] = $type;
+		}
+		
+		App::import('Helper', 'articles.PHTranslit');
+		$this->PHTranslit = new PHTranslitHelper();
+		
+		$aCategories = $this->Article->findAllByObjectType('category');
+		$cats = 0; $subcats = 0;
+		foreach($aCategories as $cat) {
+			$id = $cat['Article']['id'];
+			$page_id = $this->PHTranslit->convert($cat['Article']['title'], true).'-'.$cat['Article']['object_id'];
+			$subcat_id = $cat['Article']['object_id'];
+			$cat_id = $aTypes[$subcat_id]['Category']['object_id'];
+			if ($cat_id) {
+				$object_type = 'subcategory';
+				$object_id = $aTypes[$cat_id]['Article']['id'];
+				
+				$this->ParamObject->updateAll(
+					array('object_id' => $id),
+					array('object_id' => $subcat_id)
+				); // заменить ID подкатегории на ID статьи
+				$this->Article->updateAll(
+					array('cat_id' => $object_id, 'subcat_id' => $id),
+					array('object_id' => $subcat_id, 'object_type' => 'products')
+				); // заменить ID подкатегории на ID статьи для продуктов
+				$subcats++;
+			} else {
+				$object_type = 'category';
+				$object_id = null;
+				$cats++;
+			}
+			$this->Article->save(compact('id', 'page_id', 'object_type', 'object_id'));
+		}
+		echo 'Processed '.$cats.' categories, '.$subcats.' subcategories';
+	}
 
 }

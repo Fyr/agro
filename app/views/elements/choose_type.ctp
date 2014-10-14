@@ -2,7 +2,7 @@
 	foreach($aTypes['type_'] as $type) {
 		if (isset($aTypes['type_'.$type['id']])) {
 ?>
-							<optgroup label="<?=$type['title']?>">
+							<optgroup id="<?=$type['id']?>" label="<?=$type['title']?>">
 <?
 			$aTypeOptions = array();
 			foreach($aTypes['type_'.$type['id']] as $subtype) {

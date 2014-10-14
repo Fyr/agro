@@ -125,4 +125,28 @@ class AppModel extends Model {
 	public static function isEmailValid($email) {
 		return strlen($email) < MAX_EMAIL_ADDR_LENGTH && preg_match(REGEX_EMAIL, $email);
 	}
+	
+	private function _getObjectConditions($objectType = '', $objectID = '') {
+		$conditions = array();
+		if ($objectType) {
+			$conditions[$this->alias.'.object_type'] = $objectType;
+		}
+		if ($objectID) {
+			$conditions[$this->alias.'.object_id'] = $objectID;
+		}
+		return compact('conditions');
+	}
+	
+	public function getObjectOptions($objectType = '', $objectID = '') {
+		return $this->find('list', $this->_getObjectConditions($objectType, $objectID));
+	}
+	
+	public function getObjectItem($objectType = '', $objectID = '') {
+		return $this->find('first', $this->_getObjectConditions($objectType, $objectID));
+	}
+	
+	public function getObjectList($objectType = '', $objectID = '') {
+		return $this->find('all', $this->_getObjectConditions($objectType, $objectID));
+	}
+
 }

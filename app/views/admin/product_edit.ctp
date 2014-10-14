@@ -23,7 +23,8 @@
 <tr>
 	<td>* <? __('Subtype');?></td>
 	<td>
-<select onchange="type_onChange($(this).val())" class="autocompleteOff" name="data[Article][object_id]" id="Article__object_id" autocomplete="off">
+<input type="hidden" id="Article__cat_id" name="data[Article][cat_id]" value="<?=$this->PHA->read($aArticle, 'Article.cat_id')?>" />
+<select onchange="type_onChange(this)" class="autocompleteOff" name="data[Article][subcat_id]" id="Article__subcat_id" autocomplete="off">
 <?=$this->element('choose_type', array('aTypes' => $aTypes, 'selected' => $this->PHA->read($aArticle, 'Article.object_id')));?>
 </select>
 	</td>
@@ -126,10 +127,13 @@
 	}
 ?>
 <script type="text/javascript">
-function type_onChange(typeID) {
+function type_onChange(e) {
 	var id = <?=($id) ? $id : '0'?>;
 	$('#params .container .wrap').html($('.load').html());
-	$('#params .container .wrap').load('/adminAjax/getTechParams/' + typeID + '/' + id);
+	$('#params .container .wrap').load('/adminAjax/getTechParams/' + $(e).val() + '/' + id);
+	
+	console.log($(e.options[e.selectedIndex]).parent().get(0).id);
+	$('#Article__cat_id').val($(e.options[e.selectedIndex]).parent().get(0).id);
 }
 
 var pageID_EditMode = <?=(($this->PHA->read($aArticle, 'Article.page_id'))) ? 'true' : 'false'?>;

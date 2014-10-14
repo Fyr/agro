@@ -54,6 +54,9 @@
 							</div>
 <?
 		}
+?>
+		<div class="clear"></div>
+<?
 		if (isset($directSearch) && $directSearch) {
 			echo $this->element('pagination2', array('filterURL' => $aFilters['url']));
 		} else {

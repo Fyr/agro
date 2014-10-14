@@ -4,18 +4,18 @@
 		$aActions = array(
 			'table' => array(),
 			'row' => array(
-				$this->element('icon_edit', array('plugin' => 'core', 'href' => '/admin/articlesEdit/{$id}'))
+				$this->element('icon_edit', array('plugin' => 'core', 'href' => '/admin/pagesEdit/{$id}'))
 			),
 			'checked' => array()
 		);
 	} else {
 		$aActions = array(
 			'table' => array(
-				$this->element('icon_add', array('plugin' => 'core', 'href' => '/admin/articlesEdit/Article.object_type:'.$objectType)),
+				$this->element('icon_add', array('plugin' => 'core', 'href' => '/admin/pagesEdit/Article.object_type:'.$objectType)),
 				array('grid_table_showfilter', array('plugin' => 'grid'))
 			),
 			'row' => array(
-				$this->element('icon_edit', array('plugin' => 'core', 'href' => '/admin/articlesEdit/{$id}')),
+				$this->element('icon_edit', array('plugin' => 'core', 'href' => '/admin/pagesEdit/{$id}')),
 				array('grid_row_del', array('plugin' => 'grid')),
 				array('article_rowaction_preview', array('plugin' => 'articles'))
 			)
@@ -24,4 +24,4 @@
 
 
 ?>
-<?=$this->PHGrid->render($model, $aActions)?>
+<?=$this->PHGrid->render('SitePage', $aActions)?>

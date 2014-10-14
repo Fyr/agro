@@ -3,15 +3,11 @@
 
 	$id = $this->PHA->read($aArticle, 'Article.id');
 	$page_id = $this->PHA->read($aArticle, 'Article.page_id');
-	if ($id) {
-		$parentID = $this->PHA->read($aArticle, 'Category.object_id');
-	} else {
-		$parentID = $this->PHA->read($this->params, 'named.object_id');
-	}
-	$title = ($id) ? 'Edit' : 'New';
-	$title.= ($parentID) ? ' subcategory' : ' category';
+	$objectType = ($parentID) ? 'subcategory' : 'category';
+	$title = (isset($aType)) ? $aType['Article']['title'].': ' : '';
+	$title .= __((($id) ? 'Edit' : 'New').' '.$objectType, true);
 ?>
-<h2><? __($title)?></h2>
+<h2><?=$title?></h2>
 <?
 	if ($id) {
 ?>
@@ -24,13 +20,8 @@
 <div class="errMsg"><?=$errMsg?></div>
 <form id="articleForm" name="articleForm" action="" method="post">
 <input type="hidden" name="data[Article][object_type]" value="<?=$objectType?>" />
-<input type="hidden" name="data[Category][id]" value="<?=$this->PHA->read($aArticle, 'Category.id')?>" />
+<input type="hidden" name="data[Article][object_id]" value="<?=$parentID?>" />
 <?
-	if ($parentID) {
-?>
-<input type="hidden" name="data[Category][object_id]" value="<?=$parentID?>" />
-<?
-	}
 	$seo_block = $this->element('admin_edit', array('plugin' => 'seo', 'data' => $aArticle, 'object_type' => 'Article'));
 	echo $this->element('wgt_exp_block', array('plugin' => 'core', 'id' => 'seo', 'caption' => 'SEO', 'content' => $seo_block));
 ?>
@@ -43,7 +34,7 @@
 <tr>
 	<td><? __('Title');?></td>
 	<td>
-		<input type="text" class="autocompleteOff" id="Article__title" name="data[Article][title]" value="<?=$this->PHA->read($aArticle, 'Article.title')?>" size="68" "/> <!-- onkeyup="article_onChangeTitle() -->
+		<input type="text" class="autocompleteOff" id="Article__title" name="data[Article][title]" value="<?=$this->PHA->read($aArticle, 'Article.title')?>" size="68" onkeyup="article_onChangeTitle()" />
 <?
 	if (isset($aErrFields['Article']['title'])) {
 ?>
@@ -53,7 +44,7 @@
 ?>
 	</td>
 </tr>
-<!--tr>
+<tr>
 	<td><? __('Page ID');?></td>
 	<td>
 		<input type="text" class="autocompleteOff" id="Article__page_id" name="data[Article][page_id]" value="<?=$this->PHA->read($aArticle, 'Article.page_id')?>" size="68" onchange="article_onChangePageID()"/>
@@ -81,8 +72,8 @@ function translit(str) {
 }
 </script>
 	</td>
-</tr-->
-<?=$this->element('std_input', array('plugin' => 'core', 'caption' => __('Sorting order', true), 'class' => 'autocompleteOff', 'required' => true, 'field' => 'Category.sorting', 'data' => $aArticle, 'size' => 2))?>
+</tr>
+<?=$this->element('std_input', array('plugin' => 'core', 'caption' => __('Sorting order', true), 'class' => 'autocompleteOff', 'required' => true, 'field' => 'Article.sorting', 'data' => $aArticle, 'size' => 2))?>
 <?// $this->element('std_input', array('plugin' => 'core', 'caption' => __('Page ID', true), 'class' => 'autocompleteOff', 'field' => 'Article.page_id', 'data' => $aArticle, 'size' => 78))?>
 <tr>
 	<td colspan="2">

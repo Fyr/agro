@@ -1,7 +1,7 @@
 <?php
 class SiteController extends AppController {
 	// var $uses = array('articles.Article', 'SiteArticle');
-	var $uses = array('category.Category');
+	var $uses = array();
 	var $aFeaturedProducts, $aEvents;
 
 	// ---------------------
@@ -38,7 +38,8 @@ class SiteController extends AppController {
 		$this->aFeaturedProducts = $this->SiteArticle->getRandomRows(3, array('Article.object_type' => 'products', 'Article.featured' => 1, 'Article.published' => 1));
 		$this->set('aFeaturedProducts', $this->aFeaturedProducts);
 
-		$this->aEvents = $this->Article->getRandomRows(1, array('Article.object_type' => 'news', 'Article.featured' => 1, 'Article.published' => 1));
+		$this->loadModel('SiteNews');
+		$this->aEvents = $this->SiteNews->getRandomRows(1, array('Article.object_type' => 'news', 'Article.featured' => 1, 'Article.published' => 1));
 		$this->set('upcomingEvent', ($this->aEvents) ? $this->aEvents[0] : false);
 	}
 
@@ -56,6 +57,7 @@ class SiteController extends AppController {
 		$this->set('aErrFields', $this->aErrFields);
 		$this->set('aBreadCrumbs', $this->aBreadCrumbs);
 
+		$this->Article = $this->SiteArticle;
 		$brands = $this->Article->find('all', array('conditions' => array('Article.object_type' => 'brands', 'Article.published' => 1)));
 		$this->set('aBrandTypes', $brands);
 		$aBrands = array();
@@ -85,6 +87,7 @@ class SiteController extends AppController {
 		$aTags = $this->Tag->find('list');
 		$this->set('aTags', $aTags);
 
+		/*
 		$this->loadModel('categories.Category');
 		$types = $this->Category->find('all', array(
 			'conditions' => array('Category.object_type' => 'products'),
@@ -94,10 +97,14 @@ class SiteController extends AppController {
 		foreach($types as $type) {
 			$aTypes['type_'.$type['Category']['object_id']][] = $type['Category'];
 		}
+		*/
+		$this->loadModel('SiteCategory');
+		$aTypes = $this->SiteCategory->getTypesList();
 		$this->set('aTypes', $aTypes);
 
 		// Fixes for menu titles
-		$aArticleTitles = $this->Article->find('list', array('fields' => array('page_id', 'title'), 'conditions' => array('page_id' => array('dealers', 'about-us', 'about-us2', 'contacts1', 'contacts2'))));
+		$this->loadModel('SitePage');
+		$aArticleTitles = $this->SitePage->find('list', array('fields' => array('page_id', 'title'), 'conditions' => array('page_id' => array('dealers', 'about-us', 'about-us2', 'contacts1', 'contacts2'))));
 		$this->aMenu['about']['submenu'][0]['title'] = $aArticleTitles['about-us'];
 		$this->aMenu['about']['submenu'][1]['title'] = $aArticleTitles['about-us2'];
 		$this->aMenu['partner']['title'] = $aArticleTitles['dealers'];

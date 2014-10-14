@@ -5,9 +5,12 @@ class RouterHelper extends AppHelper {
 	
 	function __construct($options = null) {
 		parent::__construct($options);
-		App::import('Model', 'category.Category');
-		$this->Category = new Category();
-		$this->aCategories = $this->Category->find('list', array('conditions' => array('object_id IS NULL OR !object_id')));
+		App::import('Model', 'SiteCategory');
+		$this->SiteCategory = new SiteCategory();
+		$this->aCategories = array();
+		foreach($this->SiteCategory->getObjectList('category') as $cat) {
+			$this->aCategories[$cat['Article']['id']] = $cat['Article'];
+		}
 	}
 	
 	function url($aArticle) {
@@ -23,7 +26,7 @@ class RouterHelper extends AppHelper {
 		}
 		
 		if ($aArticle['Article']['object_type'] == 'products') {
-			return $this->catUrl('products', $aArticle['Category']).$id.'.html';
+			return $this->catUrl('products', $aArticle['Subcategory']).$id.'.html';
 		}
 		
 		if ($aArticle['Article']['object_type'] == 'brands') {
@@ -42,11 +45,10 @@ class RouterHelper extends AppHelper {
 		$category = (isset($aCategory['id']) && $aCategory['title']) ? $aCategory['title'] : '';
 		$dir = $this->getDir($objectType);
 		$cat = '';
-		if ($aCategory['object_id']) {
-			$cat = $this->PHTranslit->convert($this->aCategories[$aCategory['object_id']], true).'-'.$aCategory['object_id'].'/';
-			$cat.= $this->PHTranslit->convert($category, true).'-'.$aCategory['id'].'/';
-		} else {
-			$cat = $this->PHTranslit->convert($category, true).'-'.$aCategory['id'].'/';
+		if ($aCategory['object_id']) { //  == 'category'
+			$cat = $this->aCategories[$aCategory['object_id']]['page_id'].'/'.$aCategory['page_id'].'/';
+		} else { // category
+			$cat = $aCategory['page_id'].'/';
 		}
 		$url = $dir.$cat;
 		return ($category) ? $url : $dir;

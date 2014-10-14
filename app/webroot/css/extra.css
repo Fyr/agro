@@ -25,6 +25,7 @@
 }
 .pagination {
 	font-size: 12px;
+	margin: 10px auto;
 }
 .pagination span.prev, .pagination span.next {
 	color: #999;

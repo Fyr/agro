@@ -1,4 +1,4 @@
-<h2><?=$aCategory['Category']['title']?> <? echo ': '; __('Associate parameters');?></h2>
+<h2><?=$aCategory['Article']['title']?> <? echo ': '; __('Associate parameters');?></h2>
 <form id="paramForm" name="paramForm" action="" method="post">
 <?=$this->element('admin_bind', array('plugin' => 'params'))?>
 <div align="center">

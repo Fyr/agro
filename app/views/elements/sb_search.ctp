@@ -22,10 +22,10 @@
 						<div><br/></div>
 						<div class="label"><?__('Type')?>:</div>
 						<div>
-						<select class="autocompleteOff" name="data[filter][Article.object_id]">
+						<select class="autocompleteOff" name="data[filter][Article.subcat_id]">
 							<option value="">- <?__('All types')?> -</option>
 <?
-	echo $this->element('choose_type', array('aTypes' => $aTypes, 'selected' => $this->PHA->read($aFilter, 'Article\.object_id')));
+	echo $this->element('choose_type', array('aTypes' => $aTypes, 'selected' => $this->PHA->read($aFilters, 'conditions.Article\.subcat_id')));
 ?>
 						</select>
 						</div>

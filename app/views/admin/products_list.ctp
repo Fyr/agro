@@ -11,4 +11,4 @@
 		)
 	);
 ?>
-<?=$this->PHGrid->render('SiteProduct', $aActions)?>
+<?=$this->PHGrid->render('Article', $aActions)?>

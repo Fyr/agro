@@ -11,10 +11,16 @@ class SiteProduct extends Article {
 			'dependent' => true
 		)
 	);
+	
 	var $belongsTo = array(
 		'Category' => array(
-			'className' => 'category.Category',
-			'foreignKey' => 'object_id',
+			'className' => 'article.Article',
+			'foreignKey' => 'cat_id',
+			'dependent' => false
+		),
+		'Subcategory' => array(
+			'className' => 'article.Article',
+			'foreignKey' => 'subcat_id',
 			'dependent' => false
 		),
 		'Brand' => array(

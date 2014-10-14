@@ -3,7 +3,7 @@ class Media extends AppModel
 {
     var $name = 'Media';
 
-    private $stats = array('files' => 0, 'filesize' => 0);
+    public $stats = array('files' => 0, 'filesize' => 0);
 
     /*
     function getImage($id, $size) {
@@ -202,5 +202,30 @@ class Media extends AppModel
 		App::import('Vendor', 'noclass', array('file' => '../plugins/core/vendors/path.php'));
 		processPath(getPathContent(PATH_FILES_UPLOAD.'article/'), array($this, 'removeImageFiles'), true);
 		return $this->stats;
+	}
+	
+	function relocateMedia($oldObjType, $oldObjID, $newObjType, $newObjID) {
+		App::import('Helper', 'media.PHMedia');
+		$this->PHMedia = new PHMediaHelper();
+		
+		$conditions = array('object_type' => $oldObjType, 'object_id' => $oldObjID);
+		$aMedia = $this->find('all', compact('conditions'));
+		foreach($aMedia as $_media) {
+			$media = $_media['Media'];
+			$path['src'] = $this->PHMedia->getPath(strtolower($media['object_type']), $media['id']);
+			$path['dst'] = $this->PHMedia->getPath(strtolower($newObjType), $media['id']);
+			if (!file_exists($path['dst'])) {
+				$subpath = $this->PHMedia->getPagePath(strtolower($newObjType), $media['id']);
+				if (!file_exists($subpath)) {
+					mkdir($subpath, 0755);
+				}
+				mkdir($path['dst'], 0755);
+			}
+			rename($path['src'].$media['file'].$media['ext'], $path['dst'].$media['file'].$media['ext']);
+			$this->save(array('id' => $media['id'], 'object_type' => $newObjType, 'object_id' => $newObjID));
+			rmdir($path['src']);
+			
+			$this->stats['files']++;
+		}
 	}
 }

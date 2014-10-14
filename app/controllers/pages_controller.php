@@ -2,14 +2,14 @@
 class PagesController extends SiteController {
 	var $name = 'Pages';
 	var $helpers = array('articles.HtmlArticle', 'ArticleVars');
-	var $uses = array('articles.Article', 'SiteNews');
+	var $uses = array('articles.Article', 'SiteNews', 'SitePage');
 
 	function home() {
 		$conditions = array('Article.object_type' => 'news', 'Article.published' => 1);
 		if ($this->aEvents) {
 			$conditions['Article.id <> '] = $this->aEvents[0]['Article']['id'];
 		}
-		$aNews = $this->Article->find('all', array(
+		$aNews = $this->SiteNews->find('all', array(
 			'conditions' => $conditions,
 			'order' => array('Article.featured DESC', 'Article.created DESC'),
 			'limit' => 2
@@ -39,7 +39,7 @@ class PagesController extends SiteController {
 		));
 		$this->set('aLastProducts', $aLastProducts);
 
-		$aArticle = $this->Article->findByPageId('home');
+		$aArticle = $this->SitePage->findByPageId('home');
 		$this->set('contentArticle', $aArticle);
 
 		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title'];
@@ -47,7 +47,7 @@ class PagesController extends SiteController {
 	}
 	function show($pageID) {
 		$pageID = str_replace('.html', '', $pageID);
-		$aArticle = $this->Article->findByPage_id($pageID);
+		$aArticle = $this->SitePage->findByPage_id($pageID);
 		$this->set('aArticle', $aArticle);
 
 		$this->aBreadCrumbs = array('/' => 'Главная', $aArticle['Article']['title']);

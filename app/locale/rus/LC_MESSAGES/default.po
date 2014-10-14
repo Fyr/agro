@@ -462,3 +462,6 @@ msgstr "Компании"
 
 msgid "Site"
 msgstr "Сайт"
+
+msgid "Associate parameters"
+msgstr "Привязка параметров"

@@ -5,10 +5,12 @@ class ProductsController extends SiteController {
 
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'core.PHCore', 'Time', 'core.PHTime', 'articles.HtmlArticle', 'ArticleVars');
-	var $uses = array('category.Category', 'articles.Article', 'media.Media', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'tags.TagObject');
+	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'tags.TagObject', 'SiteCategory');
 
-	private function getCategoryID($category) {
-		return str_replace('-', '', strrchr($category, '-'));
+	private function getCategoryID($slug) {
+		// return str_replace('-', '', strrchr($category, '-'));
+		$cat = $this->SiteCategory->findByPageId($slug);
+		return $cat['Article']['id'];
 	}
 
 	function beforeFilterLayout() {
@@ -19,10 +21,10 @@ class ProductsController extends SiteController {
 
 		$catID = 0;
 		if ($this->subcategoryID) {
-			$this->params['url']['data']['filter']['Article.object_id'] = $this->subcategoryID;
+			$this->params['url']['data']['filter']['Article.subcat_id'] = $this->subcategoryID;
 			$catID = $this->subcategoryID;
 		} elseif ($this->categoryID) {
-			$this->params['url']['data']['filter']['type_id'] = $this->categoryID;
+			$this->params['url']['data']['filter']['Article.cat_id'] = $this->categoryID;
 			$catID = $this->categoryID;
 		} elseif (isset($this->params['url']['data']['filter'])) {
 			$this->set('directSearch', true);
@@ -34,36 +36,42 @@ class ProductsController extends SiteController {
 	}
 
 	function index() {
-		$this->grid['SiteProduct'] = array(
+		$this->Article = $this->SiteProduct;
+		$this->grid['Article'] = array(
 			'conditions' => array('Article.object_type' => 'products', 'Article.published' => 1),
-			'fields' => array('Category.id', 'Category.title', 'Category.object_id', 'Article.object_type', 'Article.title', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active'),
+			'fields' => array(
+				'Category.id', 'Category.title', 'Category.object_type', 'Category.object_id', 'Category.page_id', 
+				'Subcategory.id', 'Subcategory.title', 'Subcategory.object_type', 'Subcategory.object_id', 'Subcategory.page_id', 
+				'Article.object_type', 'Article.title', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active'
+			),
 			'order' => array('Article.featured' => 'desc', 'Article.sorting' => 'asc'),
 			'limit' => self::PER_PAGE
 		);
 
 		$aFilters = $this->_getFilters();
-		$this->grid['SiteProduct']['conditions'] = array_merge($this->grid['SiteProduct']['conditions'], $aFilters['conditions']);
+		$this->grid['Article']['conditions'] = array_merge($this->grid['Article']['conditions'], $aFilters['conditions']);
 
-		$aArticles = $this->PCGrid->paginate('SiteProduct');
+		$aArticles = $this->PCGrid->paginate('Article');
 		$this->set('aArticles', $aArticles);
 		$this->set('aFilters', $aFilters);
 
 		$this->aBreadCrumbs = array('/' => 'Home', 'Products');
 		$page_title = __('Products', true);
 
-		if (isset($this->params['url']['data']['filter']['type_id']) && $this->params['url']['data']['filter']['type_id']) {
-			$categoryID = $this->params['url']['data']['filter']['type_id'];
-			$category = $this->Category->findById($categoryID);
-			$page_title = $category['Category']['title'];
+		if (isset($this->params['url']['data']['filter']['cat_id']) && $this->params['url']['data']['filter']['cat_id']) {
+			$categoryID = $this->params['url']['data']['filter']['cat_id'];
+			$category = $this->SiteCategory->findById($categoryID);
+			$page_title = $category['Article']['title'];
 			$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', $page_title); // '/products/?data[filter][type_id]='.$categoryID =>
 
 			$relatedContentSeo = null;
 			if (!(isset($this->params['page']) && intval($this->params['page']) > 1)) {
-				$relatedContent = $this->Article->find('first', array('conditions' => array(
+				/*$relatedContent = $this->Article->find('first', array('conditions' => array(
 					'Article.object_type' => 'category', 'Article.object_id' => $categoryID, 'Article.published' => 1
 				)));
-				$this->set('relatedContent', $relatedContent);
-				$relatedContentSeo = $relatedContent['Seo'];
+				*/
+				$this->set('relatedContent', $category);
+				$relatedContentSeo = $category['Seo'];
 			}
 			$this->data['SEO'] = $this->Seo->defaultSeo($relatedContentSeo,
 				'Каталог продукции '.$page_title,
@@ -71,22 +79,24 @@ class ProductsController extends SiteController {
 				"На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
 			);
 			$this->pageTitle = $this->data['SEO']['title'];
-		} elseif (isset($this->params['url']['data']['filter']['Article.object_id']) && $this->params['url']['data']['filter']['Article.object_id']) {
-			$subcategoryID = $this->params['url']['data']['filter']['Article.object_id'];
-			$subcategory = $this->Category->findById($subcategoryID);
-			$categoryID = $subcategory['Category']['object_id'];
-			$category = $this->Category->findById($categoryID);
+		} elseif (isset($this->params['url']['data']['filter']['Article.subcat_id']) && $this->params['url']['data']['filter']['Article.subcat_id']) {
+			$subcategoryID = $this->params['url']['data']['filter']['Article.subcat_id'];
+			$subcategory = $this->SiteCategory->findById($subcategoryID);
+			$categoryID = $subcategory['Article']['object_id'];
+			$category = $this->SiteCategory->findById($categoryID);
 
 			$page_title = $subcategory['Category']['title'];
 			$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', '/products/?data[filter][type_id]='.$categoryID => $category['Category']['title'], $page_title); //
 
 			$relatedContentSeo = null;
 			if (!(isset($this->params['page']) && intval($this->params['page']) > 1)) {
+				/*
 				$relatedContent = $this->Article->find('first', array('conditions' => array(
 					'Article.object_type' => 'category', 'Article.object_id' => $subcategoryID, 'Article.published' => 1
 				)));
-				$this->set('relatedContent', $relatedContent);
-				$relatedContentSeo = $relatedContent['Seo'];
+				*/
+				$this->set('relatedContent', $subcategory);
+				$relatedContentSeo = $subcategory['Seo'];
 			}
 			$this->data['SEO'] = $this->Seo->defaultSeo($relatedContentSeo,
 				'Каталог продукции '.$page_title,
@@ -137,11 +147,10 @@ class ProductsController extends SiteController {
 		));
 		$this->set('aSimilar', $aSimilar);
 
-		$subcategory = $aArticle['Category'];
-		$categoryID = $subcategory['object_id'];
-		$category = $this->Category->findById($categoryID);
-
-		$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', '/products/?data[filter][type_id]='.$categoryID => $category['Category']['title'], __('View product', true)); //
+		// $subcategory = $aArticle['Subcategory'];
+		$categoryID = $aArticle['Category']['id'];
+		$category = $aArticle['Category']['title']; // $this->Category->findById($categoryID);
+		$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', '/products/?data[filter][type_id]='.$categoryID => $category, __('View product', true)); //
 	}
 
 	private function _getFilters() {

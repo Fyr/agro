@@ -1,6 +1,6 @@
 <?
-class SiteNews extends Article {
-	var $name = 'SiteNews';
+class SitePage extends Article {
+	var $name = 'SitePage';
 	var $useTable = 'pages';
 	var $alias = 'Article';
 	
@@ -8,7 +8,7 @@ class SiteNews extends Article {
 		'Seo' => array(
 			'className' => 'seo.Seo',
 			'foreignKey' => 'object_id',
-			'conditions' => array('Seo.object_type' => 'Article'),
+			'conditions' => array('Seo.object_type' => 'Page'),
 			'dependent' => true
 		)
 	);

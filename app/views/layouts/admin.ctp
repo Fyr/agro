@@ -46,5 +46,6 @@ $(document).ready(function(){
 	</td>
 </tr>
 </table>
+<?//$this->element('sql_dump')?>
 </body>
 </html>

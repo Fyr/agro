@@ -2,7 +2,7 @@
 class ContactsController extends SiteController {
 	var $components = array('Email', 'SiteEmail');
 	var $helpers = array('core.PHA', 'core.PHCore', 'Time', 'core.PHTime', 'articles.HtmlArticle');
-	var $uses = array('articles.Article', 'Contact');
+	var $uses = array('articles.Article', 'SitePage', 'Contact');
 	
 	function index() {
 		$this->aBreadCrumbs = array('/' => 'Home', '/contacts/' => 'Contacts', 'Send message');
@@ -46,8 +46,8 @@ class ContactsController extends SiteController {
 				
 		}
 
-		$this->set('aArticle', $this->Article->findByPageId('contacts1'));
-		$this->set('aArticle2', $this->Article->findByPageId('contacts2'));
+		$this->set('aArticle', $this->SitePage->findByPageId('contacts1'));
+		$this->set('aArticle2', $this->SitePage->findByPageId('contacts2'));
 		$this->set('data', $this->data);
 		$this->set('captchaKey', $captchaKey);
 	}

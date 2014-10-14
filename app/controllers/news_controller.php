@@ -6,6 +6,11 @@ class NewsController extends SiteController {
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'Time', 'core.PHTime', 'articles.HtmlArticle', 'ArticleVars');
 	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteNews');
+	
+	function beforeFilter() {
+		parent::beforeFilter();
+		$this->Article = $this->SiteNews;
+	}
 
 	function index() {
 		$this->grid['SiteNews'] = array(
