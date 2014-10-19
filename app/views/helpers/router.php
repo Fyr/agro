@@ -5,6 +5,7 @@ class RouterHelper extends AppHelper {
 	
 	function __construct($options = null) {
 		parent::__construct($options);
+		App::import('Model', 'articles.Article');
 		App::import('Model', 'SiteCategory');
 		$this->SiteCategory = new SiteCategory();
 		$this->aCategories = array();

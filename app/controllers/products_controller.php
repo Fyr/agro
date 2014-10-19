@@ -124,6 +124,9 @@ class ProductsController extends SiteController {
 			$aArticle = $this->SiteProduct->findById($id);
 		} else {
 			$aArticle = $this->SiteProduct->findByPageId($this->params['id']);
+			if (!$aArticle) {
+				$aArticle = $this->SiteProduct->findById(str_replace('.html', '', $this->params['id']));
+			}
 		}
 		if (!$aArticle) {
 			$this->redirect('/404.html');

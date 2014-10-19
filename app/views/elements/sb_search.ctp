@@ -31,7 +31,7 @@
 						</div>
 						<div><br/></div>
 <?
-	if ($aTags) {
+	/* if ($aTags) {
 ?>
 						<div class="label"><?__('Category')?>:</div>
 						<div>
@@ -41,7 +41,7 @@
 						</select>
 						</div>
 <?
-	}
+	}*/
 ?>
 						<div class="clear"></div>
 						<div class="submit-wrapper">

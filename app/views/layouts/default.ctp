@@ -47,7 +47,7 @@
 					<div class="mover">
 						<div class="mover-in">
 <?
-	for($i = 1; $i <= 3; $i++) {
+	for($i = 1; $i <= 10; $i++) {
 		foreach($aBrands as $article) {
 			$this->ArticleVars->init($article, $url, $title, $teaser, $src, 'noresize');
 ?>

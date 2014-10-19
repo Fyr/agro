@@ -1,7 +1,7 @@
 <?php
 class SiteController extends AppController {
 	// var $uses = array('articles.Article', 'SiteArticle');
-	var $uses = array();
+	var $uses = array('articles.Article');
 	var $aFeaturedProducts, $aEvents;
 
 	// ---------------------
