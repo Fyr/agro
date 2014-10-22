@@ -3,7 +3,7 @@
 	$this->PHCore->js(array('jquery.fancybox.js')); //
 ?>
 					<div class="area">
-						<?=$this->element('title', array('title' => $aArticle['Article']['title']))?>
+						<?=$this->element('title', array('title' => $aArticle['Article']['title_rus']))?>
 						<div class="text">
 
 <?
@@ -31,7 +31,7 @@
 	}
 ?>
 							<b><?__('Brand')?></b> : <?=$aArticle['Brand']['title']?><br />
-							<b><?__('Type')?></b> : <?=$aArticle['Category']['title']?><br />
+							<!--b><?__('Type')?></b> : <?=$aArticle['Category']['title']?><br /-->
 <?
 	if ($aArticle['Article']['price']) {
 ?>
@@ -82,6 +82,9 @@
 	$class = '';
 	foreach($aParamValues as $param) {
 		$class = ($class == 'odd') ? 'even' : 'odd';
+		if ($param['ParamValue']['param_id'] == 6) { // Мотор показываем как строку
+			$param['Param']['param_type'] = Param::STRING;
+		}
 ?>
 	<tr class="gridRow <?=$class?> td">
 		<td nowrap="nowrap"><?=$param['Param']['title']?></td>

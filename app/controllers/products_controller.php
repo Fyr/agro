@@ -42,7 +42,7 @@ class ProductsController extends SiteController {
 			'fields' => array(
 				'Category.id', 'Category.title', 'Category.object_type', 'Category.object_id', 'Category.page_id', 
 				'Subcategory.id', 'Subcategory.title', 'Subcategory.object_type', 'Subcategory.object_id', 'Subcategory.page_id', 
-				'Article.object_type', 'Article.title', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active'
+				'Article.object_type', 'Article.title', 'Article.title_rus', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active'
 			),
 			'order' => array('Article.featured' => 'desc', 'Article.sorting' => 'asc'),
 			'limit' => self::PER_PAGE
@@ -137,11 +137,11 @@ class ProductsController extends SiteController {
 		$aArticle['Media'] = $this->Media->getMedia('Article', $aArticle['Article']['id']);
 		$this->set('aArticle', $aArticle);
 
-		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title'];
+		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title_rus'];
 		$aArticle['Seo'] = $this->Seo->defaultSeo($aArticle['Seo'],
-			$aArticle['Article']['title'],
-			$aArticle['Article']['title'].", ".str_replace(',', ' ', $aArticle['Article']['title'])." ".$aArticle['Category']['title'].", запчасти для спецтехники ".$aArticle['Category']['title'].", запчасти для ".$aArticle['Category']['title'],
-			'На нашем сайте вы можете приобрести '.str_replace(',', ' ', $aArticle['Article']['title']).' для трактора или спецтехники '.$aArticle['Category']['title'].' в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт.'
+			$aArticle['Article']['title_rus'],
+			$aArticle['Article']['title_rus'].", ".str_replace(',', ' ', $aArticle['Article']['title_rus'])." ".$aArticle['Category']['title'].", запчасти для спецтехники ".$aArticle['Category']['title'].", запчасти для ".$aArticle['Category']['title'],
+			'На нашем сайте вы можете приобрести '.str_replace(',', ' ', $aArticle['Article']['title_rus']).' для трактора или спецтехники '.$aArticle['Category']['title'].' в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт.'
 		);
 		$this->data['SEO'] = $aArticle['Seo'];
 		$this->set('aParamValues', $this->ParamValue->getValueOptions('ProductParam', $id));
