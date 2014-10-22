@@ -42,7 +42,7 @@ class ProductsController extends SiteController {
 			'fields' => array(
 				'Category.id', 'Category.title', 'Category.object_type', 'Category.object_id', 'Category.page_id', 
 				'Subcategory.id', 'Subcategory.title', 'Subcategory.object_type', 'Subcategory.object_id', 'Subcategory.page_id', 
-				'Article.object_type', 'Article.title', 'Article.title_rus', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active'
+				'Article.object_type', 'Article.title', 'Article.title_rus', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active', 'Article.code'
 			),
 			'order' => array('Article.featured' => 'desc', 'Article.sorting' => 'asc'),
 			'limit' => self::PER_PAGE
@@ -174,17 +174,7 @@ class ProductsController extends SiteController {
 					$aSubtypes = $this->Category->find('list', array('conditions' => array('Category.object_id' => $value)));
 					$aConditions['Article.object_id'] = array_keys($aSubtypes);
 				} elseif ($key == 'Article.title') {
-					$aID = array(0);
-					if (!TEST_ENV) {
-						// для локалки пусть поиск работает просто по названию - у меня в тестовой БД нет данных для ParamValue
-						$aRows = $this->ParamValue->find('list', array(
-							'fields' => array('ParamValue.object_id', 'ParamValue.object_type'),
-							'conditions' => array('ParamValue.param_id' => self::PARAM_TITLE_ID, 'ParamValue.value LIKE "%'.$value.'%"'),
-							'groupby' => array('ParamValue.object_id')
-						));
-						$aID = ($aRows) ? array_keys($aRows) : $aID;
-					}
-					$aConditions[] = '(Article.title LIKE "%'.$value.'%" OR Article.id IN ('.implode(',', $aID).'))';
+					$aConditions[] = '(Article.title LIKE "%'.$value.'%" OR Article.title_rus LIKE "%'.$value.'%" OR Article.detail_num LIKE "%'.$value.'%")';
 				} elseif ($key == 'Tag.id') {
 					$aRows = $this->TagObject->find('list', array('fields' => array('TagObject.object_id', 'TagObject.object_type'), 'conditions' => array('TagObject.tag_id' => $value)));
 					$aConditions['Article.id'] = array_keys($aRows);

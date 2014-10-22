@@ -18,7 +18,7 @@ class AdminController extends AppController {
 		'Products' => '/admin/productsList/',
 		// 'FAQs' => '/admin/faqList/'
 		'Types' => '/admin/typesList/',
-		'Categories' => '/admin/tagsList/',
+		// 'Categories' => '/admin/tagsList/',
 		'Tech.parameters' => '/admin/paramsList/',
 		'Brands' => '/admin/brandList',
 		'tagcloud' => '/admin/tagcloud/',

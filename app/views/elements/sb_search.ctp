@@ -1,5 +1,5 @@
 					<form id="searchForm" name="searchForm" action="/products/index/" method="get">
-						<div class="label"><?__('Title')?>:</div>
+						<div class="label">Номер или название:</div>
 						<div>
 							<input type="text" name="data[filter][Article.title]" value="<?=$this->PHA->read($aFilter, 'Article\.title')?>" />
 						</div>

@@ -51,7 +51,6 @@
 		<input type="checkbox" id="Article.active" name="data[Article][active]" value="1" <?=($this->PHA->read($aArticle, 'Article.active')) ? 'checked="checked"' : ''?> /> <? __('Active');?>
 	</td>
 </tr>
-<?//$this->element('std_input', array('plugin' => 'core', 'caption' => __('Title', true), 'class' => 'autocompleteOff', 'required' => true, 'field' => 'Article.title', 'data' => $aArticle, 'size' => 78))?>
 <?//$this->element('std_input', array('plugin' => 'core', 'caption' => __('Page ID', true), 'class' => 'autocompleteOff', 'field' => 'Article.page_id', 'data' => $aArticle, 'size' => 78))?>
 <tr>
 	<td><? __('Title');?></td>
@@ -78,6 +77,8 @@
 	}
 ?>
 </tr>
+<?=$this->element('std_input', array('plugin' => 'core', 'caption' => __('Title (RUS)', true), 'class' => 'autocompleteOff', 'required' => false, 'field' => 'Article.title_rus', 'data' => $aArticle, 'size' => 68))?>
+<?=$this->element('std_input', array('plugin' => 'core', 'caption' => __('Code', true), 'class' => 'autocompleteOff', 'required' => false, 'field' => 'Article.code', 'data' => $aArticle, 'size' => 68))?>
 <?=$this->element('std_input', array('plugin' => 'core', 'caption' => __('Sorting order', true), 'class' => 'autocompleteOff', 'required' => false, 'field' => 'Article.sorting', 'data' => $aArticle, 'size' => 2))?>
 <?//$this->element('std_input', array('plugin' => 'core', 'caption' => __('Price', true).', '._PU, 'class' => 'autocompleteOff', 'required' => false, 'field' => 'Article.price', 'data' => $aArticle, 'size' => 5))?>
 <tr>

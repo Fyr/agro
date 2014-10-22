@@ -20,7 +20,7 @@
 <?
 		foreach($aArticles as $article) {
 			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '130x100', $featured);
-			$title = $article['Article']['title_rus'];
+			$title = $article['Article']['code'].' '.$article['Article']['title_rus'];
 ?>
 							<div class="block three" onclick="window.location.href= '<?=$url?>'">
 								<h3><a href="<?=$url?>"><?=$title?></a></h3>

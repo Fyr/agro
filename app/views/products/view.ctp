@@ -1,9 +1,10 @@
 <?
 	$this->PHCore->css(array('grid/grid', 'jquery.fancybox'));
 	$this->PHCore->js(array('jquery.fancybox.js')); //
+	$title = $aArticle['Article']['code'].' '.$aArticle['Article']['title_rus'];
 ?>
 					<div class="area">
-						<?=$this->element('title', array('title' => $aArticle['Article']['title_rus']))?>
+						<?=$this->element('title', array('title' => $title))?>
 						<div class="text">
 
 <?
@@ -70,10 +71,10 @@
 	if ($aParamValues) {
 ?>
 	<h3><?__('Tech.parameters')?></h3>
-	<table class="grid" cellpadding="0" cellspacing="0">
+	<table class="grid" width="100%" cellpadding="0" cellspacing="0">
 	<thead>
 	<tr>
-		<th><?__('Parameter')?></th>
+		<th width="30%"><?__('Parameter')?></th>
 		<th><?__('Value')?></th>
 	</tr>
 	</thead>
@@ -87,7 +88,7 @@
 		}
 ?>
 	<tr class="gridRow <?=$class?> td">
-		<td nowrap="nowrap"><?=$param['Param']['title']?></td>
+		<td nowrap="nowrap" align="right"><?=$param['Param']['title']?></td>
 		<td><b><?=$this->element('param_render', array('plugin' => 'params', 'param' => $param))?></b></td>
 	</tr>
 <?

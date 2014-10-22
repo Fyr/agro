@@ -314,16 +314,16 @@ msgid "Categories"
 msgstr "Категории"
 
 msgid "Types"
-msgstr "Типы продукции"
+msgstr "Категории продукции"
 
 msgid "Subtypes"
-msgstr "Подтипы продукции"
+msgstr "Подкатегории продукции"
 
 msgid "Type"
-msgstr "Тип продукции"
+msgstr "Категория"
 
 msgid "Subtype"
-msgstr "Подтип продукции"
+msgstr "Подкатегория"
 
 msgid "Tech.parameters"
 msgstr "Технические параметры"
@@ -383,7 +383,7 @@ msgid "Similar products"
 msgstr "Похожие запчасти"
 
 msgid "All types"
-msgstr "любой тип"
+msgstr "любая категория"
 
 msgid "All brands"
 msgstr "любой бренд"
@@ -465,3 +465,9 @@ msgstr "Сайт"
 
 msgid "Associate parameters"
 msgstr "Привязка параметров"
+
+msgid "Title (RUS)"
+msgstr "Название (RUS)"
+
+msgid "Code"
+msgstr "Код"
