@@ -101,7 +101,7 @@
 	}
 ?>
 	<br />
-	<a href="/products/">Перейти в каталог</a>
+	<a href="/zapchasti/">Перейти в каталог</a>
 <?
 /*
 	if ($aSimilar) {

@@ -143,7 +143,7 @@ class AppController extends Controller {
 	var $aMenu = array(
 		'home' => array('href' => '/', 'title' => 'Главная'),
 		'news' => array('href' => '/news/', 'title' => 'Новости'),
-		'products' => array('href' => '/product/', 'title' => 'Запчасти'),
+		'products' => array('href' => '/zapchasti/', 'title' => 'Запчасти'),
 		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
 		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
 		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас', 'submenu' => array(
@@ -157,7 +157,7 @@ class AppController extends Controller {
 	var $aBottomLinks = array(
 		'home' => array('href' => '/', 'title' => 'Главная'),
 		'news' => array('href' => '/news/', 'title' => 'Новости'),
-		'products' => array('href' => '/product/', 'title' => 'Запчасти'),
+		'products' => array('href' => '/zaphasti/', 'title' => 'Запчасти'),
 		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
 		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
 		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),

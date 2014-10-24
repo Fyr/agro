@@ -60,7 +60,7 @@ class RouterHelper extends AppHelper {
 			'articles' => 'article',
 			'photos' => 'photo',
 			'videos' => 'video',
-			'products' => 'product',
+			'products' => 'zapchasti',
 			'brands' => 'brand'
 		);
 		$dir = (isset($aDir[$objectType])) ? $aDir[$objectType] : $objectType;
