@@ -133,7 +133,6 @@ function type_onChange(e) {
 	$('#params .container .wrap').html($('.load').html());
 	$('#params .container .wrap').load('/adminAjax/getTechParams/' + $(e).val() + '/' + id);
 	
-	console.log($(e.options[e.selectedIndex]).parent().get(0).id);
 	$('#Article__cat_id').val($(e.options[e.selectedIndex]).parent().get(0).id);
 }
 

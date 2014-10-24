@@ -85,6 +85,7 @@
 		$class = ($class == 'odd') ? 'even' : 'odd';
 		if ($param['ParamValue']['param_id'] == 6) { // Мотор показываем как строку
 			$param['Param']['param_type'] = Param::STRING;
+			$param['ParamValue']['value'] = str_replace(',', ', ', $param['ParamValue']['value']);
 		}
 ?>
 	<tr class="gridRow <?=$class?> td">
