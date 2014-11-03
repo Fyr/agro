@@ -41,6 +41,8 @@ class SiteController extends AppController {
 		$this->loadModel('SiteNews');
 		$this->aEvents = $this->SiteNews->getRandomRows(1, array('Article.object_type' => 'news', 'Article.featured' => 1, 'Article.published' => 1));
 		$this->set('upcomingEvent', ($this->aEvents) ? $this->aEvents[0] : false);
+		
+		$this->set('aFilters', array());
 	}
 
 	function beforeRender() {

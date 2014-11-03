@@ -15,7 +15,7 @@
 		$title = $article['Article']['title'];
 		$options[$id] = $title;
 	}
-	echo $this->element('options', array('plugin' => 'core', 'options' => $options, 'selected' => $this->PHA->read($aFilter, 'Article\.brand_id')));
+	echo $this->element('options', array('plugin' => 'core', 'options' => $options, 'selected' => $this->PHA->read($aFilters, 'Article\.brand_id')));
 ?>
 						</select>
 						</div>
