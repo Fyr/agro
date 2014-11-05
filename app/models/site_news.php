@@ -8,7 +8,7 @@ class SiteNews extends Article {
 		'Seo' => array(
 			'className' => 'seo.Seo',
 			'foreignKey' => 'object_id',
-			'conditions' => array('Seo.object_type' => 'Article'),
+			'conditions' => array('Seo.object_type' => 'Page'),
 			'dependent' => true
 		)
 	);

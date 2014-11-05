@@ -27,7 +27,7 @@
 <input type="hidden" id="catObj" name="data[Article][object_type]" value="<?=$objectType?>" />
 <input type="hidden" id="catID" name="data[Article][object_id]" value="<?=$this->PHA->read($aArticle, 'Article.object_id')?>" />
 <?
-	$seo_block = $this->element('admin_edit', array('plugin' => 'seo', 'data' => $aArticle, 'object_type' => 'Article'));
+	$seo_block = $this->element('admin_edit', array('plugin' => 'seo', 'data' => $aArticle, 'object_type' => 'Page'));
 	echo $this->element('wgt_exp_block', array('plugin' => 'core', 'id' => 'seo', 'caption' => 'SEO', 'content' => $seo_block));
 	echo '<br />';
 	if ($objectType == 'pages') {
