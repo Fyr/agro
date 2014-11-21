@@ -49,6 +49,7 @@
 					<div class="section">
 						<div class="s-frame gallery">
 <?
+	if (isset($aArticle['Media']) && $aArticle['Media']) {
 	foreach($aArticle['Media'] as $media) {
 		$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext'].'.png');
 		$orig = $this->PHMedia->getUrl($media['object_type'], $media['id'], 'noresize', $media['file'].$media['ext'].'.png');
@@ -59,6 +60,17 @@
 									<a href="<?=$orig?>" rel="photoalobum"><img alt="<?=$aArticle['Article']['title']?>" src="<?=$src?>" /></a>
 								</div>
 							</div>
+<?
+	}
+	} else {
+?>
+							<div class="block three3">
+								<br/>
+								<div class="image" style="text-align:center">
+									<img alt="<?=$aArticle['Article']['title']?>" src="/img/default_product.jpg" style="width: 130px" />
+								</div>
+							</div>
+
 <?
 	}
 ?>
