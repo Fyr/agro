@@ -146,4 +146,19 @@
 		'controller' => 'brands',
 		'action' => 'index'
 	));
+	
+	Router::connect('/dealer/page/:page', array(
+		'controller' => 'dealers',
+		'action' => 'index',
+		'page' => '[0-9]+'
+	));
+	Router::connect('/dealer/:id.html', array(
+		'controller' => 'dealers',
+		'action' => 'view',
+		'id' => '[a-z0-9\-]+'
+	));
+	Router::connect('/dealer/', array(
+		'controller' => 'dealers',
+		'action' => 'index'
+	));
 ?>

@@ -152,7 +152,7 @@ class AppController extends Controller {
 			array('href' => '/pages/show/about-us.html', 'title' => 'История'),
 			array('href' => '/pages/show/about-us2.html', 'title' => 'Наша миссия')
 		)),
-		'partner' => array('href' => '/pages/show/dealers.html', 'title' => 'Дилеры'),
+		'partner' => array('href' => '/dealer/', 'title' => 'Дилеры'),
 		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
 	);
 
@@ -163,7 +163,7 @@ class AppController extends Controller {
 		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
 		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
 		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
-		'partner' => array('href' => '/pages/show/dealers.html', 'title' => 'Дилеры'),
+		'partner' => array('href' => '/dealer/', 'title' => 'Дилеры'),
 		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
 	);
 	var $aBreadCrumbs = array();

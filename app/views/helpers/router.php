@@ -30,7 +30,7 @@ class RouterHelper extends AppHelper {
 			return $this->catUrl('products', $aArticle['Subcategory']).$id.'.html';
 		}
 		
-		if ($aArticle['Article']['object_type'] == 'brands') {
+		if ($aArticle['Article']['object_type'] == 'brands' || $aArticle['Article']['object_type'] == 'companies') {
 			return $dir.$id.'.html';
 		}
 		
@@ -61,7 +61,8 @@ class RouterHelper extends AppHelper {
 			'photos' => 'photo',
 			'videos' => 'video',
 			'products' => 'zapchasti',
-			'brands' => 'brand'
+			'brands' => 'brand',
+			'companies' => 'dealer'
 		);
 		$dir = (isset($aDir[$objectType])) ? $aDir[$objectType] : $objectType;
 		return '/'.$dir.'/';

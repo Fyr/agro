@@ -96,3 +96,15 @@
 .floatL {
 	float: left;
 }
+.dealer-info {
+	font-size: 0.8em;
+	margin-bottom: 7px;
+}
+
+.dealer-info b {
+    margin: 7px 0 0;
+    display: inline-block;
+}
+.dealer-info span {
+	font-weight: bold;
+}
