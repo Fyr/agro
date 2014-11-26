@@ -113,9 +113,10 @@ class SiteController extends AppController {
 		$this->aBottomLinks['partner']['title'] = $aArticleTitles['dealers'];
 
 		App::import('Helper', 'articles.PHTranslit');
+		$this->Router->PHTranslit = new PHTranslitHelper();
+		
 		App::import('Helper', 'Router');
 		$this->Router = new RouterHelper();
-		$this->Router->PHTranslit = new PHTranslitHelper();
 
 		foreach($aTypes['type_'] as $type) {
 			$url = $this->Router->catUrl('products', $type);

@@ -131,8 +131,17 @@ class ProductsController extends SiteController {
 		if (!$aArticle) {
 			return $this->redirect('/');
 		}
+		
+		// fdebug($this->params);
+		App::import('Helper', 'Router');
+		$this->Router = new RouterHelper();
+		if ($this->params['category'] !== $aArticle['Category']['page_id'] 
+				|| $this->params['subcategory'] !== $aArticle['Subcategory']['page_id']) {
+			return $this->redirect($this->Router->url($aArticle));
+		}
+		
 		$id = $aArticle['Article']['id'];
-
+		
 		unset($aArticle['Media']);
 		$aArticle['Media'] = $this->Media->getMedia('Article', $aArticle['Article']['id']);
 		$this->set('aArticle', $aArticle);
