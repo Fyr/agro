@@ -4,7 +4,7 @@
 <?
 	if (!$aArticles) {
 ?>
-	<div>
+	<div class="area">
 		<b>Не найдено ни одного продукта</b>
 		<p>
 			Пож-ста, измените параметры поиска или нажмите
@@ -66,17 +66,18 @@
 		} else {
 			echo $this->element('pagination', array('objectType' => 'products'));
 		}
-		if (isset($relatedContent) && $relatedContent) {
-?>
-						<div class="text" style="margin-top: 20px;">
-							<?=$this->HtmlArticle->fulltext($relatedContent['Article']['body'])?>
-						</div>
-<?
-		}
 ?>
 						</div>
 					</div>
 <?
 	}
 
+	if (isset($relatedContent) && $relatedContent) {
 ?>
+					<div class="text" style="margin-top: 20px;">
+						<?=$this->HtmlArticle->fulltext($relatedContent['Article']['body'])?>
+					</div>
+<?
+		}
+?>
+

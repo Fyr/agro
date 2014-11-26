@@ -58,8 +58,8 @@ class ProductsController extends SiteController {
 		$this->aBreadCrumbs = array('/' => 'Home', 'Products');
 		$page_title = __('Products', true);
 
-		if (isset($this->params['url']['data']['filter']['cat_id']) && $this->params['url']['data']['filter']['cat_id']) {
-			$categoryID = $this->params['url']['data']['filter']['cat_id'];
+		if (isset($this->params['url']['data']['filter']['Article.cat_id']) && $this->params['url']['data']['filter']['Article.cat_id']) {
+			$categoryID = $this->params['url']['data']['filter']['Article.cat_id'];
 			$category = $this->SiteCategory->findById($categoryID);
 			$page_title = $category['Article']['title'];
 			$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', $page_title); // '/products/?data[filter][type_id]='.$categoryID =>
