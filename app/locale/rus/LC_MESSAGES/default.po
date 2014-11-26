@@ -471,3 +471,12 @@ msgstr "Название (RUS)"
 
 msgid "Code"
 msgstr "Код"
+
+msgid "Dealers"
+msgstr "Дилеры"
+
+msgid "New dealer"
+msgstr "Новый дилер"
+
+msgid "Edit dealer"
+msgstr "Редактирование дилера"

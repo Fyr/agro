@@ -129,7 +129,7 @@ class ProductsController extends SiteController {
 			}
 		}
 		if (!$aArticle) {
-			$this->redirect('/404.html');
+			return $this->redirect('/');
 		}
 		$id = $aArticle['Article']['id'];
 
