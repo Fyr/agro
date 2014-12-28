@@ -50,9 +50,9 @@
 						<div class="s-frame gallery">
 <?
 	if (isset($aArticle['Media']) && $aArticle['Media']) {
-	foreach($aArticle['Media'] as $media) {
-		$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext'].'.png');
-		$orig = $this->PHMedia->getUrl($media['object_type'], $media['id'], 'noresize', $media['file'].$media['ext'].'.png');
+		foreach($aArticle['Media'] as $media) {
+			$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext'].'.png');
+			$orig = $this->PHMedia->getUrl($media['object_type'], $media['id'], 'noresize', $media['file'].$media['ext'].'.png');
 ?>
 							<div class="block three3">
 								<br/>
@@ -61,7 +61,7 @@
 								</div>
 							</div>
 <?
-	}
+		}
 	} else {
 ?>
 							<div class="block three3">
@@ -80,6 +80,12 @@
 					<div class="area">
 						<div class="text">
 <?
+	if ($aArticle['Article']['show_detailnum']) {
+		$aParamValues = array_merge(array(array(
+			'ParamValue' => array('param_id' => '', 'value' => str_replace(' ', ', ', $aArticle['Article']['detail_num'])),
+			'Param' => array('title' => 'Номер детали', 'param_type' => 4)
+		)), $aParamValues);
+	}
 	if ($aParamValues) {
 ?>
 	<h3><?__('Tech.parameters')?></h3>
