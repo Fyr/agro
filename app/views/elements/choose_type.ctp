@@ -1,4 +1,6 @@
 <?
+	$selected = '';
+
 	foreach($aTypes['type_'] as $type) {
 		if (isset($aTypes['type_'.$type['id']])) {
 ?>

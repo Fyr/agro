@@ -25,7 +25,7 @@
 						<select class="autocompleteOff" name="data[filter][Article.subcat_id]">
 							<option value="">- <?__('All types')?> -</option>
 <?
-	echo $this->element('choose_type', array('aTypes' => $aTypes));
+	echo $this->element('choose_type', array('aTypes' => $aTypes, 'selected' => $this->PHA->read($aFilters, 'Article\.subcat_id')));
 ?>
 						</select>
 						</div>

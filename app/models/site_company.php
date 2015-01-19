@@ -1,6 +1,7 @@
 <?
 class SiteCompany extends Article {
 	var $name = 'SiteCompany';
+	var $useTable = 'pages';
 	var $alias = 'Article';
 
 	var $hasOne = array(

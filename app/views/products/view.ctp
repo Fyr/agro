@@ -82,7 +82,7 @@
 <?
 	if ($aArticle['Article']['show_detailnum']) {
 		$aParamValues = array_merge(array(array(
-			'ParamValue' => array('param_id' => '', 'value' => str_replace(' ', ', ', $aArticle['Article']['detail_num'])),
+			'ParamValue' => array('param_id' => '', 'value' => $aArticle['Article']['detail_num']),
 			'Param' => array('title' => 'Номер детали', 'param_type' => 4)
 		)), $aParamValues);
 	}
