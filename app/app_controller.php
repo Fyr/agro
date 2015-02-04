@@ -60,7 +60,9 @@ class SiteController extends AppController {
 		$this->set('aBreadCrumbs', $this->aBreadCrumbs);
 
 		$this->Article = $this->SiteArticle;
-		$brands = $this->Article->find('all', array('conditions' => array('Article.object_type' => 'brands', 'Article.published' => 1)));
+		$brands = $this->Article->find('all', array(
+			'conditions' => array('Article.object_type' => 'brands', 'Article.published' => 1)
+		));
 		$this->set('aBrandTypes', $brands);
 		$aBrands = array();
 		foreach($brands as $article) {
@@ -85,10 +87,11 @@ class SiteController extends AppController {
 		}
 		$this->set('aFilter', $aFilter);
 
+		/*
 		$this->loadModel('tags.Tag');
 		$aTags = $this->Tag->find('list');
 		$this->set('aTags', $aTags);
-
+		*/
 		/*
 		$this->loadModel('categories.Category');
 		$types = $this->Category->find('all', array(

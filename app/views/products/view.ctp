@@ -2,6 +2,7 @@
 	$this->PHCore->css(array('grid/grid', 'jquery.fancybox'));
 	$this->PHCore->js(array('jquery.fancybox.js')); //
 	$title = $aArticle['Article']['code'].' '.$aArticle['Article']['title_rus'];
+	$alt = $aArticle['Article']['title_rus'].' '.$aArticle['Article']['detail_num'];
 ?>
 					<div class="area">
 						<?=$this->element('title', array('title' => $title))?>
@@ -57,7 +58,7 @@
 							<div class="block three3">
 								<br/>
 								<div class="image" style="text-align:center">
-									<a href="<?=$orig?>" rel="photoalobum"><img alt="<?=$aArticle['Article']['title']?>" src="<?=$src?>" /></a>
+									<a href="<?=$orig?>" rel="photoalobum"><img alt="<?=$alt?>" src="<?=$src?>" /></a>
 								</div>
 							</div>
 <?
@@ -67,7 +68,7 @@
 							<div class="block three3">
 								<br/>
 								<div class="image" style="text-align:center">
-									<img alt="<?=$aArticle['Article']['title']?>" src="/img/default_product.jpg" style="width: 130px" />
+									<img alt="<?=$alt?>" src="/img/default_product.jpg" style="width: 130px" />
 								</div>
 							</div>
 
@@ -105,12 +106,14 @@
 			$param['Param']['param_type'] = Param::STRING;
 			$param['ParamValue']['value'] = str_replace(',', ', ', $param['ParamValue']['value']);
 		}
+		if (trim($param['ParamValue']['value'])) {
 ?>
 	<tr class="gridRow <?=$class?> td">
 		<td nowrap="nowrap" align="right"><?=$param['Param']['title']?></td>
 		<td><b><?=$this->element('param_render', array('plugin' => 'params', 'param' => $param))?></b></td>
 	</tr>
 <?
+		}
 	}
 ?>
 	</tbody>

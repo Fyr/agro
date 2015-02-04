@@ -5,7 +5,7 @@ class ProductsController extends SiteController {
 
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'core.PHCore', 'Time', 'core.PHTime', 'articles.HtmlArticle', 'ArticleVars');
-	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'tags.TagObject', 'SiteCategory');
+	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamValue', 'SiteCategory');
 
 	private function getCategoryID($slug) {
 		// return str_replace('-', '', strrchr($category, '-'));
@@ -154,11 +154,12 @@ class ProductsController extends SiteController {
 		);
 		$this->data['SEO'] = $aArticle['Seo'];
 		$this->set('aParamValues', $this->ParamValue->getValueOptions('ProductParam', $id));
+		/*
 		$aSimilar = $this->SiteProduct->find('all', array(
 			'conditions' => array('Article.object_type' => 'products', 'Article.published' => 1, 'Article.object_id' => $aArticle['Article']['object_id'], 'Article.id <> ' => $id)
 		));
 		$this->set('aSimilar', $aSimilar);
-
+		*/
 		// $subcategory = $aArticle['Subcategory'];
 		$categoryID = $aArticle['Category']['id'];
 		$category = $aArticle['Category']['title']; // $this->Category->findById($categoryID);
@@ -186,8 +187,10 @@ class ProductsController extends SiteController {
 					$value = str_replace(array('.', ' ', '-', ',', '/', '\\'), '', $value);
 					$aConditions[] = '(Article.title LIKE "%'.$value.'%" OR Article.title_rus LIKE "%'.$value.'%" OR Article.detail_num LIKE "%'.$value.'%")';
 				} elseif ($key == 'Tag.id') {
+					/*
 					$aRows = $this->TagObject->find('list', array('fields' => array('TagObject.object_id', 'TagObject.object_type'), 'conditions' => array('TagObject.tag_id' => $value)));
 					$aConditions['Article.id'] = array_keys($aRows);
+					*/
 				/*
 				if ($key == 'pricelist') {
 					$aConditions['pricelist <> '] = '""';

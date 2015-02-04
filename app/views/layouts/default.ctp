@@ -9,10 +9,17 @@
 	<!--[if lt IE 9]>
 		<link rel="stylesheet" type="text/css" href="/css/ie.css" />
 	<![endif]-->
-<?=$this->Html->script(array('jquery-1.7.1.min', 'menu', 'custom'))?>
+<?
+	$scripts = array('jquery-1.7.1.min', 'menu', 'custom');
+	if (!TEST_ENV) {
+		$scripts[] = 'nocopy';
+	}
+?>
+<?=$this->Html->script($scripts)?>
 <?=$scripts_for_layout?>
 </head>
-<body>
+<body <? if (!TEST_ENV) { ?> oncopy="return false;" onmousedown="return false;" onclick="return true;" <? } ?>>
+
 <div class="lines">
 	<div id="wrapper">
 		<div class="w-holder">

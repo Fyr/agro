@@ -26,13 +26,14 @@ class SiteArticle extends Article {
 			'conditions' => array('Media.object_type' => 'Article', 'Media.media_type' => 'image', 'Media.main' => 1),
 			'dependent' => true,
 			'order' => array('Media.main DESC', 'media_type')
-		),
+		)/*,
 		'TagObject' => array(
 			'classname' => 'tags.TagObject',
 			'foreignKey' => 'object_id',
 			'conditions' => array('TagObject.object_type' => 'Article'),
 			'dependent' => true
 		)
+		*/
 	);
 	/*
 	function getMedia($aArticle) {
