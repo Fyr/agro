@@ -2,7 +2,7 @@
 	$id = $this->PHA->read($aArticle, 'Article.id');
 	$pageTitle = ($id) ? 'Edit company' : 'New company';
 	$page_id = $this->PHA->read($aArticle, 'Article.page_id');
-	$seo_block = $this->element('admin_edit', array('plugin' => 'seo', 'data' => $aArticle, 'object_type' => 'Article'));
+	$seo_block = $this->element('admin_edit', array('plugin' => 'seo', 'data' => $aArticle, 'object_type' => 'Page'));
 ?>
 <h2><? __($pageTitle)?></h2>
 <?
@@ -32,7 +32,7 @@
 ?>
 <form id="mediaForm" name="mediaForm" action="/media/media/submit/" method="post" enctype="multipart/form-data">
 <input type="hidden" name="data[Media][inputName]" value="files" />
-<input type="hidden" name="data[Media][object_type]" value="Article" />
+<input type="hidden" name="data[Media][object_type]" value="Page" />
 <input type="hidden" name="data[Media][object_id]" value="<?=$this->PHA->read($aArticle, 'Article.id')?>" />
 <input type="hidden" name="data[Media][makeThumb]" value="1" />
 <?

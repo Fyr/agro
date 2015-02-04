@@ -16,7 +16,7 @@
 <?
 	if ($src) {
 ?>
-	<img src="<?=$src?>" alt="<?=$title?>" style="float: left; margin: 0 10px 10px 0" />
+	<img src="<?=$src?>" alt="<?=$title?>" style="float: right; margin: 0 0 10px 10px" />
 <?
 	}
 ?>

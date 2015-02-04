@@ -99,6 +99,8 @@
 .dealer-info {
 	font-size: 0.8em;
 	margin-bottom: 7px;
+	margin-left: 20px;
+	width: 320px;
 }
 
 .dealer-info b {

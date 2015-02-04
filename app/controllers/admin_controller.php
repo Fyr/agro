@@ -510,7 +510,7 @@ class AdminController extends AppController {
 		if ($id) {
 			// $aCompany = $this->SiteCompany->findById($company_id);
 			unset($aArticle['Media']);
-			$aArticle['Media'] = $this->Media->getMedia('Article', $aArticle['Article']['id']);
+			$aArticle['Media'] = $this->Media->getMedia('Page', $aArticle['Article']['id']);
 			// $aArticle['Gallery'] = $this->Media->getMedia('Company', $aArticle['Article']['id']);
 		} else {
 			// значения по умолчанию для статьи

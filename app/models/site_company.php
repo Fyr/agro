@@ -8,7 +8,7 @@ class SiteCompany extends Article {
 		'Seo' => array(
 			'className' => 'seo.Seo',
 			'foreignKey' => 'object_id',
-			'conditions' => array('Seo.object_type' => 'Article'),
+			'conditions' => array('Seo.object_type' => 'Page'),
 			'dependent' => true
 		),
 		/*
@@ -31,7 +31,7 @@ class SiteCompany extends Article {
 	var $hasMany = array(
 		'Media' => array(
 			'foreignKey' => 'object_id',
-			'conditions' => array('Media.object_type' => 'Article', 'Media.media_type' => 'image', 'Media.main' => 1),
+			'conditions' => array('Media.object_type' => 'Page', 'Media.media_type' => 'image', 'Media.main' => 1),
 			'dependent' => true,
 			'order' => array('Media.main DESC', 'media_type')
 		)

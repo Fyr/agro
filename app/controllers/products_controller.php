@@ -183,6 +183,7 @@ class ProductsController extends SiteController {
 					$aSubtypes = $this->Category->find('list', array('conditions' => array('Category.object_id' => $value)));
 					$aConditions['Article.object_id'] = array_keys($aSubtypes);
 				} elseif ($key == 'Article.title') {
+					$value = str_replace(array('.', ' ', '-', ',', '/', '\\'), '', $value);
 					$aConditions[] = '(Article.title LIKE "%'.$value.'%" OR Article.title_rus LIKE "%'.$value.'%" OR Article.detail_num LIKE "%'.$value.'%")';
 				} elseif ($key == 'Tag.id') {
 					$aRows = $this->TagObject->find('list', array('fields' => array('TagObject.object_id', 'TagObject.object_type'), 'conditions' => array('TagObject.tag_id' => $value)));
