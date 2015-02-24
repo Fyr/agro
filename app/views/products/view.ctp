@@ -64,11 +64,16 @@
 <?
 		}
 	} else {
+		$src = '/img/default_product.jpg';
+		if ($brand && isset($brand['Media']) && isset($brand['Media'][0]) && $brand['Media'][0]['id']) {
+			$media = $brand['Media'][0];
+			$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext']);
+		}
 ?>
 							<div class="block three3">
 								<br/>
 								<div class="image" style="text-align:center">
-									<img alt="<?=$alt?>" src="/img/default_product.jpg" style="width: 130px" />
+									<img alt="<?=$alt?>" src="<?=$src?>" style="width: 130px" />
 								</div>
 							</div>
 

@@ -5,7 +5,7 @@ class ProductsController extends SiteController {
 
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'core.PHCore', 'Time', 'core.PHTime', 'articles.HtmlArticle', 'ArticleVars');
-	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamValue', 'SiteCategory');
+	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamValue', 'SiteCategory', 'Brand');
 
 	private function getCategoryID($slug) {
 		// return str_replace('-', '', strrchr($category, '-'));
@@ -42,7 +42,7 @@ class ProductsController extends SiteController {
 			'fields' => array(
 				'Category.id', 'Category.title', 'Category.object_type', 'Category.object_id', 'Category.page_id', 
 				'Subcategory.id', 'Subcategory.title', 'Subcategory.object_type', 'Subcategory.object_id', 'Subcategory.page_id', 
-				'Article.object_type', 'Article.title', 'Article.title_rus', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active', 'Article.code'
+				'Article.object_type', 'Article.title', 'Article.title_rus', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active', 'Article.code', 'Article.brand_id'
 			),
 			'order' => array('Article.featured' => 'desc', 'Article.sorting' => 'asc'),
 			'limit' => self::PER_PAGE
@@ -117,6 +117,10 @@ class ProductsController extends SiteController {
 			$page_title = 'Результаты поиска';
 		}
 		$this->set('page_title', $page_title);
+		
+		$conditions = array('Brand.object_type' => 'brands');
+		$brands = Set::combine($this->Brand->find('all', compact('conditions')), '{n}.Brand.id', '{n}');
+		$this->set('brands', $brands);
 	}
 
 	function view($id = 0) {
@@ -132,7 +136,6 @@ class ProductsController extends SiteController {
 			return $this->redirect('/');
 		}
 		
-		// fdebug($this->params);
 		App::import('Helper', 'Router');
 		$this->Router = new RouterHelper();
 		if ($this->params['category'] !== $aArticle['Category']['page_id'] 
@@ -164,6 +167,10 @@ class ProductsController extends SiteController {
 		$categoryID = $aArticle['Category']['id'];
 		$category = $aArticle['Category']['title']; // $this->Category->findById($categoryID);
 		$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', '/products/?data[filter][type_id]='.$categoryID => $category, __('View product', true)); //
+		
+		$conditions = array('Brand.object_type' => 'brands', 'Brand.id' => $aArticle['Article']['brand_id']);
+		$brand = $this->Brand->find('first', compact('conditions'));
+		$this->set('brand', $brand);
 	}
 
 	private function _getFilters() {

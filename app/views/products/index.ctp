@@ -21,6 +21,14 @@
 		foreach($aArticles as $article) {
 			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '130x100', $featured);
 			$title = $article['Article']['code'].' '.$article['Article']['title_rus'];
+			if (!$src) {
+				$media = $brands[$article['Article']['brand_id']]['Media'];
+				if (isset($media[0]) && isset($media[0]['id']) && $media[0]['id']) {
+					$media = $media[0];
+					$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext']);
+				}
+				// $src = $this->PHMedia->getUrl($media['object_type'], $media['id'], $size, $file);
+			}
 			
 ?>
 							<div class="block three" onclick="window.location.href= '<?=$url?>'">

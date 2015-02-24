@@ -25,7 +25,7 @@
 	<td>
 <input type="hidden" id="Article__cat_id" name="data[Article][cat_id]" value="<?=$this->PHA->read($aArticle, 'Article.cat_id')?>" />
 <select onchange="type_onChange(this)" class="autocompleteOff" name="data[Article][subcat_id]" id="Article__subcat_id" autocomplete="off">
-<?=$this->element('choose_type', array('aTypes' => $aTypes, 'selected' => $this->PHA->read($aArticle, 'Article.object_id')));?>
+<?=$this->element('choose_type', array('aTypes' => $aTypes, 'selected' => $this->PHA->read($aArticle, 'Article.subcat_id')));?>
 </select>
 	</td>
 </tr>
