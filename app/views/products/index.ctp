@@ -32,27 +32,36 @@
 			
 ?>
 							<div class="block three" onclick="window.location.href= '<?=$url?>'">
-								<h3><a href="<?=$url?>"><?=$title?></a></h3>
+								<h3>
+<?
+			if ($article['Article']['brand_id'] && isset($brands[$article['Article']['brand_id']])) {
+?>
+									<?=$brands[$article['Article']['brand_id']]['Brand']['title']?><br />
+<?
+			}
+?>
+									<a href="<?=$url?>"><?=$title?></a>
+								</h3>
 										<div class="image" style="text-align:center">
 <?
-	if ($article['Article']['active']) {
+			if ($article['Article']['active']) {
 ?>
 											<img class="is_active" src="/img/active_yes.png" alt="В наличии" />
 <?
-	} else {
+			} else {
 ?>
 											<img class="is_active" src="/img/active_no.png" alt="Не на складе" />
 <?
-	}
-	if ($src) {
+			}
+			if ($src) {
 ?>
 											<a href="<?=$url?>"><img src="<?=$src?>" alt="<?=$title?>" /></a>
 <?
-	} else {
+			} else {
 ?>
 											<img src='/img/default_product.jpg' alt="" style="width: 95px;"/>
 <?
-	}
+			}
 ?>
 										</div>
 <?
