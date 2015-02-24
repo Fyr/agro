@@ -32,6 +32,8 @@
 	echo '<br />';
 	if ($objectType == 'pages') {
 		echo $this->element('admin_edit_page');
+	} elseif ($objectType == 'news') {
+		echo $this->element('admin_edit_news');
 	} else {
 		echo $this->element('admin_edit', array('plugin' => 'articles'));
 	}
