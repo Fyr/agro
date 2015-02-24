@@ -18,7 +18,7 @@
 <?=$this->Html->script($scripts)?>
 <?=$scripts_for_layout?>
 </head>
-<body <? if (!TEST_ENV) { ?> oncopy="return false;" onmousedown="return false;" onclick="return true;" <? } ?>>
+<body <? if (!TEST_ENV) { ?>oncopy="return false;"<? } ?>>
 
 <div class="lines">
 	<div id="wrapper">
@@ -33,7 +33,7 @@
 				</div>
 			</div><!-- header -->
 			<div id="main">
-				<div id="content">
+				<div id="content" oncopy="return false;" onmousedown="return false;" onclick="return true;">
 					<?=$content_for_layout?>
 				</div><!-- content -->
 				<div id="sidebar">
@@ -51,7 +51,7 @@
 			<div class="logos-move">
 				<div class="left"></div>
 				<div class="view">
-					<div class="mover">
+					<div class="mover" style="width: <?=120*count($aBrands) * 10?>px">
 						<div class="mover-in">
 <?
 	for($i = 1; $i <= 10; $i++) {
