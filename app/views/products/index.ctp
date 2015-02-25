@@ -64,14 +64,7 @@
 			}
 ?>
 										</div>
-<?
-			if ($article['Article']['price']) {
-?>
-								<p class="price"><?=PU_.$article['Article']['price']._PU?></p>
-<?
-			}
-?>
-
+										<?=$this->element('price', compact('article', 'prices', 'prices2'))?>
 							</div>
 <?
 		}

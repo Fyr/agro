@@ -13,6 +13,9 @@ define('PATH_FILES_UPLOAD', $_SERVER['DOCUMENT_ROOT'].'files/');
 
 require_once('extra.php');
 
+Configure::write('params.price_ru', 48);
+Configure::write('params.price2_ru', 31);
+
 function ___($string) {
 	return __($string, true);
 }

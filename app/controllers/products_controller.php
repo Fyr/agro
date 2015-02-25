@@ -42,7 +42,7 @@ class ProductsController extends SiteController {
 			'fields' => array(
 				'Category.id', 'Category.title', 'Category.object_type', 'Category.object_id', 'Category.page_id', 
 				'Subcategory.id', 'Subcategory.title', 'Subcategory.object_type', 'Subcategory.object_id', 'Subcategory.page_id', 
-				'Article.object_type', 'Article.title', 'Article.title_rus', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active', 'Article.code', 'Article.brand_id'
+				'Article.id', 'Article.object_type', 'Article.title', 'Article.title_rus', 'Article.page_id', 'Article.teaser', 'Article.featured', 'Article.price', 'Article.active', 'Article.code', 'Article.brand_id'
 			),
 			'order' => array('Article.featured' => 'desc', 'Article.sorting' => 'asc'),
 			'limit' => self::PER_PAGE
@@ -121,6 +121,31 @@ class ProductsController extends SiteController {
 		$conditions = array('Brand.object_type' => 'brands');
 		$brands = Set::combine($this->Brand->find('all', compact('conditions')), '{n}.Brand.id', '{n}');
 		$this->set('brands', $brands);
+		
+		$prices = array();
+		$prices2 = array();
+		if (Configure::read('params.price_ru')) {
+			$ids = Set::extract($aArticles, '{n}.Article.id');
+			$conditions = array(
+				'param_id' => Configure::read('params.price_ru'),
+				'object_id' => $ids
+			);
+			$params = $this->ParamValue->find('all', compact('conditions'));
+			if ($params) {
+				$prices = Set::combine($params, '{n}.ParamValue.object_id', '{n}.ParamValue');
+			}
+			
+			$conditions = array(
+				'param_id' => Configure::read('params.price2_ru'),
+				'object_id' => $ids
+			);
+			$params = $this->ParamValue->find('all', compact('conditions'));
+			if ($params) {
+				$prices2 = Set::combine($params, '{n}.ParamValue.object_id', '{n}.ParamValue');
+			}
+		}
+		$this->set('prices', $prices);
+		$this->set('prices2', $prices2);
 	}
 
 	function view($id = 0) {
