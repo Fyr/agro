@@ -480,3 +480,25 @@ msgstr "Новый дилер"
 
 msgid "Edit dealer"
 msgstr "Редактирование дилера"
+
+msgid "Home"
+msgstr "Главная"
+
+msgid "View brand"
+msgstr "Просмотр брэнда"
+
+msgid "View dealer"
+msgstr "Просмотр дилера"
+
+msgid "Contacts"
+msgstr "Контакты"
+
+msgid "View dealer"
+msgstr "Просмотр дилера"
+
+msgid "View product"
+msgstr "Просмотр запчасти"
+
+msgid "Search results"
+msgstr "Результаты поиска"
+

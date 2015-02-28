@@ -5,7 +5,7 @@ class ContactsController extends SiteController {
 	var $uses = array('articles.Article', 'SitePage', 'Contact');
 	
 	function index() {
-		$this->aBreadCrumbs = array('/' => 'Home', '/contacts/' => 'Contacts', 'Send message');
+		$this->aBreadCrumbs = array('/' => 'Home', 'Contacts');
 		$captchaKey = md5(_SALT.mt_rand()); // any random text
 
 		if (isset($this->data['send'])) {

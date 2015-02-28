@@ -1,7 +1,7 @@
 <?
 /*
-	if ($aItems) {
-		foreach($aItems as $url => $title) {
+	if ($aBreadCrumbs) {
+		foreach($aBreadCrumbs as $url => $title) {
 			if ($url) {
 				echo "<a href=\"{$url}\">{$title}</a>";
 			} else {
@@ -9,11 +9,11 @@
 			}
 		}
 	}
-	*/
+*/
 if ($aBreadCrumbs) {
 ?>
 
-<ul>
+<ul class="bread">
 <?
 	foreach($aBreadCrumbs as $url => $title) {
 		if ($url) {
@@ -30,4 +30,3 @@ if ($aBreadCrumbs) {
 </ul>
 <?
 }
-?>

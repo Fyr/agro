@@ -1,37 +1,31 @@
 <?
 class ProductsController extends SiteController {
 	const PER_PAGE = 51;
-	const PARAM_TITLE_ID = 11; // id=10
 
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'core.PHCore', 'Time', 'core.PHTime', 'articles.HtmlArticle', 'ArticleVars');
 	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamValue', 'SiteCategory', 'Brand');
-
-	private function getCategoryID($slug) {
-		// return str_replace('-', '', strrchr($category, '-'));
-		$cat = $this->SiteCategory->findByPageId($slug);
-		return $cat['Article']['id'];
-	}
+	
+	protected $Router, $category = array(), $subcategory = array();
 
 	function beforeFilterLayout() {
 		parent::beforeFilterLayout();
-
-		$this->categoryID = (isset($this->params['category']) && $this->params['category']) ? $this->getCategoryID($this->params['category']) : '';
-		$this->subcategoryID = (isset($this->params['subcategory']) && $this->params['subcategory']) ? $this->getCategoryID($this->params['subcategory']) : '';
-
+		
+		App::import('Helper', 'Router');
+		$this->Router = new RouterHelper();
+		
 		$catID = 0;
-		if ($this->subcategoryID) {
-			$this->params['url']['data']['filter']['Article.subcat_id'] = $this->subcategoryID;
-			$catID = $this->subcategoryID;
-		} elseif ($this->categoryID) {
-			$this->params['url']['data']['filter']['Article.cat_id'] = $this->categoryID;
-			$catID = $this->categoryID;
-		} elseif (isset($this->params['url']['data']['filter'])) {
-			$this->set('directSearch', true);
+		if (isset($this->params['subcategory']) && $this->params['subcategory']) {
+			$this->subcategory = $this->SiteCategory->findByPageId($this->params['subcategory']);
+			$catID = $this->subcategory['Category']['id'];
+		}
+		if (isset($this->params['category']) && $this->params['category']) {
+			$this->category = $this->SiteCategory->findByPageId($this->params['category']);
+			$catID = $this->category['Article']['id'];
 		}
 
-		if ($this->categoryID) {
-			$this->set('cat_autoOpen', $this->categoryID);
+		if ($catID) {
+			$this->set('cat_autoOpen', $catID);
 		}
 	}
 
@@ -47,75 +41,75 @@ class ProductsController extends SiteController {
 			'order' => array('Article.featured' => 'desc', 'Article.sorting' => 'asc'),
 			'limit' => self::PER_PAGE
 		);
+		
+		$page_title = 'Products';
+		$this->aBreadCrumbs = array('/' => 'Home', $page_title);
+		$this->pageTitle = __($page_title, true);
+		$this->data['SEO'] = array(
+			'keywords' => 'каталог продукции, запчасти для трактора, запчасти для спецтехники, запчасти для автомобилей',
+			'descr' => 'На нашем сайте вы можете приобрести лучшие запчасти для трактора в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт.'
+		);
+		
+		$filter = (isset($this->params['url']['data']['filter'])) ? $this->params['url']['data']['filter'] : array();
+		if ($filter) {
+			$page_title = __('Search results', true);
+			$this->pageTitle = $page_title;
+			$this->aBreadCrumbs = array(
+				'/' => 'Home', 
+				$this->Router->getDir('products') => 'Products', 
+				$page_title
+			);
+			$this->set('directSearch', true);
+		} elseif ($this->subcategory) {
+			$filter['Article.subcat_id'] = $this->subcategory['Article']['id'];
+			
+			$page_title = $this->subcategory['Article']['title'];
+			$this->aBreadCrumbs = array(
+				'/' => 'Home', 
+				$this->Router->getDir('products') => 'Products', 
+				$this->Router->catUrl('products', $this->subcategory['Category']) => $this->subcategory['Category']['title'],
+				$page_title
+			);
+			
+			$seo = null;
+			if (!(isset($this->params['page']) && intval($this->params['page']) > 1)) {
+				$this->set('relatedContent', $this->subcategory);
+				$seo = $this->subcategory['Seo'];
+			}
+			$this->data['SEO'] = $this->Seo->defaultSeo($seo,
+				'Каталог продукции '.$page_title,
+				"каталог продукции {$page_title}, запчасти для тракторов {$page_title}, запчасти для спецтехники {$page_title}, запчасти для {$page_title}",
+				"На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
+			);
+			$this->pageTitle = $this->data['SEO']['title'];
+		} elseif ($this->category) {
+			$page_title = $this->category['Article']['title'];
+			$this->aBreadCrumbs = array(
+				'/' => 'Home', 
+				$this->Router->getDir('products') => 'Products', 
+				$page_title
+			);
+			$filter['Article.cat_id'] = $this->category['Article']['id'];
+			
+			$seo = null;
+			if (!(isset($this->params['page']) && intval($this->params['page']) > 1)) {
+				$this->set('relatedContent', $this->category);
+				$seo = $this->category['Seo'];
+			}
+			$this->data['SEO'] = $this->Seo->defaultSeo($seo,
+				'Каталог продукции '.$page_title,
+				"каталог продукции {$page_title}, запчасти для тракторов {$page_title}, запчасти для спецтехники {$page_title}, запчасти для {$page_title}",
+				"На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
+			);
+			$this->pageTitle = $this->data['SEO']['title'];
+		}
 
-		$aFilters = $this->_getFilters();
+		$aFilters = $this->_getFilters($filter);
 		$this->grid['Article']['conditions'] = array_merge($this->grid['Article']['conditions'], $aFilters['conditions']);
-
+		
 		$aArticles = $this->PCGrid->paginate('Article');
 		$this->set('aArticles', $aArticles);
 		$this->set('aFilters', $aFilters);
-
-		$this->aBreadCrumbs = array('/' => 'Home', 'Products');
-		$page_title = __('Products', true);
-
-		if (isset($this->params['url']['data']['filter']['Article.cat_id']) && $this->params['url']['data']['filter']['Article.cat_id']) {
-			$categoryID = $this->params['url']['data']['filter']['Article.cat_id'];
-			$category = $this->SiteCategory->findById($categoryID);
-			$page_title = $category['Article']['title'];
-			$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', $page_title); // '/products/?data[filter][type_id]='.$categoryID =>
-
-			$relatedContentSeo = null;
-			if (!(isset($this->params['page']) && intval($this->params['page']) > 1)) {
-				/*$relatedContent = $this->Article->find('first', array('conditions' => array(
-					'Article.object_type' => 'category', 'Article.object_id' => $categoryID, 'Article.published' => 1
-				)));
-				*/
-				$this->set('relatedContent', $category);
-				$relatedContentSeo = $category['Seo'];
-			}
-			$this->data['SEO'] = $this->Seo->defaultSeo($relatedContentSeo,
-				'Каталог продукции '.$page_title,
-				"каталог продукции {$page_title}, запчасти для тракторов {$page_title}, запчасти для спецтехники {$page_title}, запчасти для {$page_title}",
-				"На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
-			);
-			$this->pageTitle = $this->data['SEO']['title'];
-		} elseif (isset($this->params['url']['data']['filter']['Article.subcat_id']) && $this->params['url']['data']['filter']['Article.subcat_id']) {
-			$subcategoryID = $this->params['url']['data']['filter']['Article.subcat_id'];
-			$subcategory = $this->SiteCategory->findById($subcategoryID);
-			$categoryID = $subcategory['Article']['object_id'];
-			$category = $this->SiteCategory->findById($categoryID);
-
-			$page_title = $subcategory['Category']['title'];
-			$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', '/products/?data[filter][type_id]='.$categoryID => $category['Category']['title'], $page_title); //
-
-			$relatedContentSeo = null;
-			if (!(isset($this->params['page']) && intval($this->params['page']) > 1)) {
-				/*
-				$relatedContent = $this->Article->find('first', array('conditions' => array(
-					'Article.object_type' => 'category', 'Article.object_id' => $subcategoryID, 'Article.published' => 1
-				)));
-				*/
-				$this->set('relatedContent', $subcategory);
-				$relatedContentSeo = $subcategory['Seo'];
-			}
-			$this->data['SEO'] = $this->Seo->defaultSeo($relatedContentSeo,
-				'Каталог продукции '.$page_title,
-				"каталог продукции {$page_title}, запчасти для тракторов {$page_title}, запчасти для спецтехники {$page_title}, запчасти для {$page_title}",
-				"На нашем сайте вы можете приобрести лучшие запчасти {$page_title} в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт."
-			);
-			$this->pageTitle = $this->data['SEO']['title'];
-		}
-
-		if (!$aFilters['conditions']) {
-			$this->pageTitle = 'Каталог продукции';
-			$this->data['SEO'] = array(
-				'keywords' => 'каталог продукции, запчасти для трактора, запчасти для спецтехники, запчасти для автомобилей',
-				'descr' => 'На нашем сайте вы можете приобрести лучшие запчасти для трактора в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт.'
-			);
-		}
-		if (isset($_GET['data']['filter'])) {
-			$page_title = 'Результаты поиска';
-		}
 		$this->set('page_title', $page_title);
 		
 		$conditions = array('Brand.object_type' => 'brands');
@@ -161,8 +155,6 @@ class ProductsController extends SiteController {
 			return $this->redirect('/');
 		}
 		
-		App::import('Helper', 'Router');
-		$this->Router = new RouterHelper();
 		if ($this->params['category'] !== $aArticle['Category']['page_id'] 
 				|| $this->params['subcategory'] !== $aArticle['Subcategory']['page_id']) {
 			return $this->redirect($this->Router->url($aArticle));
@@ -188,18 +180,20 @@ class ProductsController extends SiteController {
 		));
 		$this->set('aSimilar', $aSimilar);
 		*/
-		// $subcategory = $aArticle['Subcategory'];
-		$categoryID = $aArticle['Category']['id'];
-		$category = $aArticle['Category']['title']; // $this->Category->findById($categoryID);
-		$this->aBreadCrumbs = array('/' => 'Home', '/products/' => 'Products', '/products/?data[filter][type_id]='.$categoryID => $category, __('View product', true)); //
+		$this->aBreadCrumbs = array(
+			'/' => 'Home', 
+			$this->Router->getDir('products') => 'Products', 
+			$this->Router->catUrl('products', $this->category['Article']) => $this->category['Article']['title'],
+			$this->Router->catUrl('products', $this->subcategory['Article']) => $this->subcategory['Article']['title'],
+			'View product'
+		);
 		
 		$conditions = array('Brand.object_type' => 'brands', 'Brand.id' => $aArticle['Article']['brand_id']);
 		$brand = $this->Brand->find('first', compact('conditions'));
 		$this->set('brand', $brand);
 	}
 
-	private function _getFilters() {
-		$filtersData = (isset($this->params['url']['data']['filter'])) ? $this->params['url']['data']['filter'] : array();
+	private function _getFilters($filtersData) {
 		$aConditions = array();
 		$aURL = array();
 		foreach($filtersData as $key => $value) {
@@ -216,8 +210,21 @@ class ProductsController extends SiteController {
 					$aSubtypes = $this->Category->find('list', array('conditions' => array('Category.object_id' => $value)));
 					$aConditions['Article.object_id'] = array_keys($aSubtypes);
 				} elseif ($key == 'Article.title') {
-					$value = str_replace(array('.', ' ', '-', ',', '/', '\\'), '', $value);
-					$aConditions[] = '(Article.title LIKE "%'.$value.'%" OR Article.title_rus LIKE "%'.$value.'%" OR Article.detail_num LIKE "%'.$value.'%")';
+					$_value = str_replace(array('.', ' ', '-', ',', '/', '\\'), '', $value);
+					
+					// ищем запчасти по "марка TC, моторы TC, доп.инфа"
+					$params_ids = implode(',', array(Configure::read('params.markaTS'), Configure::read('params.motorsTS'), Configure::write('params.dopInfa')));
+					
+					$conditions = array("param_id IN ({$params_ids}) AND (ParamValue.value LIKE '%{$value}%' OR ParamValue.value LIKE '%{$_value}%')");
+					$products = $this->ParamValue->find('all', compact('conditions'));
+					$product_ids = implode(',', ($products) ?  Set::extract($products, '{n}.ParamValue.object_id') : array());
+					
+					$aConditions[] = '('.implode(' OR ', array(
+						"Article.title LIKE '%{$value}%'", "Article.title LIKE '%{$_value}%'",
+						"Article.title_rus LIKE '%{$value}%'", "Article.title_rus LIKE '%{$_value}%'",
+						"Article.detail_num LIKE '%{$value}%'", "Article.detail_num LIKE '%{$_value}%'",
+						"Article.id IN ({$product_ids})"
+					)).')';
 				} elseif ($key == 'Tag.id') {
 					/*
 					$aRows = $this->TagObject->find('list', array('fields' => array('TagObject.object_id', 'TagObject.object_type'), 'conditions' => array('TagObject.tag_id' => $value)));

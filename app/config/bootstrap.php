@@ -15,6 +15,9 @@ require_once('extra.php');
 
 Configure::write('params.price_ru', 48);
 Configure::write('params.price2_ru', 31);
+Configure::write('params.markaTS', 33);
+Configure::write('params.motorsTS', 34);
+Configure::write('params.dopInfa', 9);
 
 function ___($string) {
 	return __($string, true);

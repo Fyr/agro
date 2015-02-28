@@ -33,6 +33,6 @@ class NewsController extends SiteController {
 		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title'];
 		$this->data['SEO'] = $aArticle['Seo'];
 
-		$this->aBreadCrumbs = array('/' => 'Home', '/news/' => 'News', 'View article');
+		$this->aBreadCrumbs = array('/' => 'Home', '/news/' => 'News', 'View');
 	}
 }

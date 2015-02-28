@@ -110,3 +110,39 @@
 .dealer-info span {
 	font-weight: bold;
 }
+
+ul.bread {
+	display: block;
+	float: right;
+    margin: -5px 0 0 0;
+}
+
+.bread li{
+	display: block;
+	float: left;
+}
+
+.bread li a, .bread li span{
+	display: inline-block;
+	font: 11px/31px Tahoma, Arial, sans-serif;
+	color: #373737;
+	text-decoration: underline;
+	padding: 0 11px 0 17px;
+	background: url(/img/bread-mark.png) no-repeat left center;
+}
+
+.bread li a:hover{
+	color: #000;
+	text-decoration: none;
+}
+
+.bread li:first-child a{
+	padding: 0 11px 0 26px;
+	background: url(/img/bread-home.png) no-repeat left center;
+}
+
+.bread li a.active, .bread li span {
+	color: #373737;
+	text-decoration: none;
+	font-weight: bold;
+}

@@ -17,6 +17,17 @@
 ?>
 <?=$this->Html->script($scripts)?>
 <?=$scripts_for_layout?>
+<?
+	if (isset($cat_autoOpen)) {
+?>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#cat-nav<?=$cat_autoOpen?> a').click();
+});
+</script>
+<?
+	}
+?>
 </head>
 <body <? if (!TEST_ENV) { ?>oncopy="return false;"<? } ?>>
 
@@ -33,7 +44,8 @@
 				</div>
 			</div><!-- header -->
 			<div id="main">
-				<div id="content" oncopy="return false;" onmousedown="return false;" onclick="return true;">
+				<div id="content" <? if (!TEST_ENV) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } ?>>
+					<?=$this->element('bread_crumbs')?>
 					<?=$content_for_layout?>
 				</div><!-- content -->
 				<div id="sidebar">
