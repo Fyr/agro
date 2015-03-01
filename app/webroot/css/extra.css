@@ -61,6 +61,7 @@
 	font-size: 12px;
 	display: block;
 	height: 55px;
+	line-height: 1.2;
 }
 .block.three:hover .image a img {
 	opacity: 0.5;

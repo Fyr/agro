@@ -118,7 +118,7 @@ class ProductsController extends SiteController {
 		
 		$prices = array();
 		$prices2 = array();
-		if (Configure::read('params.price_ru')) {
+		if ($_SERVER['SERVER_NAME'] == 'agromotors.ru') {
 			$ids = Set::extract($aArticles, '{n}.Article.id');
 			$conditions = array(
 				'param_id' => Configure::read('params.price_ru'),
@@ -213,18 +213,47 @@ class ProductsController extends SiteController {
 					$_value = str_replace(array('.', ' ', '-', ',', '/', '\\'), '', $value);
 					
 					// ищем запчасти по "марка TC, моторы TC, доп.инфа"
-					$params_ids = implode(',', array(Configure::read('params.markaTS'), Configure::read('params.motorsTS'), Configure::write('params.dopInfa')));
+					$params_ids = implode(',', array(Configure::read('params.markaTS'), Configure::read('params.motorsTS'), Configure::read('params.dopInfa')));
 					
 					$conditions = array("param_id IN ({$params_ids}) AND (ParamValue.value LIKE '%{$value}%' OR ParamValue.value LIKE '%{$_value}%')");
 					$products = $this->ParamValue->find('all', compact('conditions'));
-					$product_ids = implode(',', ($products) ?  Set::extract($products, '{n}.ParamValue.object_id') : array());
+					$product_ids = implode(',', ($products) ?  Set::extract($products, '{n}.ParamValue.object_id') : array(0));
 					
-					$aConditions[] = '('.implode(' OR ', array(
+					// поиск по общим номера деталей
+					$numbers = explode(' ', $_value);
+					$ors = array();
+					$order = array();
+					$i = 0;
+					$count = count($numbers);
+					$_count = 0;
+					while ($i < 100 && $count !== $_count) {
+						$i++; // избегать бесконечный цикл
+						foreach ($numbers as $key_ => $value_) {
+							if (trim($value_) != ''){
+								$ors[] = array('Article.detail_num LIKE "%'.trim($value_).'%"');
+								$order[] = 'Article.detail_num LIKE "%'.trim($value_).'%" DESC';
+							}
+						}
+						$products = $this->SiteProduct->find('all', array('conditions' => array('OR' => $ors)));
+						foreach($products as $product) {
+							$numbers = array_merge($numbers, explode(' ', $product['Article']['detail_num']));
+						}
+						$numbers = array_unique($numbers);
+						$_count = $count;
+						$count = count($numbers);
+					}
+					
+					$ors = array(
 						"Article.title LIKE '%{$value}%'", "Article.title LIKE '%{$_value}%'",
 						"Article.title_rus LIKE '%{$value}%'", "Article.title_rus LIKE '%{$_value}%'",
 						"Article.detail_num LIKE '%{$value}%'", "Article.detail_num LIKE '%{$_value}%'",
 						"Article.id IN ({$product_ids})"
-					)).')';
+					);
+					foreach ($numbers as $key_ => $value_) {
+						$ors[] = 'Article.detail_num LIKE "%'.trim($value_).'%"';
+					}
+					
+					$aConditions[] = '('.implode(' OR ', $ors).')';
 				} elseif ($key == 'Tag.id') {
 					/*
 					$aRows = $this->TagObject->find('list', array('fields' => array('TagObject.object_id', 'TagObject.object_type'), 'conditions' => array('TagObject.tag_id' => $value)));

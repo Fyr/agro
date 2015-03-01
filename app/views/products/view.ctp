@@ -107,7 +107,7 @@
 	$class = '';
 	foreach($aParamValues as $param) {
 		$class = ($class == 'odd') ? 'even' : 'odd';
-		if ($param['ParamValue']['param_id'] == 6) { // Мотор показываем как строку
+		if ($param['ParamValue']['param_id'] == Configure::read('params.motor')) { // Мотор показываем как строку
 			$param['Param']['param_type'] = Param::STRING;
 			$param['ParamValue']['value'] = str_replace(',', ', ', $param['ParamValue']['value']);
 		}
