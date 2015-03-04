@@ -35,9 +35,11 @@
 								<h3>
 <?
 			if ($article['Article']['brand_id'] && isset($brands[$article['Article']['brand_id']])) {
+				if (isset($directSearch) && $directSearch) {
 ?>
 									<?=$brands[$article['Article']['brand_id']]['Brand']['title']?><br />
 <?
+				}
 			}
 ?>
 									<a href="<?=$url?>"><?=$title?></a>
@@ -64,7 +66,7 @@
 			}
 ?>
 										</div>
-										<?=$this->element('price', compact('article', 'prices', 'prices2'))?>
+										<p class="price"><?=$this->element('price', compact('article', 'prices', 'prices2'));?></p>
 							</div>
 <?
 		}

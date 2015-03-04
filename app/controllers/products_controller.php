@@ -173,7 +173,8 @@ class ProductsController extends SiteController {
 			'На нашем сайте вы можете приобрести '.str_replace(',', ' ', $aArticle['Article']['title_rus']).' для трактора или спецтехники '.$aArticle['Category']['title'].' в Белорусии. Низкие цены на спецтехнику, быстрая доставка по стране, диагностика, ремонт.'
 		);
 		$this->data['SEO'] = $aArticle['Seo'];
-		$this->set('aParamValues', $this->ParamValue->getValueOptions('ProductParam', $id));
+		$aParamValues = $this->ParamValue->getValueOptions('ProductParam', $id);
+		$this->set('aParamValues', Set::combine($aParamValues, '{n}.ParamValue.param_id', '{n}'));
 		/*
 		$aSimilar = $this->SiteProduct->find('all', array(
 			'conditions' => array('Article.object_type' => 'products', 'Article.published' => 1, 'Article.object_id' => $aArticle['Article']['object_id'], 'Article.id <> ' => $id)

@@ -1,7 +1,7 @@
 <?
 	$price = 0;
 	$prod_id = $article['Article']['id'];
-	if (Configure::read('params.price_ru')) {
+	if ($_SERVER['SERVER_NAME'] == 'agromotors.ru') {
 		if (isset($prices) && isset($prices[$prod_id])) {
 			$price = $prices[$prod_id]['value'];
 		} elseif (isset($prices2) && isset($prices2[$prod_id])) {
@@ -12,7 +12,5 @@
 	}
 
 	if ($price) {
-?>
-	<p class="price"><?=PU_.$price._PU?></p>
-<?
+		echo PU_.$price._PU;
 	}

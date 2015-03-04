@@ -3,6 +3,9 @@
 	$this->PHCore->js(array('jquery.fancybox.js')); //
 	$title = $aArticle['Article']['code'].' '.$aArticle['Article']['title_rus'];
 	$alt = $aArticle['Article']['title_rus'].' '.$aArticle['Article']['detail_num'];
+	
+	$price_ru = Configure::read('params.price_ru');
+	$price2_ru = Configure::read('params.price2_ru');
 ?>
 					<div class="area">
 						<?=$this->element('title', array('title' => $title))?>
@@ -35,9 +38,20 @@
 							<b><?__('Brand')?></b> : <?=$aArticle['Brand']['title']?><br />
 							<!--b><?__('Type')?></b> : <?=$aArticle['Category']['title']?><br /-->
 <?
-	if ($aArticle['Article']['price']) {
+	$price = 0;
+	if ($_SERVER['SERVER_NAME'] == 'agromotors.ru') {
+		if (isset($aParamValues[$price_ru]) && $aParamValues[$price_ru]) {
+			$price = $aParamValues[$price_ru]['ParamValue']['value'];
+		} elseif (isset($aParamValues[$price2_ru]) && $aParamValues[$price2_ru]) {
+			$price = $aParamValues[$price2_ru]['ParamValue']['value'];
+		}
+	} else {
+		$price = $article['Article']['price'];
+	}
+
+	if ($price) {
 ?>
-							<b><?__('Price')?></b> : <?=PU_.$aArticle['Article']['price']._PU?><br />
+							<b><?__('Price')?></b> : <?=PU_.$price._PU?><br />
 <?
 	}
 ?>
@@ -87,10 +101,11 @@
 						<div class="text">
 <?
 	if ($aArticle['Article']['show_detailnum']) {
-		$aParamValues = array_merge(array(array(
+		$aParamValues[''] = array(
 			'ParamValue' => array('param_id' => '', 'value' => $aArticle['Article']['detail_num']),
 			'Param' => array('title' => 'Номер детали', 'param_type' => 4)
-		)), $aParamValues);
+		);
+		ksort($aParamValues);
 	}
 	if ($aParamValues) {
 ?>
@@ -105,9 +120,14 @@
 	<tbody>
 <?
 	$class = '';
-	foreach($aParamValues as $param) {
+	foreach($aParamValues as $param_id => $param) {
+		
+		if ($param_id == $price_ru || $param_id == $price2_ru) {
+			continue;
+		}
+		
 		$class = ($class == 'odd') ? 'even' : 'odd';
-		if ($param['ParamValue']['param_id'] == Configure::read('params.motor')) { // Мотор показываем как строку
+		if ($param_id == Configure::read('params.motor')) { // Мотор показываем как строку
 			$param['Param']['param_type'] = Param::STRING;
 			$param['ParamValue']['value'] = str_replace(',', ', ', $param['ParamValue']['value']);
 		}
