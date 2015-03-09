@@ -1,5 +1,5 @@
 					<div class="area">
-							<?=$this->element('title', array('title' => __('Dealers', true)))?>
+							<?=$this->element('title', array('title' => $content['Article']['title']))?>
 					</div>
 
 <?

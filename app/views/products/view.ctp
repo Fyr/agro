@@ -4,6 +4,7 @@
 	$title = $aArticle['Article']['code'].' '.$aArticle['Article']['title_rus'];
 	$alt = $aArticle['Article']['title_rus'].' '.$aArticle['Article']['detail_num'];
 	
+	$price_by = Configure::read('params.price_by');
 	$price_ru = Configure::read('params.price_ru');
 	$price2_ru = Configure::read('params.price2_ru');
 ?>
@@ -46,7 +47,9 @@
 			$price = $aParamValues[$price2_ru]['ParamValue']['value'];
 		}
 	} else {
-		$price = $article['Article']['price'];
+		if (isset($aParamValues[$price_by]) && $aParamValues[$price_by]) {
+			$price = $aParamValues[$price_by]['ParamValue']['value'];
+		}
 	}
 
 	if ($price) {
@@ -122,7 +125,7 @@
 	$class = '';
 	foreach($aParamValues as $param_id => $param) {
 		
-		if ($param_id == $price_ru || $param_id == $price2_ru) {
+		if (in_array($param_id, array($price_by, $price_ru, $price2_ru))) {
 			continue;
 		}
 		

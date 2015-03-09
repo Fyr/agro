@@ -27,4 +27,4 @@
 <?
 	}
 ?>
-<?=$this->element('pagination2')?>
+<?=$this->element('pagination', array('objectType' => 'news'))?>

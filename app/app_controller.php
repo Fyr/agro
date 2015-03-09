@@ -109,11 +109,11 @@ class SiteController extends AppController {
 
 		// Fixes for menu titles
 		$this->loadModel('SitePage');
-		$aArticleTitles = $this->SitePage->find('list', array('fields' => array('page_id', 'title'), 'conditions' => array('page_id' => array('dealers', 'about-us', 'about-us2', 'contacts1', 'contacts2'))));
+		$aArticleTitles = $this->SitePage->find('list', array('fields' => array('page_id', 'title'), 'conditions' => array('page_id' => array('magazini-zapchastei', 'about-us', 'about-us2', 'contacts1', 'contacts2'))));
 		$this->aMenu['about']['submenu'][0]['title'] = $aArticleTitles['about-us'];
 		$this->aMenu['about']['submenu'][1]['title'] = $aArticleTitles['about-us2'];
-		$this->aMenu['partner']['title'] = $aArticleTitles['dealers'];
-		$this->aBottomLinks['partner']['title'] = $aArticleTitles['dealers'];
+		$this->aMenu['partner']['title'] = $aArticleTitles['magazini-zapchastei'];
+		$this->aBottomLinks['partner']['title'] = $aArticleTitles['magazini-zapchastei'];
 
 		App::import('Helper', 'articles.PHTranslit');
 		$this->Router->PHTranslit = new PHTranslitHelper();
@@ -156,7 +156,7 @@ class AppController extends Controller {
 			array('href' => '/pages/show/about-us.html', 'title' => 'История'),
 			array('href' => '/pages/show/about-us2.html', 'title' => 'Наша миссия')
 		)),
-		'partner' => array('href' => '/dealer/', 'title' => 'Дилеры'),
+		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
 		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
 	);
 
@@ -167,7 +167,7 @@ class AppController extends Controller {
 		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
 		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
 		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
-		'partner' => array('href' => '/dealer/', 'title' => 'Дилеры'),
+		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
 		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
 	);
 	var $aBreadCrumbs = array();

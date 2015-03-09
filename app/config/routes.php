@@ -117,17 +117,43 @@
 		'action' => 'index'
 	));
 	
-	Router::connect('/dealer/page/:page', array(
+	Router::connect('/magazini-zapchastei/page/:page', array(
 		'controller' => 'dealers',
 		'action' => 'index',
 		'page' => '[0-9]+'
 	));
-	Router::connect('/dealer/:id.html', array(
+	Router::connect('/magazini-zapchastei/:id.html', array(
 		'controller' => 'dealers',
 		'action' => 'view',
 		'id' => '[a-z0-9\-]+'
 	));
-	Router::connect('/dealer/', array(
+	Router::connect('/magazini-zapchastei/', array(
 		'controller' => 'dealers',
 		'action' => 'index'
+	));
+	
+	Router::connect('/dealer/page/:page', array(
+		'controller' => 'dealers',
+		'action' => 'redirect_old',
+		'page' => '[0-9]+'
+	));
+	Router::connect('/dealer/:id.html', array(
+		'controller' => 'dealers',
+		'action' => 'redirect_old',
+		'id' => '[a-z0-9\-]+'
+	));
+	Router::connect('/dealer/', array(
+		'controller' => 'dealers',
+		'action' => 'redirect_old'
+	));
+	
+	Router::connect('/news/page/:page', array(
+		'controller' => 'news',
+		'action' => 'index',
+		'page' => '[0-9]+'
+	));
+	Router::connect('/news/:id.html', array(
+		'controller' => 'news',
+		'action' => 'view',
+		'id' => '[a-z0-9\-]+'
 	));

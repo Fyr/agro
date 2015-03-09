@@ -14,6 +14,7 @@ define('PATH_FILES_UPLOAD', $_SERVER['DOCUMENT_ROOT'].'files/');
 require_once('extra.php');
 
 Configure::write('params.motor', 6);
+Configure::write('params.price_by', 47);
 Configure::write('params.price_ru', 48);
 Configure::write('params.price2_ru', 31);
 Configure::write('params.markaTS', 33);

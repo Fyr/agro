@@ -66,7 +66,26 @@
 			}
 ?>
 										</div>
-										<p class="price"><?=$this->element('price', compact('article', 'prices', 'prices2'));?></p>
+<?
+			$price = 0;
+			$prod_id = $article['Article']['id'];
+			if ($_SERVER['SERVER_NAME'] == 'agromotors.ru') {
+				if (isset($prices_ru[$prod_id])) {
+					$price = $prices_ru[$prod_id]['value'];
+				} elseif (isset($prices2_ru[$prod_id])) {
+					$price = $prices2_ru[$prod_id]['value'];
+				}
+			} else {
+				if (isset($prices_by[$prod_id])) {
+					$price = $prices_by[$prod_id]['value'];
+				}
+			}
+			if ($price) {
+?>
+										<p class="price"><?=PU_.$price._PU?></p>
+<?
+			}
+?>
 							</div>
 <?
 		}

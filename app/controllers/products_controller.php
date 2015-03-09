@@ -116,30 +116,42 @@ class ProductsController extends SiteController {
 		$brands = Set::combine($this->Brand->find('all', compact('conditions')), '{n}.Brand.id', '{n}');
 		$this->set('brands', $brands);
 		
-		$prices = array();
-		$prices2 = array();
-		if ($_SERVER['SERVER_NAME'] == 'agromotors.ru') {
-			$ids = Set::extract($aArticles, '{n}.Article.id');
-			$conditions = array(
-				'param_id' => Configure::read('params.price_ru'),
-				'object_id' => $ids
-			);
-			$params = $this->ParamValue->find('all', compact('conditions'));
-			if ($params) {
-				$prices = Set::combine($params, '{n}.ParamValue.object_id', '{n}.ParamValue');
-			}
-			
-			$conditions = array(
-				'param_id' => Configure::read('params.price2_ru'),
-				'object_id' => $ids
-			);
-			$params = $this->ParamValue->find('all', compact('conditions'));
-			if ($params) {
-				$prices2 = Set::combine($params, '{n}.ParamValue.object_id', '{n}.ParamValue');
-			}
+		$prices_by = array();
+		$prices_ru = array();
+		$prices2_ru = array();
+		
+		$ids = Set::extract($aArticles, '{n}.Article.id');
+		
+		$conditions = array(
+			'param_id' => Configure::read('params.price_by'),
+			'object_id' => $ids
+		);
+		$params = $this->ParamValue->find('all', compact('conditions'));
+		if ($params) {
+			$prices_by = Set::combine($params, '{n}.ParamValue.object_id', '{n}.ParamValue');
 		}
-		$this->set('prices', $prices);
-		$this->set('prices2', $prices2);
+		
+		$conditions = array(
+			'param_id' => Configure::read('params.price_ru'),
+			'object_id' => $ids
+		);
+		$params = $this->ParamValue->find('all', compact('conditions'));
+		if ($params) {
+			$prices_ru = Set::combine($params, '{n}.ParamValue.object_id', '{n}.ParamValue');
+		}
+		
+		$conditions = array(
+			'param_id' => Configure::read('params.price2_ru'),
+			'object_id' => $ids
+		);
+		$params = $this->ParamValue->find('all', compact('conditions'));
+		if ($params) {
+			$prices2_ru = Set::combine($params, '{n}.ParamValue.object_id', '{n}.ParamValue');
+		}
+		
+		$this->set('prices_by', $prices_by);
+		$this->set('prices_ru', $prices_ru);
+		$this->set('prices2_ru', $prices2_ru);
 	}
 
 	function view($id = 0) {

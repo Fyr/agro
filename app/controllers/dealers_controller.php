@@ -24,9 +24,24 @@ class DealersController extends SiteController {
 
 		$aArticles = $this->PCGrid->paginate('SiteCompany');
 		$this->set('aArticles', $aArticles);
-		$this->aBreadCrumbs = array('/' => 'Home', 'Dealers');
+		$content = $this->SitePage->findByPageId('magazini-zapchastei');
+		$this->set('content', $content);
 		
-		$this->set('content', $this->SitePage->findByPageId('dealers'));
+		$this->aBreadCrumbs = array('/' => 'Home', $content['Article']['title']);
+		
+		/*
+		$seo = null;
+		if ( !(isset($this->params['page']) && intval($this->params['page']) > 1) ) {
+			$seo = $content['Seo'];
+		}
+		$this->data['SEO'] = $this->Seo->defaultSeo($seo,
+			'Филиалы',
+			'Филиалы',
+			'Филиалы'
+		);
+		*/
+		$this->data['SEO'] = $content['Seo'];
+		$this->pageTitle = $this->data['SEO']['title'];
 	}
 
 	function view() {
@@ -41,6 +56,14 @@ class DealersController extends SiteController {
 		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title'];
 		$this->data['SEO'] = $aArticle['Seo'];
 
-		$this->aBreadCrumbs = array('/' => 'Home', '/dealer/' => 'Dealers', 'View dealer');
+		$content = $this->SitePage->findByPageId('magazini-zapchastei');
+		$this->aBreadCrumbs = array('/' => 'Home', '/dealer/' => $content['Article']['title'], 'View dealer');
+	}
+	
+	function redirect_old() {
+		if (isset($this->params['id']) && $this->params['id']) {
+			return $this->redirect('/magazini-zapchastei/'.$this->params['id'].'.html');
+		}
+		return $this->redirect('/magazini-zapchastei/');
 	}
 }
