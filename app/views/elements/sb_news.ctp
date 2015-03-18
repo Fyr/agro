@@ -1,8 +1,11 @@
 <?
-	$url = '/news/view/'.$article['Article']['id'];
-	$title = $article['Article']['title'];
-	$body = $article['Article']['teaser'];
+	$this->ArticleVars->init($article, $url, $title, $teaser, $src, '80x');
 ?>
-								<p><?=$body?></p>
-								<a href="<?=$url?>" class="more">подробнее</a>
-								<a href="/news/" class="button">Все новости</a>
+<div class="time"><span class="icon clock"></span><?=$this->PHTime->niceShort($article['Article']['created'])?></div>
+<a href="#" class="title"><?=$title?></a>
+<div class="description">
+    <?=$teaser?>
+</div>
+<div class="more">
+    <?=$this->element('more', compact('url'))?>
+</div>

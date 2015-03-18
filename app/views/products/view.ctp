@@ -1,6 +1,6 @@
 <?
 	$this->PHCore->css(array('grid/grid', 'jquery.fancybox'));
-	$this->PHCore->js(array('jquery.fancybox.js')); //
+	$this->PHCore->js(array('jquery.fancybox.pack.js')); //
 	$title = $aArticle['Article']['code'].' '.$aArticle['Article']['title_rus'];
 	$alt = $aArticle['Article']['title_rus'].' '.$aArticle['Article']['detail_num'];
 	
@@ -8,9 +8,8 @@
 	$price_ru = Configure::read('params.price_ru');
 	$price2_ru = Configure::read('params.price2_ru');
 ?>
-					<div class="area">
 						<?=$this->element('title', array('title' => $title))?>
-						<div class="text">
+						<div class="block main">
 
 <?
 	if (isset($aArticle['Media'])) {
@@ -63,21 +62,16 @@
 							</div>
 							<!-- div class="line" style="width: 100%"></div-->
 						</div>
-					</div>
-					<div class="section">
-						<div class="s-frame gallery">
+						<div class="gallery">
 <?
 	if (isset($aArticle['Media']) && $aArticle['Media']) {
 		foreach($aArticle['Media'] as $media) {
 			$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext'].'.png');
 			$orig = $this->PHMedia->getUrl($media['object_type'], $media['id'], 'noresize', $media['file'].$media['ext'].'.png');
 ?>
-							<div class="block three3">
-								<br/>
 								<div class="image" style="text-align:center">
 									<a href="<?=$orig?>" rel="photoalobum"><img alt="<?=$alt?>" src="<?=$src?>" /></a>
 								</div>
-							</div>
 <?
 		}
 	} else {
@@ -87,21 +81,15 @@
 			$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext']);
 		}
 ?>
-							<div class="block three3">
-								<br/>
 								<div class="image" style="text-align:center">
 									<img alt="<?=$alt?>" src="<?=$src?>" style="width: 130px" />
 								</div>
-							</div>
 
 <?
 	}
 ?>
 						</div>
-					</div>
 
-					<div class="area">
-						<div class="text">
 <?
 	if ($aArticle['Article']['show_detailnum']) {
 		$aParamValues[''] = array(
@@ -167,8 +155,6 @@
 	}
 	*/
 ?>
-						</div>
-					</div>
 
 <script type="text/javascript">
 $(document).ready(function(){

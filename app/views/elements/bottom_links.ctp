@@ -1,16 +1,10 @@
-					<ul class="add-nav">
+<ul class="menu clearfix">
 <?
-
 	foreach($aBottomLinks as $id => $item) {
-		if ($id == $currLink) {
+		$class = ($id == $currLink) ? ' class="active"' : '';
 ?>
-						<li><a href="<?=$item['href']?>"><b><?=$item['title']?></b></a></li>
+    <li<?=$class?>><a href="<?=$item['href']?>"><span class="icon smallArrow"></span><?=$item['title']?></a></li>
 <?
-		} else {
-?>
-						<li><a href="<?=$item['href']?>"><?=$item['title']?></a></li>
-<?
-		}
 	}
 ?>
-					</ul>
+</ul>

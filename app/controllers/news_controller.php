@@ -15,7 +15,7 @@ class NewsController extends SiteController {
 	function index() {
 		$this->grid['SiteNews'] = array(
 			'conditions' => array('Article.object_type' => 'news', 'Article.published' => 1),
-			'fields' => array('Article.object_type', 'Article.title', 'Article.page_id', 'Article.teaser', 'Article.featured'),
+			'fields' => array('Article.created', 'Article.object_type', 'Article.title', 'Article.page_id', 'Article.teaser', 'Article.featured'),
 			'order' => array('Article.created' => 'desc'),
 			'limit' => self::PER_PAGE
 		);

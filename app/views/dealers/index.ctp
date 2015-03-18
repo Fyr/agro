@@ -1,34 +1,25 @@
-					<div class="area">
-							<?=$this->element('title', array('title' => $content['Article']['title']))?>
-					</div>
-
+                        <?=$this->element('title', array('title' => $content['Article']['title']))?>
 <?
 	foreach($aArticles as $article) {
-		$this->ArticleVars->init($article, $url, $title, $teaser, $src, '150x', $featured);
+		$this->ArticleVars->init($article, $url, $title, $teaser, $src, '150x', $featured, $id);
 ?>
-					<div class="section">
-						<div class="s-frame">
-							<div class="block one">
+                        <div class="block clearfix">
 <?
 		if ($src) {
 ?>
-										<div class="image">
-											<a href="<?=$url?>"><img src="<?=$src?>" alt="<?=$title?>" /></a>
-										</div>
+                            <a href="<?=$url?>"><img src="<?=$src?>" alt="<?=$title?>" class="thumb"/></a>
 <?
 		}
 ?>
-								<h3><a href="<?=$url?>"><?=$title?></a></h3>
-								<?=$this->element('dealer_details', compact('article'))?>
-								<p><?=$teaser?></p>
-								<a class="more" href="<?=$url?>"><span><?__('read more')?></span></a>
-							</div>
-						</div>
-					</div>
+                            <a href="<?=$url?>" class="title"><?=$title?></a>
+                            <?=$this->element('dealer_details', compact('article'))?>
+                            <div class="description"><?=$teaser?></div>
+                            <div class="more">
+                                <?=$this->element('more', compact('url'))?>
+                            </div>
+                        </div>
 <?
 	}
 ?>
 <?=$this->element('pagination')?>
-<div class="text">
-	<?=$this->HtmlArticle->fulltext($content['Article']['body'])?>
-</div>
+<?=$this->HtmlArticle->fulltext($content['Article']['body'])?>

@@ -14,7 +14,7 @@ class PagesController extends SiteController {
 			'order' => array('Article.featured DESC', 'Article.created DESC'),
 			'limit' => 2
 		));
-		$this->set('aNews', $aNews);
+		$this->set('aHomePageNews', $aNews);
 
 		$aID = array();
 		foreach($this->aFeaturedProducts as $article) {

@@ -8,3 +8,5 @@ define('PU_DIV', ',');
 define('PHONE', '+375 (29) 118 3100');
 define('PHONE2', '+375 (29) 140 1184');
 define('ADDRESS', '220138, г.Минск, ул. Карвата 84-1');
+define('SKYPE', 'deaut_zap');
+define('EMAIL', 'agro@mail.ru');

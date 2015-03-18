@@ -16,7 +16,7 @@
 </table>
 <br/>
 <fieldset>
-<legend>Адреса, телефоны</legend>
+<legend>Контакты</legend>
 <table class="pad5" cellpadding="0" cellspacing="0">
 <?
 	foreach($data2 as $input) {

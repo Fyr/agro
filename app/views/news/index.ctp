@@ -1,29 +1,23 @@
-					<div class="area">
-							<?=$this->element('title', array('title' => __('News', true)))?>
-					</div>
-
+                        <?=$this->element('title', array('title' => __('News', true)))?>
 <?
 	foreach($aArticles as $article) {
 		$this->ArticleVars->init($article, $url, $title, $teaser, $src, '150x', $featured, $id);
 ?>
-					<div class="section">
-						<div class="s-frame">
-							<div class="block one">
+                        <div class="block clearfix">
 <?
 		if ($src) {
 ?>
-										<div class="image">
-											<a href="<?=$url?>"><img src="<?=$src?>" alt="<?=$title?>" /></a>
-										</div>
+                            <a href="<?=$url?>"><img src="<?=$src?>" alt="<?=$title?>" class="thumb"/></a>
 <?
 		}
 ?>
-								<h3><a href="<?=$url?>"><?=$title?></a></h3>
-								<p><?=$teaser?></p>
-								<a class="more" href="<?=$url?>"><span><?__('read more')?></span></a>
-							</div>
-						</div>
-					</div>
+                            <div class="time"><span class="icon clock"></span><?=$this->PHTime->niceShort($article['Article']['created'])?></div>
+                            <a href="<?=$url?>" class="title"><?=$title?></a>
+                            <div class="description"><?=$teaser?></div>
+                            <div class="more">
+                                <?=$this->element('more', compact('url'))?>
+                            </div>
+                        </div>
 <?
 	}
 ?>

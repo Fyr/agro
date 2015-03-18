@@ -1,16 +1,27 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-<title><?=$pageTitle?></title>
+	<title><?=$pageTitle?></title>
 	<meta name="language" content="ru" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
 <?=$this->element('seo_info', array('plugin' => 'seo', 'data' => $this->PHA->read($this->data, 'SEO')))?>
 <?=$this->Html->charset()?>
-<?=$this->Html->css(array('all', 'extra'))?>
-	<!--[if lt IE 9]>
-		<link rel="stylesheet" type="text/css" href="/css/ie.css" />
-	<![endif]-->
+<?=$this->Html->css(array('style', 'fonts', 'smoothDivScroll', 'extra'))?>
+<!--[if gte IE 9]>
+<style type="text/css">
+    .gradient { filter: none; }
+</style>
+<![endif]-->
 <?
-	$scripts = array('jquery-1.7.1.min', 'menu', 'custom');
+	$scripts = array(
+		'jquery-1.11.0.min', 
+		'jquery-ui-1.10.3.custom.min', 
+		'jquery.mousewheel.min', 
+		'jquery.kinetic.min', 
+		'jquery.smoothdivscroll-1.3-min',
+		'doc_ready'
+	);
 	if (!TEST_ENV) {
 		$scripts[] = 'nocopy';
 	}
@@ -22,157 +33,161 @@
 ?>
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#cat-nav<?=$cat_autoOpen?> a').click();
+	$('#cat-nav<?=$cat_autoOpen?> > a').click();
 });
 </script>
 <?
 	}
 ?>
 </head>
-<body <? if (!TEST_ENV) { ?>oncopy="return false;"<? } ?>>
+	<body>
+		<div class="header">
+            <div class="header_back">
+                <div class="inner clearfix">
+                   	<a href="/" class="logo"></a>
+                   	<?=$this->element('main_menu')?>
+                </div>
+            </div>
+            <div class="inner promoContent">
+                <div class="right">
+                    <div class="phones">
+                        <span class="icon phone"></span>
+                        <span class="numbers">
+                            <?=PHONE?><br />
+                            <?=PHONE2?>
+                        </span>
+                    </div>
+                    <div class="address clearfix">
+                        <a href="/contacts/#map" class="icon map"></a>
+                        <span class="text"><?=ADDRESS?></span>
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="skypeName">
+                        <a href="callto:<?=SKYPE?>" class="icon skype"></a>
+                        <a href="callto:<?=SKYPE?>"><?=SKYPE?></a>
+                    </div>
+                    <div class="letter">
+                        <a href="mailto:<?=EMAIL?>" class="icon email"></a>
+                        <a href="mailto:<?=EMAIL?>"><?=EMAIL?></a>
+                    </div>
+                </div>
+                <img src="/img/header.png" alt="" class="promoPicture" />
+            </div>
+            
+        </div>
+        <div class="wrapper clearfix">
+            <form class="searchBlock">
+                <button class="submit">поиск</button>
+                <div class="outerSearch"><input type="text" name="data[filter][Article.title]" placeholder="Введите номер или название запчасти..." /></div>
+            </form>
+            <div class="oneLeftSide">
+                <div class="leftSidebar">
+                    <?=$this->element('sidebar_left')?>
+                </div>
+            </div>
 
-<div class="lines">
-	<div id="wrapper">
-		<div class="w-holder">
-			<div id="header">
-				<div class="logo"><a href="/" title="на Главную">&nbsp;</a></div>
-				<?=$this->element('main_menu')?>
-				<div class="contacts">
-					<span><?=PHONE?>&nbsp;</span>
-					<span><?=PHONE2?>&nbsp;</span>
-					<address><?=ADDRESS?></address>
-				</div>
-			</div><!-- header -->
-			<div id="main">
-				<div id="content" <? if (!TEST_ENV) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } ?>>
-					<?=$this->element('bread_crumbs')?>
-					<?=$content_for_layout?>
-				</div><!-- content -->
-				<div id="sidebar">
-					<?=$this->element('sidebar_left')?>
-				</div><!-- sidebar -->
-			</div><!-- main -->
-		</div>
-	</div><!-- wrapper -->
-</div>
-<div id="footer">
-	<div class="holder">
-		<strong class="headline">наши партнеры</strong>
-		<div id="slider" class="logos-move-wrapper">
-			<div class="arrow-left"></div>
-			<div class="logos-move">
-				<div class="left"></div>
-				<div class="view">
-					<div class="mover" style="width: <?=120*count($aBrands) * 10?>px">
-						<div class="mover-in">
+            <div class="mainColomn clearfix">
+                <div class="mainContent">
+                    <div class="innerMainContent" <? /* if (!TEST_ENV) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } */?>>
+                    	<?=$this->element('bread_crumbs')?>
+                    	<?=$content_for_layout?>
+                    </div>
+                </div>
+                <div class="rightSidebar">
+                    <?=$this->element('sidebar_right')?>
+                </div>
+            </div>
+        </div>
+        <div class="wrapper">
 <?
-	for($i = 1; $i <= 10; $i++) {
-		foreach($aBrands as $article) {
-			$this->ArticleVars->init($article, $url, $title, $teaser, $src, 'noresize');
+	if (isset($aHomePageNews)) {
 ?>
-									<a href="<?=$url?>"><img src="<?=$src?>" alt="<?=$title?>" style="height: 60px;" /></a>
+
+            <div class="headBlock">
+                <div class="text">Новости нашей компании</div>
+                <span class="corner"></span>
+            </div>
+            <div class="block clearfix">
+<?
+		foreach($aHomePageNews as $article) {
+			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '80x');
+?>
+                <div class="companyNews">
+<?
+			if ($src) {
+?>
+                    <img class="img-responsive" src="<?=$src?>" alt="<?=$title?>" />
+<?
+			}
+?>
+                    <div class="time"><span class="icon clock"></span><?=$this->PHTime->niceShort($article['Article']['created'])?></div>
+                    <a href="<?=$url?>" class="title"><?=$title?></a>
+                    <div class="description"><?=$teaser?></div>
+                    <div class="more">
+                        <?=$this->element('more', compact('url'))?>
+                    </div>
+                </div>
 <?
 		}
-	}
 ?>
-
-						</div>
-					</div>
-				</div>
-				<div class="right"></div>
-			</div>
-			<div class="arrow-right"></div>
-		</div><!-- slider -->
-		<div class="bottom">
-			<strong class="logo"><a href="/" title="на Главную">&nbsp;</a></strong>
-			<?=$this->element('bottom_links')?>
-			<div class="info">
-<?
-	if (DOMAIN_NAME == 'agromotors.by') {
-?>
-<!--LiveInternet counter--><script type="text/javascript"><!--
-document.write("<a href='http://www.liveinternet.ru/click' "+
-"target=_blank><img src='//counter.yadro.ru/hit?t14.2;r"+
-escape(document.referrer)+((typeof(screen)=="undefined")?"":
-";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-";"+Math.random()+
-"' alt='' title='LiveInternet: показано число просмотров за 24"+
-" часа, посетителей за 24 часа и за сегодня' "+
-"border='0' width='88' height='31'><\/a>")
-//--></script><!--/LiveInternet-->
-<?
-	} else if (DOMAIN_NAME == 'agromotors.ru') {
-?>
-<!--LiveInternet counter--><script type="text/javascript"><!--
-document.write("<a href='http://www.liveinternet.ru/click' "+
-"target=_blank><img src='//counter.yadro.ru/hit?t14.2;r"+
-escape(document.referrer)+((typeof(screen)=="undefined")?"":
-";s"+screen.width+"*"+screen.height+"*"+(screen.colorDepth?
-screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
-";"+Math.random()+
-"' alt='' title='LiveInternet: показано число просмотров за 24"+
-" часа, посетителей за 24 часа и за сегодня' "+
-"border='0' width='88' height='31'><\/a>")
-//--></script><!--/LiveInternet-->
+            </div>
 <?
 	}
 ?>
-				<ul class="telephone">
+            <div class="headBlock" style="margin-top: 14px">
+                <div class="text">Наши партнеры</div>
+                <span class="corner"></span>
+            </div>
+            
+            <div class="block ourPartners">
+                <div class="leftBack">
+                    <div class="rightBack" id="partnersParade">
 <?
-	$aPhones = array(PHONE);
-	if (PHONE2) {
-		$aPhones[] = PHONE2;
-	}
+	foreach($aBrands as $article) {
+		$this->ArticleVars->init($article, $url, $title, $teaser, $src, 'noresize');
 ?>
-					<li><?=implode(', ', $aPhones)?></li>
-				</ul>
-				<address><?=ADDRESS?></address>
-			</div><!-- info -->
-		</div><!-- bottom -->
-		<div class="shadow-left"></div>
-		<div class="shadow-right"></div>
-	</div>
-</div><!-- footer -->
-<?
-	if (!TEST_ENV) {
-		/*
-<!-- Yandex.Metrika informer -->
-<a href="http://metrika.yandex.ru/stat/?id=19618108&amp;from=informer"
-target="_blank" rel="nofollow"><img src="//bs.yandex.ru/informer/19618108/3_1_FFFFFFFF_EFEFEFFF_0_pageviews"
-style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" title="Яндекс.Метрика: данные за сегодня (просмотры, визиты и уникальные посетители)" onclick="try{Ya.Metrika.informer({i:this,id:19618108,type:0,lang:'ru'});return false}catch(e){}"/></a>
-<!-- /Yandex.Metrika informer -->
-		*/
-?>
-<!-- Yandex.Metrika counter -->
-<script type="text/javascript">
-(function (d, w, c) {
-    (w[c] = w[c] || []).push(function() {
-        try {
-            w.yaCounter19618108 = new Ya.Metrika({id:19618108,
-                    webvisor:true,
-                    clickmap:true,
-                    trackLinks:true,
-                    accurateTrackBounce:true});
-        } catch(e) { }
-    });
-
-    var n = d.getElementsByTagName("script")[0],
-        s = d.createElement("script"),
-        f = function () { n.parentNode.insertBefore(s, n); };
-    s.type = "text/javascript";
-    s.async = true;
-    s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
-
-    if (w.opera == "[object Opera]") {
-        d.addEventListener("DOMContentLoaded", f, false);
-    } else { f(); }
-})(document, window, "yandex_metrika_callbacks");
-</script>
-<noscript><div><img src="//mc.yandex.ru/watch/19618108" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
-<!-- /Yandex.Metrika counter -->
+						<a href="<?=$url?>" target="_blank"><img src="<?=$src?>" alt="<?=$title?>" class="grayscale" /></a>
 <?
 	}
 ?>
-</body>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="wrapper clearfix">
+                <div class="content clearfix">
+                    <a href="/" class="logo"></a>
+                    <?=$this->element('bottom_links')?>
+                    <div class="footerAddress">
+                        <div class="phones">
+                            <span class="icon phone"></span>
+                            <span class="numbers">
+                                <?=PHONE?><br />
+                                <?=PHONE2?>
+                            </span>
+                        </div>
+                        <div class="address clearfix">
+                        	<a href="/contacts/#map" class="icon map"></a>
+                        	<span class="text"><?=ADDRESS?></span>
+                        </div>
+                    </div>
+                    <div class="footerSkypeEmail">
+	                    <div class="skypeName">
+	                        <a href="callto:<?=SKYPE?>" class="icon skype"></a>
+	                        <a href="callto:<?=SKYPE?>"><?=SKYPE?></a>
+	                    </div>
+	                    <div class="letter">
+	                        <a href="mailto:<?=EMAIL?>" class="icon email"></a>
+	                        <a href="mailto:<?=EMAIL?>"><?=EMAIL?></a>
+	                    </div>
+                    </div>
+                </div>
+				<?=$this->element('counters')?>
+                <img src="/img/footer_promo.png" class="footerPromo" alt="" />
+            </div>
+        </div>
+        <div class="footerLine"></div>
+	</body>
 </html>

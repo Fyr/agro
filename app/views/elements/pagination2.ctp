@@ -1,5 +1,4 @@
 <?
-	$iconset = 'iconset2';
 	if ($paginator->numbers()) {
 		
 		if (isset($filterURL) || isset($aFilterArgs)) {
@@ -16,14 +15,12 @@
 		}
 		
 ?>
-<table align="center" class="pagination" border="0" cellpadding="0" cellspacing="0">
-<tr>
-	<td align="right" style="padding-right: 5px;"><? __('Pages');?>:</td>
-	<td><?=$paginator->prev(__('Previous', true), array('escape' => false))?></td>
-	<td align="center" nowrap="nowrap" style="padding: 0px 5px;"><?=$paginator->numbers()?></td>
-	<td><?=$paginator->next(__('Next', true), array('escape' => false))?></td>
-</tr>
-</table>
+<div class="pagination">
+    <? __('Pages');?>:
+    <?=$paginator->prev(__('Previous', true), array('escape' => false))?>
+    <?=$paginator->numbers()?>
+    <?=$paginator->next(__('Next', true), array('escape' => false))?>
+</div>
 <?
 	}
 ?>

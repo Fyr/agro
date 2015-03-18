@@ -1,26 +1,26 @@
-<ul class="nav">
+<ul class="catalog" id="catalog">
 <?
 	foreach($aTypes['type_'] as $type) {
 ?>
 	<li id="cat-nav<?=$type['id']?>">
-		<a class="" href="javascript:void(0)" onclick="showCategories(<?=$type['id']?>)">
-			<span></span><strong><?=$type['title']?></strong>
-		</a>
+        <a href="javascript: void(0)" class="firstLevel"><span class="icon arrow"></span><?=$type['title']?></a>
 <?
 		if (isset($aTypes['type_'.$type['id']])) {
-			echo '<ul class="subnav">';
+?>
+		<ul style="display: none">
+<?
 			foreach($aTypes['type_'.$type['id']] as $subtype) {
 				$url = $this->Router->catUrl('products', $subtype);
 ?>
-			<li>
-				<a href="<?=$url?>"><?=$subtype['title']?></a>
-			</li>
+            <li><a href="<?=$url?>"><span class="icon smallArrow"></span> <?=$subtype['title']?></a></li>
 <?
 			}
-			echo '</ul>';
+?>
+        </ul>
+<?
 		}
 ?>
-	</li>
+    </li>
 <?
 	}
 ?>

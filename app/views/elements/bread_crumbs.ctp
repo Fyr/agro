@@ -1,19 +1,8 @@
+<div style="overflow: hidden">
 <?
-/*
-	if ($aBreadCrumbs) {
-		foreach($aBreadCrumbs as $url => $title) {
-			if ($url) {
-				echo "<a href=\"{$url}\">{$title}</a>";
-			} else {
-				echo "<strong>{$title}</strong>";
-			}
-		}
-	}
-*/
 if ($aBreadCrumbs) {
 ?>
-
-<ul class="bread">
+<ul class="breadCrumbs clearfix">
 <?
 	foreach($aBreadCrumbs as $url => $title) {
 		if ($url) {
@@ -30,3 +19,5 @@ if ($aBreadCrumbs) {
 </ul>
 <?
 }
+?>
+</div>

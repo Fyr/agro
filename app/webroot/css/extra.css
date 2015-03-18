@@ -23,127 +23,30 @@
 	font-family: Verdana;
 	font-size: 12px;
 }
-.pagination {
-	font-size: 12px;
-	margin: 10px auto;
-}
-.pagination span.prev, .pagination span.next {
-	color: #999;
-}
-.block.three3 {
-	width: 150px;
-}
-.block.three3 .image {
-	width: 150px;
-	float: none;
-}
-.block.three {
-	background: #efefef;
-	width: 150px;
-	height: 200px;
-	margin: 10px 5px 10px 0;
-	border: 1px solid #efefef;
-	border-radius:4px;
-	-moz-border-radius:4px;
-	-webkit-border-radius:4px;
-	-khtml-border-radius:4px;
-}
-.block.three:hover {
-	background: #D7D7D7;
-	border: 1px solid #D7D7D7;
-	cursor: pointer;
-}
-.block.three .image {
-	background:  #fff;
-	float: none;
-}
-.block.three h3 {
-	font-size: 12px;
-	display: block;
-	height: 55px;
-	line-height: 1.2;
-}
-.block.three:hover .image a img {
-	opacity: 0.5;
-}
-.contacts {
-	padding: 3px 0 0 31px;
-    width: 199px;
-}
-.contacts address {
-	position: relative;
-	left: -10px;
-	margin-top: 5px;
-}
-.label {
-	font-weight: bold;
-}
-.mapContainer img {
-	cursor: pointer;
-}
-.price {
-	font-size: 11px;
-}
-.logos-move .mover {
-	width: 12000px;
-}
-.is_active {
-	position: absolute;
-	opacity: 0.8;
-}
 .floatR {
 	float: right;
 }
 .floatL {
 	float: left;
 }
-.dealer-info {
-	font-size: 0.8em;
-	margin-bottom: 7px;
-	margin-left: 20px;
-	width: 320px;
-}
 
-.dealer-info b {
-    margin: 7px 0 0;
-    display: inline-block;
+.dealer-info {
+    font-size: 0.8em;
+    margin-bottom: 7px;
+    margin-left: 20px;
 }
 .dealer-info span {
-	font-weight: bold;
+    font-weight: bold;
 }
 
-ul.bread {
-	display: block;
-	float: right;
-    margin: -5px 0 0 0;
-}
+/* -= Fixes =-
 
-.bread li{
-	display: block;
-	float: left;
+.block {
+	margin-bottom: 20px;
 }
+.breadCrumbs li {
+	margin-left: 10px;
+}
+body { font-size: 14px; }
 
-.bread li a, .bread li span{
-	display: inline-block;
-	font: 11px/31px Tahoma, Arial, sans-serif;
-	color: #373737;
-	text-decoration: underline;
-	padding: 0 11px 0 17px;
-	background: url(/img/bread-mark.png) no-repeat left center;
-}
-
-.bread li a:hover{
-	color: #000;
-	text-decoration: none;
-}
-
-.bread li:first-child a{
-	padding: 0 11px 0 26px;
-	background: url(/img/bread-home.png) no-repeat left center;
-}
-
-.bread li a.active, .bread li span {
-	color: #373737;
-	text-decoration: none;
-	font-weight: bold;
-}
+*/

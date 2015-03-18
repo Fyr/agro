@@ -11,8 +11,8 @@
 <?
 	$this->ArticleVars->init($aArticle, $url, $title, $teaser, $src, '200x');
 ?>
-<div class="area">
-	<?=$this->element('title', array('title' => $aArticle['Article']['title']))?>
+<?=$this->element('title', array('title' => $aArticle['Article']['title']))?>
+<div class="block main">
 <?
 	if ($src) {
 ?>
@@ -22,7 +22,5 @@
 ?>
 	<?=$this->element('dealer_details', array('article' => $aArticle))?>
 	<div class="clear"></div>
-	<div class="text">
-		<?=$this->HtmlArticle->fulltext($aArticle['Article']['body'])?>
-	</div>
+	<?=$this->HtmlArticle->fulltext($aArticle['Article']['body'])?>
 </div>

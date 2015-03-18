@@ -1,10 +1,8 @@
-					<div class="area">
-							<?=$this->element('title', array('title' => $page_title))?>
-					</div>
+<?=$this->element('title', array('title' => $page_title))?>
 <?
 	if (!$aArticles) {
 ?>
-	<div class="area">
+	<div class="block main">
 		<b>Не найдено ни одного продукта</b>
 		<p>
 			Пож-ста, измените параметры поиска или нажмите
@@ -15,8 +13,7 @@
 <?
 	} else {
 ?>
-					<div class="section">
-						<div class="s-frame">
+	<div class="catalog clearfix">
 <?
 		foreach($aArticles as $article) {
 			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '130x100', $featured);
@@ -27,45 +24,26 @@
 					$media = $media[0];
 					$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext']);
 				}
-				// $src = $this->PHMedia->getUrl($media['object_type'], $media['id'], $size, $file);
 			}
 			
 ?>
-							<div class="block three" onclick="window.location.href= '<?=$url?>'">
-								<h3>
+							<div id="product_<?=$article['Article']['id']?>" class="block" onclick="window.location.href= '<?=$url?>'">
+								<div class="top">
 <?
 			if ($article['Article']['brand_id'] && isset($brands[$article['Article']['brand_id']])) {
 				if (isset($directSearch) && $directSearch) {
 ?>
-									<?=$brands[$article['Article']['brand_id']]['Brand']['title']?><br />
+									<div class="brand"><?=$brands[$article['Article']['brand_id']]['Brand']['title']?></div>
 <?
 				}
 			}
 ?>
-									<a href="<?=$url?>"><?=$title?></a>
-								</h3>
-										<div class="image" style="text-align:center">
-<?
-			if ($article['Article']['active']) {
-?>
-											<img class="is_active" src="/img/active_yes.png" alt="В наличии" />
-<?
-			} else {
-?>
-											<img class="is_active" src="/img/active_no.png" alt="Не на складе" />
-<?
-			}
-			if ($src) {
-?>
-											<a href="<?=$url?>"><img src="<?=$src?>" alt="<?=$title?>" /></a>
-<?
-			} else {
-?>
-											<img src='/img/default_product.jpg' alt="" style="width: 95px;"/>
-<?
-			}
-?>
-										</div>
+									<a class="title" href="javascript:void(0)"><?=$title?></a>
+								</div>
+								<a class="ava" href="javascript:void(0)">
+									<span class="icon <?=($article['Article']['active']) ? 'available' : 'noAvailable'?>"></span>
+									<img src="<?=($src) ? $src : '/img/default_product.jpg'?>" alt="<?=$title?>" />
+								</a>
 <?
 			$price = 0;
 			$prod_id = $article['Article']['id'];
@@ -82,15 +60,15 @@
 			}
 			if ($price) {
 ?>
-										<p class="price"><?=PU_.$price._PU?></p>
+								<div class="price"><?=PU_.$price._PU?></div>
 <?
 			}
 ?>
 							</div>
 <?
 		}
-?>
-		<div class="clear"></div>
+?>                            
+	</div>
 <?
 		if (isset($directSearch) && $directSearch) {
 			echo $this->element('pagination2', array('filterURL' => $aFilters['url']));
@@ -98,16 +76,13 @@
 			echo $this->element('pagination', array('objectType' => 'products'));
 		}
 ?>
-						</div>
-					</div>
+
 <?
 	}
 
 	if (isset($relatedContent) && $relatedContent) {
 ?>
-					<div class="text" style="margin-top: 20px;">
-						<?=$this->HtmlArticle->fulltext($relatedContent['Article']['body'])?>
-					</div>
+	<?=$this->HtmlArticle->fulltext($relatedContent['Article']['body'])?>
 <?
 	}
 ?>
