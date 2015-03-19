@@ -1,4 +1,4 @@
-<div id="tags" style="position:absolute; width: 200px;">
+<div id="tags" style="position:absolute; width: 200px; height: 20px; overflow: hidden;">
 <?
 	foreach($aTagCloud as $item) {
 		$title = $item['TagcloudLink']['title'];

@@ -53,7 +53,7 @@ class ContactsController extends SiteController {
 	}
 
 	function success() {
-		$this->page_title = 'Contact us';
+		$this->page_title = 'Контакты';
 	}
 
 	function view($id) {

@@ -12,7 +12,7 @@
 	$this->ArticleVars->init($aArticle, $url, $title, $teaser, $src, '200x');
 ?>
 <?=$this->element('title', array('title' => $aArticle['Article']['title']))?>
-<div class="block main">
+<div class="block main clearfix">
 <?
 	if ($src) {
 ?>

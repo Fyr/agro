@@ -39,6 +39,9 @@
     font-weight: bold;
 }
 
+p {  text-align: justify }
+
+
 /* -= Fixes =-
 
 .block {

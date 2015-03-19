@@ -9,7 +9,7 @@
 	$price2_ru = Configure::read('params.price2_ru');
 ?>
 						<?=$this->element('title', array('title' => $title))?>
-						<div class="block main">
+						<div class="block main clearfix">
 
 <?
 	if (isset($aArticle['Media'])) {

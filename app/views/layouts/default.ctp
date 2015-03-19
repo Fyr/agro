@@ -77,7 +77,7 @@ $(document).ready(function(){
             
         </div>
         <div class="wrapper clearfix">
-            <form class="searchBlock">
+            <form class="searchBlock" action="/products/" method="get">
                 <button class="submit">поиск</button>
                 <div class="outerSearch"><input type="text" name="data[filter][Article.title]" placeholder="Введите номер или название запчасти..." /></div>
             </form>
@@ -111,7 +111,7 @@ $(document).ready(function(){
             <div class="block clearfix">
 <?
 		foreach($aHomePageNews as $article) {
-			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '80x');
+			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '400x');
 ?>
                 <div class="companyNews">
 <?
@@ -123,7 +123,7 @@ $(document).ready(function(){
 ?>
                     <div class="time"><span class="icon clock"></span><?=$this->PHTime->niceShort($article['Article']['created'])?></div>
                     <a href="<?=$url?>" class="title"><?=$title?></a>
-                    <div class="description"><?=$teaser?></div>
+                    <div class="description"><p><?=$teaser?></p></div>
                     <div class="more">
                         <?=$this->element('more', compact('url'))?>
                     </div>

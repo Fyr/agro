@@ -2,7 +2,7 @@
 <?
 	if (!$aArticles) {
 ?>
-	<div class="block main">
+	<div class="block main clearfix">
 		<b>Не найдено ни одного продукта</b>
 		<p>
 			Пож-ста, измените параметры поиска или нажмите
@@ -13,7 +13,7 @@
 <?
 	} else {
 ?>
-	<div class="catalog clearfix">
+	<div class="catalog clearfix<?=(isset($directSearch) && $directSearch) ? ' brands' : ''?>">
 <?
 		foreach($aArticles as $article) {
 			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '130x100', $featured);

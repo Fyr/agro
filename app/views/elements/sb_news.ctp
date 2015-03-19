@@ -3,9 +3,7 @@
 ?>
 <div class="time"><span class="icon clock"></span><?=$this->PHTime->niceShort($article['Article']['created'])?></div>
 <a href="#" class="title"><?=$title?></a>
-<div class="description">
-    <?=$teaser?>
-</div>
+<div class="description"><p><?=$teaser?></p></div>
 <div class="more">
     <?=$this->element('more', compact('url'))?>
 </div>

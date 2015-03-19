@@ -1,3 +1,4 @@
+<div class="liveInternet">
 <?
 	if (DOMAIN_NAME == 'agromotors.by') {
 ?>
@@ -67,3 +68,4 @@ style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" tit
 <?
 	}
 ?>
+</div>

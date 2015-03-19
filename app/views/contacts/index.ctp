@@ -1,15 +1,15 @@
 <?=$this->element('title', array('title' => $aArticle2['Article']['title']))?>
-<div class="block main">
+<div class="block main clearfix">
 	<?=$this->HtmlArticle->fulltext($aArticle2['Article']['body'])?>
 </div>
-
+<a name="map"></a>
 <?=$this->element('title', array('title' => $aArticle['Article']['title']))?>
-<div class="block main">
+<div class="block main clearfix">
 	<?=$this->HtmlArticle->fulltext($aArticle['Article']['body'])?>
 </div>
 <?=$this->element('title', array('title' => 'Отправить сообщение'))?>
 <form method="post" action="" id="postForm">
-	<div class="block main">
+	<div class="block main clearfix">
 		<p>Вы можете отправить нам сообщение.<br>Поля, помеченные знаком <span class="required">*</span>, обязательны для заполнения.<br>
 		</p>
 		<div class="error"><?=$errMsg?></div>
