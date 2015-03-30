@@ -88,8 +88,8 @@ $(document).ready(function(){
             </div>
 
             <div class="mainColomn clearfix">
-                <div class="mainContent">
-                    <div class="innerMainContent" <? /* if (!TEST_ENV) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } */?>>
+                <div id="mainContent" class="mainContent">
+                    <div class="innerMainContent" <? if (!TEST_ENV) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } ?>>
                     	<?=$this->element('bread_crumbs')?>
                     	<?=$content_for_layout?>
                     </div>

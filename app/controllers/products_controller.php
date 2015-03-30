@@ -233,7 +233,7 @@ class ProductsController extends SiteController {
 					$product_ids = implode(',', ($products) ?  Set::extract($products, '{n}.ParamValue.object_id') : array(0));
 					
 					// поиск по общим номера деталей
-					$numbers = explode(' ', $_value);
+					$numbers = explode(' ', str_replace(',', ' ', $_value));
 					$ors = array();
 					$order = array();
 					$i = 0;
@@ -249,7 +249,7 @@ class ProductsController extends SiteController {
 						}
 						$products = $this->SiteProduct->find('all', array('conditions' => array('OR' => $ors)));
 						foreach($products as $product) {
-							$numbers = array_merge($numbers, explode(' ', $product['Article']['detail_num']));
+							$numbers = array_merge($numbers, explode(' ', str_replace(',', ' ', $product['Article']['detail_num'])));
 						}
 						$numbers = array_unique($numbers);
 						$_count = $count;
@@ -263,7 +263,9 @@ class ProductsController extends SiteController {
 						"Article.id IN ({$product_ids})"
 					);
 					foreach ($numbers as $key_ => $value_) {
-						$ors[] = 'Article.detail_num LIKE "%'.trim($value_).'%"';
+						if (trim($value_) != ''){
+							$ors[] = 'Article.detail_num LIKE "%'.trim($value_).'%"';
+						}
 					}
 					
 					$aConditions[] = '('.implode(' OR ', $ors).')';
