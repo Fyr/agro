@@ -9,7 +9,8 @@ define('EMAIL_ADMIN_CC', 'fyr.work@gmail.com');
 
 define('_SALT', '_MSTL_');
 
-define('PATH_FILES_UPLOAD', $_SERVER['DOCUMENT_ROOT'].'files/');
+define('PATH_FILES_UPLOAD', $_SERVER['DOCUMENT_ROOT'].'/files/');
+define('PATH_FILES', 'D:/Projects/vitacars.dev/wwwroot/app/webroot/files/');
 
 require_once('extra.php');
 

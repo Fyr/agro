@@ -22,6 +22,7 @@ class SiteArticle extends Article {
 	
 	var $hasMany = array(
 		'Media' => array(
+			'className' => 'MediaProduct',
 			'foreignKey' => 'object_id',
 			'conditions' => array('Media.object_type' => 'Article', 'Media.media_type' => 'image', 'Media.main' => 1),
 			'dependent' => true,

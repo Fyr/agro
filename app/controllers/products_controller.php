@@ -4,7 +4,7 @@ class ProductsController extends SiteController {
 
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'core.PHCore', 'Time', 'core.PHTime', 'articles.HtmlArticle', 'ArticleVars');
-	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamValue', 'SiteCategory', 'Brand');
+	var $uses = array('articles.Article', 'media.Media', 'MediaProduct', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamValue', 'SiteCategory', 'Brand');
 	
 	protected $Router, $category = array(), $subcategory = array();
 
@@ -175,7 +175,7 @@ class ProductsController extends SiteController {
 		$id = $aArticle['Article']['id'];
 		
 		unset($aArticle['Media']);
-		$aArticle['Media'] = $this->Media->getMedia('Article', $aArticle['Article']['id']);
+		$aArticle['Media'] = $this->MediaProduct->getMedia('Product', $aArticle['Article']['id']);
 		$this->set('aArticle', $aArticle);
 
 		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title_rus'];

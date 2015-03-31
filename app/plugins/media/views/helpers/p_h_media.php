@@ -40,17 +40,20 @@ class PHMediaHelper extends AppHelper {
     	return $_ret;
     }
 
-    function getPath($type, $id) {
-    	$page = floor($id/100);
-		$path = PATH_FILES_UPLOAD.strtolower($type).'/'.$page.'/'.$id.'/';
+	function getPath($type, $id) {
+		return $this->getPagePath($type, $id).$id.'/';
+	}
+		
+	function getPagePath($type, $id) {
+		$page = floor($id/100);
+		$path = $this->getTypePath($type).$page.'/';
 		return $path;
-    }
-
-    function getPagePath($type, $id) {
-    	$page = floor($id/100);
-		$path = PATH_FILES_UPLOAD.$type.'/'.$page;
-		return $path;
-    }
+	}
+	
+	function getTypePath($type) {
+		$basePath = (in_array($type, array('news', 'page', 'companies'))) ? PATH_FILES_UPLOAD : PATH_FILES;
+		return $basePath.strtolower($type).'/';
+	}
 
     function getUrl($type, $id, $size, $filename) {
     	$page = floor($id/100);
@@ -58,7 +61,7 @@ class PHMediaHelper extends AppHelper {
     	if (!$size) {
     		$size = 'noresize';
     	}
-		return '/media/router/index/'.$type.'/'.$id.'/'.$size.'/'.$filename;
+		return '/media/router/index/'.strtolower($type).'/'.$id.'/'.$size.'/'.$filename;
     }
 
     function getRawUrl($type, $id, $filename) {

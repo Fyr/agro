@@ -59,8 +59,9 @@ class SiteController extends AppController {
 		$this->set('aErrFields', $this->aErrFields);
 		$this->set('aBreadCrumbs', $this->aBreadCrumbs);
 
-		$this->Article = $this->SiteArticle;
-		$brands = $this->Article->find('all', array(
+		// $this->Article = $this->SiteArticle;
+		$this->loadModel('SiteBrand');
+		$brands = $this->SiteBrand->find('all', array(
 			'conditions' => array('Article.object_type' => 'brands', 'Article.published' => 1)
 		));
 		$this->set('aBrandTypes', $brands);

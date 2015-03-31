@@ -1,8 +1,8 @@
 <?
-class Brand extends AppModel {
-	var $name = 'Brand';
-	var $alias = 'Brand';
+class SiteBrand extends Article {
+	var $name = 'SiteBrand';
 	var $useTable = 'articles';
+	var $alias = 'Article';
 	
 	var $hasOne = array(
 		'Seo' => array(
@@ -22,8 +22,5 @@ class Brand extends AppModel {
 			'order' => array('Media.main DESC', 'media_type')
 		)
 	);
-	
-	function getOptions() {
-		return $this->find('list', array('conditions' => array('object_type' => 'brands')));
-	}
+
 }

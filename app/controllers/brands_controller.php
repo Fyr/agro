@@ -4,12 +4,13 @@ class BrandsController extends SiteController {
 
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'Time', 'core.PHTime', 'articles.HtmlArticle');
-	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'Brand');
+	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'Brand', 'SiteBrand');
 
 	function index() {
 		// $aArticles = $this->Brand->find('all', array('conditions' => array('Brand.object_type' => 'brands', 'published' => 1), 'order' => 'sorting'));
 		// $aArticles = $this->Article->find('all', array('conditions' => array('Article.object_type' => 'brands', 'published' => 1), 'order' => 'sorting'));
 		// $this->set('aArticles', $aArticles);
+		$this->Article = $this->SiteBrand;
 		$this->grid['Article'] = array(
 			'conditions' => array('Article.object_type' => 'brands', 'Article.published' => 1),
 			'fields' => array('Article.object_type', 'Article.title', 'Article.page_id', 'Article.teaser', 'Article.featured'),

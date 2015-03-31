@@ -18,11 +18,14 @@
 		foreach($aArticles as $article) {
 			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '130x100', $featured);
 			$title = $article['Article']['code'].' '.$article['Article']['title_rus'];
+			$brand_id = $article['Article']['brand_id'];
 			if (!$src) {
-				$media = $brands[$article['Article']['brand_id']]['Media'];
-				if (isset($media[0]) && isset($media[0]['id']) && $media[0]['id']) {
-					$media = $media[0];
-					$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext']);
+				if ($brand_id) {
+					$media = $brands[$brand_id]['Media'];
+					if (isset($media[0]) && isset($media[0]['id']) && $media[0]['id']) {
+						$media = $media[0];
+						$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '130x100', $media['file'].$media['ext']);
+					}
 				}
 			}
 			
@@ -30,7 +33,7 @@
 							<div id="product_<?=$article['Article']['id']?>" class="block" onclick="window.location.href= '<?=$url?>'">
 								<div class="top">
 <?
-			if ($article['Article']['brand_id'] && isset($brands[$article['Article']['brand_id']])) {
+			if ($article['Article']['brand_id'] && isset($brands[$brand_id])) {
 				if (isset($directSearch) && $directSearch) {
 ?>
 									<div class="brand"><?=$brands[$article['Article']['brand_id']]['Brand']['title']?></div>
@@ -42,7 +45,7 @@
 								</div>
 								<a class="ava" href="javascript:void(0)">
 									<span class="icon <?=($article['Article']['active']) ? 'available' : 'noAvailable'?>"></span>
-									<img src="<?=($src) ? $src : '/img/default_product.jpg'?>" alt="<?=$title?>" />
+									<img src="<?=($src) ? $src : '/img/default_product100.png'?>" alt="<?=$title?>" />
 								</a>
 <?
 			$price = 0;

@@ -9,6 +9,7 @@ class RouterController extends MediaAppController {
 		$this->PHMedia = new PHMediaHelper();
 
 		$fname = $this->PHMedia->getFileName($type, $id, $size, $filename);
+		fdebug($fname, 'tmp1.log');
 		$aFName = $this->PHMedia->getFileInfo($filename);
 
 		if (file_exists($fname)) {
