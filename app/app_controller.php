@@ -2,7 +2,7 @@
 class SiteController extends AppController {
 	// var $uses = array('articles.Article', 'SiteArticle');
 	var $uses = array('articles.Article');
-	var $aFeaturedProducts, $aEvents;
+	var $aFeaturedProducts, $aEvents, $disableCopy = true;
 
 	// ---------------------
 	// Custom variables
@@ -131,6 +131,8 @@ class SiteController extends AppController {
 		
 		$this->loadModel('TagcloudLink');
 		$this->set('aTagCloud', $this->TagcloudLink->find('all'));
+		
+		$this->set('disableCopy', $this->disableCopy);
 	}
 
 }

@@ -50,6 +50,8 @@ class ContactsController extends SiteController {
 		$this->set('aArticle2', $this->SitePage->findByPageId('contacts2'));
 		$this->set('data', $this->data);
 		$this->set('captchaKey', $captchaKey);
+		
+		$this->disableCopy = false;
 	}
 
 	function success() {

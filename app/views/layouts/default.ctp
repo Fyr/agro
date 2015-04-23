@@ -22,7 +22,7 @@
 		'jquery.smoothdivscroll-1.3-min',
 		'doc_ready'
 	);
-	if (!TEST_ENV) {
+	if (!TEST_ENV && $disableCopy) {
 		$scripts[] = 'nocopy';
 	}
 ?>
@@ -89,7 +89,7 @@ $(document).ready(function(){
 
             <div class="mainColomn clearfix">
                 <div id="mainContent" class="mainContent">
-                    <div class="innerMainContent" <? if (!TEST_ENV) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } ?>>
+                    <div class="innerMainContent" <? if (!TEST_ENV && $disableCopy) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } ?>>
                     	<?=$this->element('bread_crumbs')?>
                     	<?=$content_for_layout?>
                     </div>
