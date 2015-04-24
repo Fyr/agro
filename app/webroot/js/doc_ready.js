@@ -1,5 +1,8 @@
 var flag = true;
 $(document).ready(function(){
+	$('img[align="left"]').css('margin', '10px 10px 10px 0');
+	$('img[align="right"]').css('margin', '10px 0px 10px 10px');
+
 	$('#tags').css('left', -1000);
 	
     $('.menu li a').click(function(){
@@ -29,9 +32,12 @@ $(document).ready(function(){
 	    }
 	}).next().stop().hide();
 	
+	if ($(window).width() <= 983 && $(window).width() > 703 ) {
+		$(".rightSidebar").appendTo($(".oneLeftSide"));
+	}
 	flag = true;        
     $(window).resize(function() {
-        if ($(window).width() <= 1000 && $(window).width() > 720 ) {
+        if ($(window).width() <= 983 && $(window).width() > 703 ) {
             if (flag) {
 			    $(".rightSidebar").appendTo($(".oneLeftSide"));
                 flag = false;

@@ -22,7 +22,7 @@ class RouterHelper extends AppHelper {
 			return $dir.$id.'.html';
 		}
 		
-		if ($aArticle['Article']['object_type'] == 'news') {
+		if (in_array($aArticle['Article']['object_type'], array('news', 'offers'))) {
 			return '/news/view/'.$id.'.html';
 		}
 		

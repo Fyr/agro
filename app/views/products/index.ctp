@@ -13,7 +13,7 @@
 <?
 	} else {
 ?>
-	<div class="catalog clearfix<?=(isset($directSearch) && $directSearch) ? ' brands' : ''?>">
+	<div class="catalogContent clearfix<?=(isset($directSearch) && $directSearch) ? ' brands' : ''?>">
 <?
 		foreach($aArticles as $article) {
 			$this->ArticleVars->init($article, $url, $title, $teaser, $src, '130x100', $featured);
@@ -88,4 +88,32 @@
 	<?=$this->HtmlArticle->fulltext($relatedContent['Article']['body'])?>
 <?
 	}
+?>
+
+<?
+  if (isset($directSearch) && $directSearch) {
+?>
+<script>
+	$(document).ready(function(){
+		if ($(window).width() < 703 ) {
+			$(".mainContent").prependTo($(".oneLeftSide"));
+		}
+        var flag1 = true;
+        $(window).resize(function() {
+            if ($(window).width() < 703 ) {
+                if (flag1) {
+				    $(".mainContent").prependTo($(".oneLeftSide"));
+					
+                    flag1 = false;
+                }
+            }
+            else {
+				$(".mainContent").prependTo($(".mainColomn"));
+                flag1 = true;
+            }
+        });    
+    });
+</script>
+<?
+}
 ?>

@@ -189,5 +189,17 @@ $(document).ready(function(){
             </div>
         </div>
         <div class="footerLine"></div>
+<?
+	if (!TEST_ENV) {
+?>
+ 	<div style="position:fixed;top:50%;left:0px;">
+<!-- mibew button --><a id="mibew-agent-button" href="/app/webroot/mibew/chat?locale=ru" target="_blank" onclick="Mibew.Objects.ChatPopups['552c0eeae6c3cd3e'].open();return false;"><!--<img src="/app/webroot/mibew/b?i=mgreen&amp;lang=ru" border="0" alt="" />-->
+<img src="/app/webroot/mibew/b?i=mgreen&amp;lang=ru" border="0" alt="" style="width: 38px; height: 160px;" />
+</a><script type="text/javascript" src="/app/webroot/mibew/js/compiled/chat_popup.js"></script><script type="text/javascript">Mibew.ChatPopup.init({"id":"552c0eeae6c3cd3e","url":"\/app\/webroot\/mibew\/chat?locale=ru","preferIFrame":true,"modSecurity":false,"width":640,"height":480,"resizable":true,"styleLoader":"\/app\/webroot\/mibew\/chat\/style\/popup"});</script>
+<!-- / mibew button -->
+	</div>
+<?
+	}
+?>
 	</body>
 </html>

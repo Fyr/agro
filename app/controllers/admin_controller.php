@@ -12,6 +12,7 @@ class AdminController extends AppController {
 		'Pages' => '/admin/pagesList/Article.object_type:pages',
 		// 'articles' => '/admin/articlesList/Article.object_type:articles',
 		'News' => '/admin/pagesList/Article.object_type:news',
+		'Offers' => '/admin/pagesList/Article.object_type:offers',
 		// 'photos' => '/admin/articlesList/Article.object_type:photos',
 		// 'videos' => '/admin/articlesList/Article.object_type:videos',
 		// 'comments' => '/admin/commentsList/',
@@ -222,7 +223,8 @@ class AdminController extends AppController {
 
 		$aTitles = array(
 			'news' => __('News', true),
-			'pages' => __('Pages', true)
+			'pages' => __('Pages', true),
+			'offers' => __('Offers', true),
 		);
 		$this->set('pageTitle', $aTitles[$this->currMenu]);
 		$this->set('objectType', $objectType);
@@ -254,12 +256,14 @@ class AdminController extends AppController {
 		if ($id) {
 			$aTitles = array(
 				'news' => __('Edit "News" article', true),
-				'pages' => __('Edit static page', true)
+				'pages' => __('Edit static page', true),
+				'offers' => __('Edit offer', true),
 			);
 		} else {
 			$aTitles = array(
 				'news' => __('New "News" article', true),
-				'pages' => __('New static page', true)
+				'pages' => __('New static page', true),
+				'offers' => __('New offer', true),
 			);
 		}
 		$this->set('pageTitle', $aTitles[$this->currMenu]);

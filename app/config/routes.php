@@ -157,3 +157,14 @@
 		'action' => 'view',
 		'id' => '[a-z0-9\-]+'
 	));
+	
+	Router::connect('/offers/page/:page', array(
+		'controller' => 'offers',
+		'action' => 'index',
+		'page' => '[0-9]+'
+	));
+	Router::connect('/offers/:id.html', array(
+		'controller' => 'offers',
+		'action' => 'view',
+		'id' => '[a-z0-9\-]+'
+	));

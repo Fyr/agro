@@ -154,6 +154,7 @@ class AppController extends Controller {
 		'news' => array('href' => '/news/', 'title' => 'Новости'),
 		'products' => array('href' => '/zapchasti/', 'title' => 'Запчасти'),
 		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
+		'offers' => array('href' => '/offers/', 'title' => 'Акции'),
 		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
 		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас', 'submenu' => array(
 			array('href' => '/pages/show/about-us.html', 'title' => 'История'),

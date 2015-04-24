@@ -502,3 +502,11 @@ msgstr "Просмотр запчасти"
 msgid "Search results"
 msgstr "Результаты поиска"
 
+msgid "Offers"
+msgstr "Акции"
+
+msgid "Edit offer"
+msgstr "Редактировать акцию"
+
+msgid "New offer"
+msgstr "Новая акция"

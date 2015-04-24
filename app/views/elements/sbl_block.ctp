@@ -6,7 +6,7 @@
  * @param str $content - HTML-content for block
  */
 ?>
-<div class="block">
+<div class="block catalogBlock">
     <div class="catalogHead"><?=$title?></div>
     <?=$content?>
 </div>

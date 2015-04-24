@@ -1,4 +1,4 @@
-<div style="overflow: hidden">
+<div style="overflow: hidden; text-align: center;">
 <?
 if ($aBreadCrumbs) {
 ?>
