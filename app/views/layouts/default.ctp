@@ -20,6 +20,7 @@
 		'jquery.mousewheel.min', 
 		'jquery.kinetic.min', 
 		'jquery.smoothdivscroll-1.3-min',
+		'jquery.nivo.slider.pack',
 		'doc_ready'
 	);
 	if (!TEST_ENV && $disableCopy) {

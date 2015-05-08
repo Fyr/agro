@@ -1,3 +1,15 @@
+$(window).load(function() {
+	$('#banner').nivoSlider({
+		effect: 'fade',
+		animSpeed: 250,
+		pauseTime: 3000,
+		directionNav: false,
+		directionNavHide: false,
+		controlNav: false,
+		pauseOnHover: false
+	});
+});
+
 var flag = true;
 $(document).ready(function(){
 	$('img[align="left"]').css('margin', '10px 10px 10px 0');
