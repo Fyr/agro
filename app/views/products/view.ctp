@@ -66,7 +66,7 @@
 <?
 	if (isset($aArticle['Media']) && $aArticle['Media']) {
 		foreach($aArticle['Media'] as $media) {
-			$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '250x', $media['file'].$media['ext'].'.png');
+			$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '400x', $media['file'].$media['ext'].'.png');
 			$orig = $this->PHMedia->getUrl($media['object_type'], $media['id'], 'noresize', $media['file'].$media['ext'].'.png');
 ?>
 								<div class="image" style="text-align:center">
@@ -78,11 +78,11 @@
 		$src = '/img/default_product.jpg';
 		if ($brand && isset($brand['Media']) && isset($brand['Media'][0]) && $brand['Media'][0]['id']) {
 			$media = $brand['Media'][0];
-			$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '250x', $media['file'].$media['ext']);
+			$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], '400x', $media['file'].$media['ext']);
 		}
 ?>
 								<div class="image" style="text-align:center">
-									<img alt="<?=$alt?>" src="<?=$src?>" style="width: 130px" />
+									<img alt="<?=$alt?>" src="<?=$src?>" style="width: 400px" />
 								</div>
 
 <?

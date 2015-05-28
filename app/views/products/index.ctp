@@ -33,13 +33,14 @@
 							<div id="product_<?=$article['Article']['id']?>" class="block" onclick="window.location.href= '<?=$url?>'">
 								<div class="top">
 <?
-			if ($article['Article']['brand_id'] && isset($brands[$brand_id])) {
+			// if ($article['Article']['brand_id'] && isset($brands[$brand_id])) {
 				if (isset($directSearch) && $directSearch) {
+					$catTitle = $article['Category']['title'].' &gt; '.$article['Subcategory']['title']; // $brands[$article['Article']['brand_id']]['Brand']['title']
 ?>
-									<div class="brand"><?=$brands[$article['Article']['brand_id']]['Brand']['title']?></div>
+									<div class="brand"><small><?=$catTitle?></small></div>
 <?
 				}
-			}
+			// }
 ?>
 									<a class="title" href="javascript:void(0)"><?=$title?></a>
 								</div>
