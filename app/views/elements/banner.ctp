@@ -8,7 +8,7 @@
 		$media = $banner['Media'][0];
 		$src = $this->PHMedia->getUrl($media['object_type'], $media['id'], ($media['orig_w'] > $min_w) ? $min_w.'x' : 'noresize', $media['file'].$media['ext']);
 ?>
-<a href="<?=$banner['Banner']['options']['url']?>" style="<?=$style?>">
+<a href="<?=$banner['Banner']['options']['url_img']?>" style="<?=$style?>">
 	<img src="<?=$src?>" alt="<?=$banner['Banner']['options']['alt']?>" />
 </a>
 <?

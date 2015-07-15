@@ -23,7 +23,7 @@
 <tr class="bannerOptions bannerType-<?=BannerType::IMAGE?>" style="display: none">
 	<td>* URL баннера</td>
 	<td>
-		<input type="text" name="data[Banner][options][url]" value="<?=$this->PHA->read($this->data, 'Banner.options.url')?>" style="width: 450px" />
+		<input type="text" name="data[Banner][options][url_img]" value="<?=$this->PHA->read($this->data, 'Banner.options.url_img')?>" style="width: 450px" />
 	</td>
 </tr>
 <tr class="bannerOptions bannerType-<?=BannerType::IMAGE?>" style="display: none">
