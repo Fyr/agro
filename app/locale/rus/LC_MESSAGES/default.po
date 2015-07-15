@@ -94,6 +94,9 @@ msgstr "Сегодня"
 msgid "Yeerday"
 msgstr "Вчера"
 
+msgid "Yesterday"
+msgstr "Вчера"
+
 msgid "back to top"
 msgstr "К началу"
 
@@ -510,3 +513,12 @@ msgstr "Редактировать акцию"
 
 msgid "New offer"
 msgstr "Новая акция"
+
+msgid "Banners"
+msgstr "Баннеры"
+
+msgid "Banner type"
+msgstr "Тип баннера"
+
+msgid "Slot"
+msgstr "Слот"

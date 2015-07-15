@@ -23,7 +23,7 @@
 		'jquery.nivo.slider.pack',
 		'doc_ready'
 	);
-	if (!TEST_ENV && $disableCopy) {
+	if ($disableCopy) {
 		$scripts[] = 'nocopy';
 	}
 ?>
@@ -90,9 +90,25 @@ $(document).ready(function(){
 
             <div class="mainColomn clearfix">
                 <div id="mainContent" class="mainContent">
-                    <div class="innerMainContent" <? if (!TEST_ENV && $disableCopy) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } ?>>
+                    <div class="innerMainContent" <? if ($disableCopy) { ?>oncopy="return false;" onmousedown="return false;" onclick="return true;"<? } ?>>
+<?
+	if (isset($aSlot[1])) {
+		foreach($aSlot[1] as $banner) {
+			$min_w = 1980;
+			echo $this->element('banner', compact('banner', 'min_w'));
+		}
+	}
+?>
                     	<?=$this->element('bread_crumbs')?>
                     	<?=$content_for_layout?>
+<?
+	if (isset($aSlot[2])) {
+		foreach($aSlot[2] as $banner) {
+			$min_w = 1980;
+			echo $this->element('banner', compact('banner', 'min_w'));
+		}
+	}
+?>
                     </div>
                 </div>
                 <div class="rightSidebar">
@@ -191,14 +207,29 @@ $(document).ready(function(){
         </div>
         <div class="footerLine"></div>
 <?
-	if (!TEST_ENV) {
-?>
+// 	if (!TEST_ENV) {
+/*
  	<div style="position:fixed;top:50%;left:0px;">
-<!-- mibew button --><a id="mibew-agent-button" href="/app/webroot/mibew/chat?locale=ru" target="_blank" onclick="Mibew.Objects.ChatPopups['552c0eeae6c3cd3e'].open();return false;"><!--<img src="/app/webroot/mibew/b?i=mgreen&amp;lang=ru" border="0" alt="" />-->
+<a id="mibew-agent-button" href="/app/webroot/mibew/chat?locale=ru" target="_blank" onclick="Mibew.Objects.ChatPopups['552c0eeae6c3cd3e'].open();return false;"><!--<img src="/app/webroot/mibew/b?i=mgreen&amp;lang=ru" border="0" alt="" />-->
 <img src="/app/webroot/mibew/b?i=mgreen&amp;lang=ru" border="0" alt="" style="width: 38px; height: 160px;" />
 </a><script type="text/javascript" src="/app/webroot/mibew/js/compiled/chat_popup.js"></script><script type="text/javascript">Mibew.ChatPopup.init({"id":"552c0eeae6c3cd3e","url":"\/app\/webroot\/mibew\/chat?locale=ru","preferIFrame":true,"modSecurity":false,"width":640,"height":480,"resizable":true,"styleLoader":"\/app\/webroot\/mibew\/chat\/style\/popup"});</script>
-<!-- / mibew button -->
-	</div>
+</div>
+*/
+	if (DOMAIN_NAME == 'agromotors.by') {
+?>
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+(function(){ var widget_id = 'nzJOgSwy2Q';
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);})();</script>
+<!-- {/literal} END JIVOSITE CODE -->
+<?
+	} elseif (DOMAIN_NAME == 'agromotors.ru') {
+?>
+<!-- BEGIN JIVOSITE CODE {literal} -->
+<script type='text/javascript'>
+(function(){ var widget_id = 'z8unW7ZOIo';
+var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = '//code.jivosite.com/script/widget/'+widget_id; var ss = document.getElementsByTagName('script')[0]; ss.parentNode.insertBefore(s, ss);})();</script>
+<!-- {/literal} END JIVOSITE CODE -->
 <?
 	}
 ?>

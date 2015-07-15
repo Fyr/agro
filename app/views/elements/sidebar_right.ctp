@@ -1,16 +1,17 @@
-<a href="/offers/">
-<div id="banner" style="margin-bottom: 20px;">
 <?
-	$options = array();
-	for($i = 1; $i <= 7; $i++) {
-		echo $this->Html->image('banner/banner'.$i.'.png', $options);
-		$options = array('style' => 'display: none');
+	if (isset($aSlot[4])) {
+		foreach($aSlot[4] as $banner) {
+			$min_w = 260;
+			echo $this->element('banner', compact('banner', 'min_w'));
+		}
 	}
-?>
-</div>
-</a>
-<?
 	if ($upcomingEvent) {
 		echo $this->element('sbr_block', array('title' => 'Новости', 'content' => $this->element('sb_news', array('article' => $upcomingEvent))));
+	}
+	if (isset($aSlot[5])) {
+		foreach($aSlot[5] as $banner) {
+			$min_w = 260;
+			echo $this->element('banner', compact('banner', 'min_w'));
+		}
 	}
 ?>
