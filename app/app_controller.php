@@ -132,7 +132,19 @@ class SiteController extends AppController {
 		$this->loadModel('TagcloudLink');
 		$this->set('aTagCloud', $this->TagcloudLink->find('all'));
 		
-		$this->set('disableCopy', $this->disableCopy);
+		$this->set('disableCopy', !TEST_ENV && $this->disableCopy);
+		
+		$this->loadModel('SlotPlace');
+		$this->loadModel('Banner');
+		$this->loadModel('BannerType');
+		$aSlot = array();
+		foreach($this->SlotPlace->getOptions() as $slot_id => $title) {
+			$conditions = array('slot' => $slot_id, 'active' => 1);
+			$order = 'Banner.sorting';
+			$aSlot[$slot_id] = $this->Banner->find('all', compact('conditions', 'order'));
+		}
+		$this->set('aSlot', $aSlot);
+		
 	}
 
 }

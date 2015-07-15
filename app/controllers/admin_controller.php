@@ -5,7 +5,7 @@ class AdminController extends AppController {
 	var $components = array('Auth', 'articles.PCArticle', 'grid.PCGrid', 'params.PCParam');
 	var $helpers = array('Text', 'Session', 'core.PHFcke', 'core.PHCore', 'core.PHA', 'grid.PHGrid');
 
-	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory', 'tags.TagcloudLink', 'SitePage', 'SiteCompany');
+	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory', 'tags.TagcloudLink', 'SitePage', 'SiteCompany', 'SlotPlace', 'BannerType', 'Banner');
 	// var $helpers = array('Html'); // 'Form', 'Fck', 'Ia'
 
 	var $aMenu = array(
@@ -24,6 +24,7 @@ class AdminController extends AppController {
 		'Brands' => '/admin/brandList',
 		'tagcloud' => '/admin/tagcloud/',
 		'Dealers' => '/admin/companiesList/',
+		'Banners' => '/admin/bannerList/',
 		'Settings' => '/admin/settings',
 		
 	);
@@ -487,9 +488,40 @@ class AdminController extends AppController {
 		$this->set('objectType', $objectType);
 	}
 	
+	function bannerList() {
+		$this->currMenu = 'Banners';
+		$this->grid['Banner'] = array(
+			'fields' => array('title', 'type', 'slot', 'sorting', 'active'),
+			'captions' => array('Banner.type' => __('Banner type', true), 'Banner.slot' => __('Slot', true), 'Banner.active' => 'Активен'),
+			'order' => array('slot' => 'asc', 'sorting' => 'asc')
+		);
+		$this->PCGrid->paginate('Banner');
+	}
+	
+	function bannerEdit($id = 0) {
+		$this->currMenu = 'Banners';
+		
+		if (isset($this->data)) {
+			$this->data['Banner']['active'] = (isset($this->data['Banner']['active']) && $this->data['Banner']['active']);
+			$this->Banner->save($this->data);
+			$banner = $this->Banner->findById($id);
+			
+			return $this->redirect('/admin/bannerEdit/'.$this->Banner->id);
+		} else {
+			$this->data = $this->Banner->findById($id);
+			if (!$id) {
+				$this->data['Banner']['active'] = 1;
+				$this->data['Banner']['sorting'] = 1;
+			}
+		}
+		
+		$this->set('slotPlaceOptions', $this->SlotPlace->getOptions());
+		$this->set('bannerTypeOptions', $this->BannerType->getOptions());
+	}
+	
 	function companiesList() {
 		$this->Article = $this->SiteCompany;
-		$this->currMenu = 'companies';
+		$this->currMenu = 'Dealers';
 		$this->grid['SiteCompany'] = array(
 			'fields' => array('Company.id', 'Article.title', 'Company.phones', 'Company.address', 'Company.email', 'Company.site_url', 'Article.published'),
 			'captions' => array('Company.site_url' => __('Site', true), 'Company.phones' => __('Phone', true)),
@@ -500,6 +532,8 @@ class AdminController extends AppController {
 	}
 
 	function companiesEdit($id = 0) {
+		$this->currMenu = 'Dealers';
+		
 		$this->Article = $this->SiteCompany;
 		$objectType = 'companies';
 		$this->currMenu = $objectType;

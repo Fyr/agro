@@ -72,36 +72,20 @@ class Media extends AppModel
 
 				$newFName = $this->uploadFile($data['inputName'], $path, &$justName, &$justExt);
 				$aSave = array('id' => $id, 'file' => $justName, 'ext' => $justExt);
-				/*
-				$aSave = array('id' => $id, 'file' => $justName, 'ext' => $justExt);
-				if ($data['media_type'] == 'image' && isset($data['makeThumb']) && $data['makeThumb']) {
-					App::import('Vendor', 'Image', array('file' => 'image.class.php'));
-					$img = new Image();
-
-					if (!defined('THUMB_X')) {
-						define('THUMB_X', 100);
-					}
-					if (!defined('THUMB_Y')) {
-						define('THUMB_Y', 100);
-					}
-
-					$aDefault = array('thumbX' => THUMB_X, 'thumbY' => THUMB_Y, 'thumbBkg' => 'FFFFFF');
-					$data = array_merge($aDefault, $data);
-
-					if ($img->load($path.$newFName)) {
-						$img->resize($data['thumbX'], $data['thumbY']);
-						$thumb = $justName.'_thumb.gif';
-						$img->outputGIF($path.$thumb);
-					}
-
-					// $img = new Image();
-					if ($img->load($path.$newFName)) {
-						$img->resize($data['thumbX'], 0);
-						$thumb = $justName.'_thumb_w.gif';
-						$img->outputGIF($path.$thumb);
-					}
+				
+				if ($data['media_type'] == 'image') {
+					// Save original image resolution and file size
+					$file = $this->PHMedia->getFileName($objectType, $id, null, $justName.$justExt);
+					
+					App::import('Vendor', 'Image', array('file' => '../plugins/media/vendors/image.class.php'));
+					$image = new Image();
+					$image->load($file);
+					$aSave = array_merge($aSave, array('orig_w' => $image->getSizeX(), 'orig_h' => $image->getSizeY(), 'orig_fsize' => filesize($file)));
+					
+					// Set main image if it was first image
+					// $this->initMain($object_type, $object_id);
 				}
-				*/
+				
 				$_ret = $_ret && parent::save($aSave);
 
 			}
