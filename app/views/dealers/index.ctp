@@ -21,5 +21,5 @@
 <?
 	}
 ?>
-<?=$this->element('pagination')?>
+<?=$this->element('pagination', array('objectType' => 'dealers'))?>
 <?=$this->HtmlArticle->fulltext($content['Article']['body'])?>
