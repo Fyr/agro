@@ -168,3 +168,14 @@
 		'action' => 'view',
 		'id' => '[a-z0-9\-]+'
 	));
+	
+	Router::connect('/motors/page/:page', array(
+		'controller' => 'motors',
+		'action' => 'index',
+		'page' => '[0-9]+'
+	));
+	Router::connect('/motors/:id.html', array(
+		'controller' => 'motors',
+		'action' => 'view',
+		'id' => '[a-z0-9\-]+'
+	));

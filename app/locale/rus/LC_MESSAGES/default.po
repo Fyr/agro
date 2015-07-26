@@ -522,3 +522,12 @@ msgstr "Тип баннера"
 
 msgid "Slot"
 msgstr "Слот"
+
+msgid "Motors"
+msgstr "Техника"
+
+msgid "New motor"
+msgstr "Новая техника"
+
+msgid "Edit motor"
+msgstr "Редактировать технику"

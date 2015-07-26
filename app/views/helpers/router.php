@@ -22,8 +22,8 @@ class RouterHelper extends AppHelper {
 			return $dir.$id.'.html';
 		}
 		
-		if (in_array($aArticle['Article']['object_type'], array('news', 'offers'))) {
-			return '/news/view/'.$id.'.html';
+		if (in_array($aArticle['Article']['object_type'], array('news', 'offers', 'motors'))) {
+			return '/'.$aArticle['Article']['object_type'].'/'.$id.'.html';
 		}
 		
 		if ($aArticle['Article']['object_type'] == 'products') {

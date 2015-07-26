@@ -32,7 +32,7 @@
 	echo '<br />';
 	if ($objectType == 'pages') {
 		echo $this->element('admin_edit_page');
-	} elseif ($objectType == 'news' || $objectType == 'offers') {
+	} elseif (in_array($objectType, array('news', 'offers', 'motors'))) {
 		echo $this->element('admin_edit_news');
 	} else {
 		echo $this->element('admin_edit', array('plugin' => 'articles'));

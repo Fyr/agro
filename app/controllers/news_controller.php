@@ -27,9 +27,6 @@ class NewsController extends SiteController {
 	}
 
 	function view($id = '') {
-		if ($id) {
-			return $this->redirect('/news/'.$id);
-		}
 		$id = $this->params['id'];
 		$aArticle = $this->PCArticle->view($id);
 		$this->set('aArticle', $aArticle);

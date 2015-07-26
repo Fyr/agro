@@ -111,10 +111,14 @@ class SiteController extends AppController {
 		// Fixes for menu titles
 		$this->loadModel('SitePage');
 		$aArticleTitles = $this->SitePage->find('list', array('fields' => array('page_id', 'title'), 'conditions' => array('page_id' => array('magazini-zapchastei', 'about-us', 'about-us2', 'contacts1', 'contacts2'))));
-		$this->aMenu['about']['submenu'][0]['title'] = $aArticleTitles['about-us'];
-		$this->aMenu['about']['submenu'][1]['title'] = $aArticleTitles['about-us2'];
+		// $this->aMenu['about']['title'] = $aArticleTitles['about-us'];
 		$this->aMenu['partner']['title'] = $aArticleTitles['magazini-zapchastei'];
 		$this->aBottomLinks['partner']['title'] = $aArticleTitles['magazini-zapchastei'];
+		if (DOMAIN_NAME == 'agromotors.by' || TEST_ENV) {
+			unset($this->aMenu['home']);
+		} elseif (DOMAIN_NAME == 'agromotors.ru') {
+			unset($this->aMenu['motors']);
+		}
 
 		App::import('Helper', 'articles.PHTranslit');
 		$this->Router->PHTranslit = new PHTranslitHelper();
@@ -168,10 +172,8 @@ class AppController extends Controller {
 		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
 		'offers' => array('href' => '/offers/', 'title' => 'Акции'),
 		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
-		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас', 'submenu' => array(
-			array('href' => '/pages/show/about-us.html', 'title' => 'История'),
-			array('href' => '/pages/show/about-us2.html', 'title' => 'Наша миссия')
-		)),
+		'motors' => array('href' => '/motors/', 'title' => 'Техника'),
+		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
 		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
 		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
 	);
@@ -182,6 +184,7 @@ class AppController extends Controller {
 		'products' => array('href' => '/zaphasti/', 'title' => 'Запчасти'),
 		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
 		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
+		'motors' => array('href' => '/motors/', 'title' => 'Техника'),
 		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
 		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
 		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')

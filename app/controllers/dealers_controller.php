@@ -1,6 +1,6 @@
 <?
 class DealersController extends SiteController {
-	const PER_PAGE = 10;
+	const PER_PAGE = 100;
 
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'Time', 'core.PHTime', 'articles.HtmlArticle');

@@ -22,6 +22,7 @@ class AdminController extends AppController {
 		// 'Categories' => '/admin/tagsList/',
 		'Tech.parameters' => '/admin/paramsList/',
 		'Brands' => '/admin/brandList',
+		'Motors' => '/admin/pagesList/Article.object_type:motors',
 		'tagcloud' => '/admin/tagcloud/',
 		'Dealers' => '/admin/companiesList/',
 		'Banners' => '/admin/bannerList/',
@@ -226,6 +227,7 @@ class AdminController extends AppController {
 			'news' => __('News', true),
 			'pages' => __('Pages', true),
 			'offers' => __('Offers', true),
+			'motors' => __('Motors', true),
 		);
 		$this->set('pageTitle', $aTitles[$this->currMenu]);
 		$this->set('objectType', $objectType);
@@ -259,12 +261,14 @@ class AdminController extends AppController {
 				'news' => __('Edit "News" article', true),
 				'pages' => __('Edit static page', true),
 				'offers' => __('Edit offer', true),
+				'motors' => __('Edit motor', true),
 			);
 		} else {
 			$aTitles = array(
 				'news' => __('New "News" article', true),
 				'pages' => __('New static page', true),
 				'offers' => __('New offer', true),
+				'motors' => __('New motor', true),
 			);
 		}
 		$this->set('pageTitle', $aTitles[$this->currMenu]);
@@ -472,7 +476,8 @@ class AdminController extends AppController {
 
 		if ($lSaved) {
 			// $this->PCParam->valuesEdit('ProductParam', $id);
-			// $this->redirect('/admin/productEdit/'.$id);
+			$this->redirect('/admin/brandEdit/'.$id);
+			return;
 		}
 
 		if ($id) {
@@ -557,7 +562,6 @@ class AdminController extends AppController {
 		$this->set('aArticle', $aArticle);
 		$this->set('objectType', $objectType);
 	}
-
 
 	function settings() {
 		if (isset($this->data)) {

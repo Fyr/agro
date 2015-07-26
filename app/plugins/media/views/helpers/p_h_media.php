@@ -51,7 +51,7 @@ class PHMediaHelper extends AppHelper {
 	}
 	
 	function getTypePath($type) {
-		$basePath = (in_array(strtolower($type), array('news', 'page', 'companies', 'banner'))) ? PATH_FILES_UPLOAD : PATH_FILES;
+		$basePath = (in_array(strtolower($type), array('news', 'page', 'companies', 'banner', 'motors'))) ? PATH_FILES_UPLOAD : PATH_FILES;
 		return $basePath.strtolower($type).'/';
 	}
 
