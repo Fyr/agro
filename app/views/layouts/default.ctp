@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no, maximum-scale=1.0, initial-scale=1.0, minimum-scale=1.0">
 <?=$this->element('seo_info', array('plugin' => 'seo', 'data' => $this->PHA->read($this->data, 'SEO')))?>
 <?=$this->Html->charset()?>
-<?=$this->Html->css(array('style', 'fonts', 'smoothDivScroll', 'extra'))?>
+<?=$this->Html->css(array('style', 'fonts', 'smoothDivScroll', 'extra', 'jquery.fancybox'))?>
 <!--[if gte IE 9]>
 <style type="text/css">
     .gradient { filter: none; }
@@ -21,6 +21,7 @@
 		'jquery.kinetic.min', 
 		'jquery.smoothdivscroll-1.3-min',
 		'jquery.nivo.slider.pack',
+		'jquery.fancybox.pack',
 		'doc_ready'
 	);
 	if ($disableCopy) {

@@ -197,28 +197,20 @@ class AdminController extends AppController {
 				'fields' => array('title', 'page_id'),
 				'hidden' => array('body')
 			);
+		} elseif ($objectType == 'motors') {
+			$grid = array(
+				'conditions' => array('Article.object_type' => $objectType),
+				'fields' => array('title', 'page_id', 'featured', 'published', 'sorting'),
+				'hidden' => array('body'),
+				'order' => array('Article.sorting' => 'asc')
+			);
 		} else { // if ($objectType == 'news')
 			$grid = array(
 				'conditions' => array('Article.object_type' => $objectType),
 				'fields' => array('title', 'page_id', 'featured', 'published'),
 				'hidden' => array('body')
 			);
-		}/* else {
-			$grid = array(
-				'conditions' => array('Article.object_type' => $objectType),
-				'fields' => array('modified', 'Category.title', 'title', 'featured', 'published'),
-				'hidden' => array('body'),
-				'captions' => array('Category.title' => __('Category', true)),
-				'filters' => array(
-					'Category.title' => array(
-						'filterType' => 'dropdown',
-						'filterOptions' => $this->Category->getOptions($objectType),
-						'conditions' => array('Article.object_id' => '{$value}')
-					)
-				)
-			);
 		}
-		*/
 		$this->Article = $this->SitePage;
 		$this->grid['SitePage'] = $grid;
 		$this->PCGrid->paginate('SitePage');

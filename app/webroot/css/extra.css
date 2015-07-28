@@ -53,3 +53,5 @@ p {  text-align: justify }
 body { font-size: 14px; }
 
 */
+
+.block.main iframe {width: 100% !important;}

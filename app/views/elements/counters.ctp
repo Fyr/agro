@@ -1,7 +1,7 @@
-<div class="liveInternet">
 <?
 	if (DOMAIN_NAME == 'agromotors.by') {
 ?>
+<div class="liveInternet">
 <!--LiveInternet counter--><script type="text/javascript"><!--
 document.write("<a href='http://www.liveinternet.ru/click' "+
 "target=_blank><img src='//counter.yadro.ru/hit?t14.2;r"+
@@ -13,7 +13,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 " часа, посетителей за 24 часа и за сегодня' "+
 "border='0' width='88' height='31'><\/a>")
 //--></script><!--/LiveInternet-->
-
+</div>
 <!-- Код тега ремаркетинга Google -->
 <script type="text/javascript">
 /* <![CDATA[ */
@@ -32,6 +32,7 @@ var google_remarketing_only = true;
 <?
 	} else if (DOMAIN_NAME == 'agromotors.ru') {
 ?>
+<div class="liveInternet">
 <!--LiveInternet counter--><script type="text/javascript"><!--
 document.write("<a href='http://www.liveinternet.ru/click' "+
 "target=_blank><img src='//counter.yadro.ru/hit?t14.2;r"+
@@ -43,6 +44,7 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 " часа, посетителей за 24 часа и за сегодня' "+
 "border='0' width='88' height='31'><\/a>")
 //--></script><!--/LiveInternet-->
+</div>
 <?
 	}
 	if (!TEST_ENV) {
@@ -84,4 +86,3 @@ style="width:88px; height:31px; border:0;" alt="Яндекс.Метрика" tit
 <?
 	}
 ?>
-</div>

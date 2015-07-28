@@ -119,11 +119,11 @@ a:hover { text-decoration: none;}
 
 
 .leftSidebar {  margin-top: -69px;}
-.rightSidebar { float: right; width: 260px; margin-top: -69px;}
-.mainContent { /*margin: 0 271px 0 238px;*/ margin-right: -271px; float: left; width: 100%;  }
-.innerMainContent { margin-right: 271px;}
+.rightSidebar { float: right; width: 228px; margin-top: -79px;}
+.mainContent { /*margin: 0 271px 0 238px;*/ margin-right: -239px; float: left; width: 100%;  }
+.innerMainContent { margin-right: 239px;}
 .mainColomn { margin-left: 238px;}
-.searchBlock { margin: 0 271px 0 238px; }
+.searchBlock { margin: 0 239px 0 238px; }
 .oneLeftSide { float: left; width: 228px;}
 
 
@@ -469,7 +469,7 @@ img.grayscale {
 	.breadCrumbs { margin-bottom: 20px; margin-right: 0; float:none; display: inline-block;}
 }
 
-.liveInternet { position: absolute; bottom: 0; right: 22%;}
+.liveInternet { position: absolute; bottom: 15px; right: 18%;}
 
 @media (max-width: 720px)  { .liveInternet { right: 10px; bottom: 110px; } }
 @media (max-width: 470px)  { .liveInternet { bottom: 70px; } }

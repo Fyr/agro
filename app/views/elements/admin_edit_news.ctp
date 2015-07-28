@@ -26,6 +26,11 @@ function translit(str) {
 	return ru2en.tr_url(str);
 }
 </script>
+<?
+	if ($objectType == 'motors') {
+		echo $this->element('std_input', array('plugin' => 'core', 'caption' => __('Sorting order', true), 'class' => 'autocompleteOff', 'required' => true, 'field' => 'Article.sorting', 'data' => $aArticle, 'size' => 2));
+	}
+?>
 <tr>
 	<td colspan="2">
 		<? __('Teaser'); ?><br />

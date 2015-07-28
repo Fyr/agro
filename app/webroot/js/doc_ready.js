@@ -82,4 +82,17 @@ $(document).ready(function(){
 	}).bind("mouseout", function() {
 	    $(this).smoothDivScroll("startAutoScrolling");
 	});
+	
+	// auto fancy-box for images
+	$('.block.main img').each(function(){
+		$(this).wrap(function(){
+			return '<a class="fancybox" href="' + this.src.replace(/\d+x\d*/g, 'noresize') + '" rel="photoalbum"></a>';
+		});
+	});
+	if ($('.fancybox').length) {
+		console.log($('.fancybox').length);
+		$('.fancybox').fancybox({
+			padding: 5
+		});
+	}
 });

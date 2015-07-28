@@ -8,22 +8,22 @@ class MotorsController extends SiteController {
 	// var $name = 'news';
 	var $components = array('articles.PCArticle', 'grid.PCGrid');
 	var $helpers = array('core.PHA', 'core.PHCore', 'Time', 'core.PHTime', 'articles.HtmlArticle', 'ArticleVars');
-	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SiteNews');
+	var $uses = array('articles.Article', 'media.Media', 'seo.Seo', 'SitePage');
 	
 	function beforeFilter() {
 		parent::beforeFilter();
-		$this->Article = $this->SiteNews;
+		$this->Article = $this->SitePage;
 	}
 
 	function index() {
-		$this->grid['SiteNews'] = array(
+		$this->grid['SitePage'] = array(
 			'conditions' => array('Article.object_type' => 'motors', 'Article.published' => 1),
 			'fields' => array('Article.created', 'Article.object_type', 'Article.title', 'Article.page_id', 'Article.teaser', 'Article.featured'),
-			'order' => array('Article.created' => 'desc'),
+			'order' => array('Article.sorting' => 'asc', 'Article.created' => 'desc'),
 			'limit' => self::PER_PAGE
 		);
 
-		$aArticles = $this->PCGrid->paginate('SiteNews');
+		$aArticles = $this->PCGrid->paginate('SitePage');
 		$this->set('aArticles', $aArticles);
 
 		$this->aBreadCrumbs = array('/' => 'Home', 'Motors');

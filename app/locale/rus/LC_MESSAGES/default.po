@@ -107,7 +107,10 @@ msgid "Title"
 msgstr "Название"
 
 msgid "Page ID"
-msgstr "ID страницы"
+msgstr "Адрес"
+
+msgid "Page id"
+msgstr "Адрес"
 
 msgid "Body"
 msgstr "Текст"
