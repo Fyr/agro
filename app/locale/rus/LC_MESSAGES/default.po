@@ -491,7 +491,7 @@ msgid "Home"
 msgstr "Главная"
 
 msgid "View brand"
-msgstr "Просмотр брэнда"
+msgstr "Просмотр бренда"
 
 msgid "View dealer"
 msgstr "Просмотр дилера"

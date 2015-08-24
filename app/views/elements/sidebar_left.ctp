@@ -7,5 +7,5 @@
 			echo $this->element('banner', compact('banner', 'min_w'));
 		}
 	}
-	echo $this->element('tag_cloud');
+	// echo $this->element('tag_cloud');
 ?>

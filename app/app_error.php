@@ -42,9 +42,12 @@ class AppError extends ErrorHandler {
 			}
 		}
 		
-		// header('HTTP/1.1 404 Not Found');
-		// $this->controller->beforeRenderMenu();
-		$this->controller->redirect('/');
+		header('HTTP/1.1 404 Not Found');
+		
+		// $this->controller->beforeFilterLayout();
+		$this->controller->beforeRenderMenu();
+		// $this->controller->beforeRenderLayout();
+		// $this->controller->redirect('/');
 		$this->dispatchMethod($method, $messages);
 		$this->_stop();
 	}

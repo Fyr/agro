@@ -2,7 +2,7 @@
 class SiteController extends AppController {
 	// var $uses = array('articles.Article', 'SiteArticle');
 	var $uses = array('articles.Article');
-	var $aFeaturedProducts, $aEvents, $disableCopy = true;
+	var $aFeaturedProducts, $aEvents;
 
 	// ---------------------
 	// Custom variables
@@ -24,6 +24,51 @@ class SiteController extends AppController {
 		$this->currLink = $this->currMenu;
 	}
 
+	function beforeRender() {
+		$this->beforeRenderMenu();
+		$this->beforeRenderLayout();
+	}
+
+}
+class AppController extends Controller {
+
+	// var $components = array('Auth');
+	var $helpers = array('Html', 'Time', 'core.PHTime', 'core.PHA', 'media.PHMedia', 'Router', 'ArticleVars'); // , 'Mybbcode', 'Ia'
+
+	var $errMsg = '';
+	var $aErrFields = array();
+
+	var $homePage = array('title' => 'Главная', 'img' => 'main.gif', 'href' => '/');
+	var $currMenu = '', $currLink, $disableCopy = true;
+
+	var $pageTitle;
+
+	var $aMenu = array(
+		'home' => array('href' => '/', 'title' => 'Главная'),
+		'news' => array('href' => '/news/', 'title' => 'Новости'),
+		'products' => array('href' => '/zapchasti/', 'title' => 'Запчасти'),
+		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
+		'offers' => array('href' => '/offers/', 'title' => 'Акции'),
+		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
+		'motors' => array('href' => '/motors/', 'title' => 'Техника'),
+		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
+		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
+		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
+	);
+
+	var $aBottomLinks = array(
+		'home' => array('href' => '/', 'title' => 'Главная'),
+		'news' => array('href' => '/news/', 'title' => 'Новости'),
+		'products' => array('href' => '/zaphasti/', 'title' => 'Запчасти'),
+		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
+		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
+		'motors' => array('href' => '/motors/', 'title' => 'Техника'),
+		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
+		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
+		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
+	);
+	var $aBreadCrumbs = array();
+	
 	/**
 	 * Common code for layout (for all controllers)
 	 * Variables set here will be used when layout will be rendering
@@ -45,11 +90,34 @@ class SiteController extends AppController {
 		$this->set('aFilters', array());
 	}
 
-	function beforeRender() {
-		$this->beforeRenderMenu();
-		$this->beforeRenderLayout();
-	}
+	function beforeRenderMenu() {
+		$this->pageTitle = ($this->pageTitle) ? $this->pageTitle.' - '.DOMAIN_TITLE : DOMAIN_TITLE;
 
+		$this->set('pageTitle', $this->pageTitle);
+		$this->set('currMenu', $this->currMenu);
+
+		$this->set('aBottomLinks', $this->aBottomLinks);
+		$this->set('currLink', $this->currLink);
+
+		$this->set('homePage', $this->homePage);
+		$this->set('isHomePage', $this->isHomePage());
+
+		$this->errMsg = (is_array($this->errMsg)) ? implode('<br/>', $this->errMsg) : $this->errMsg;
+		if ($this->errMsg) {
+			$this->errMsg = '<br/>'.$this->errMsg.'<br/><br/>';
+		}
+		$this->set('errMsg', $this->errMsg);
+		$this->set('aBreadCrumbs', $this->aBreadCrumbs);
+		
+		$this->set('disableCopy', !TEST_ENV && $this->disableCopy);
+		if (DOMAIN_NAME == 'agromotors.by' || TEST_ENV) {
+			unset($this->aMenu['home']);
+		} elseif (DOMAIN_NAME == 'agromotors.ru') {
+			unset($this->aMenu['motors']);
+		}
+		$this->set('aMenu', $this->aMenu);
+	}
+	
 	/**
 	 * Override code here for layout in specific controller
 	 *
@@ -60,6 +128,7 @@ class SiteController extends AppController {
 		$this->set('aBreadCrumbs', $this->aBreadCrumbs);
 
 		// $this->Article = $this->SiteArticle;
+		$this->loadModel('articles.Article');
 		$this->loadModel('SiteBrand');
 		$brands = $this->SiteBrand->find('all', array(
 			'conditions' => array('Article.object_type' => 'brands', 'Article.published' => 1)
@@ -114,11 +183,6 @@ class SiteController extends AppController {
 		// $this->aMenu['about']['title'] = $aArticleTitles['about-us'];
 		$this->aMenu['partner']['title'] = $aArticleTitles['magazini-zapchastei'];
 		$this->aBottomLinks['partner']['title'] = $aArticleTitles['magazini-zapchastei'];
-		if (DOMAIN_NAME == 'agromotors.by' || TEST_ENV) {
-			unset($this->aMenu['home']);
-		} elseif (DOMAIN_NAME == 'agromotors.ru') {
-			unset($this->aMenu['motors']);
-		}
 
 		App::import('Helper', 'articles.PHTranslit');
 		$this->Router->PHTranslit = new PHTranslitHelper();
@@ -136,8 +200,6 @@ class SiteController extends AppController {
 		$this->loadModel('TagcloudLink');
 		$this->set('aTagCloud', $this->TagcloudLink->find('all'));
 		
-		$this->set('disableCopy', !TEST_ENV && $this->disableCopy);
-		
 		$this->loadModel('SlotPlace');
 		$this->loadModel('Banner');
 		$this->loadModel('BannerType');
@@ -148,69 +210,6 @@ class SiteController extends AppController {
 			$aSlot[$slot_id] = $this->Banner->find('all', compact('conditions', 'order'));
 		}
 		$this->set('aSlot', $aSlot);
-		
-	}
-
-}
-class AppController extends Controller {
-
-	// var $components = array('Auth');
-	var $helpers = array('Html', 'Time', 'core.PHTime', 'core.PHA', 'media.PHMedia', 'Router', 'ArticleVars'); // , 'Mybbcode', 'Ia'
-
-	var $errMsg = '';
-	var $aErrFields = array();
-
-	var $homePage = array('title' => 'Главная', 'img' => 'main.gif', 'href' => '/');
-	var $currMenu = '', $currLink;
-
-	var $pageTitle;
-
-	var $aMenu = array(
-		'home' => array('href' => '/', 'title' => 'Главная'),
-		'news' => array('href' => '/news/', 'title' => 'Новости'),
-		'products' => array('href' => '/zapchasti/', 'title' => 'Запчасти'),
-		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
-		'offers' => array('href' => '/offers/', 'title' => 'Акции'),
-		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
-		'motors' => array('href' => '/motors/', 'title' => 'Техника'),
-		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
-		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
-		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
-	);
-
-	var $aBottomLinks = array(
-		'home' => array('href' => '/', 'title' => 'Главная'),
-		'news' => array('href' => '/news/', 'title' => 'Новости'),
-		'products' => array('href' => '/zaphasti/', 'title' => 'Запчасти'),
-		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
-		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
-		'motors' => array('href' => '/motors/', 'title' => 'Техника'),
-		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
-		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
-		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
-	);
-	var $aBreadCrumbs = array();
-
-	function beforeRenderMenu() {
-		$this->pageTitle = ($this->pageTitle) ? $this->pageTitle.' - '.DOMAIN_TITLE : DOMAIN_TITLE;
-
-		$this->set('pageTitle', $this->pageTitle);
-
-		$this->set('aMenu', $this->aMenu);
-		$this->set('currMenu', $this->currMenu);
-
-		$this->set('aBottomLinks', $this->aBottomLinks);
-		$this->set('currLink', $this->currLink);
-
-		$this->set('homePage', $this->homePage);
-		$this->set('isHomePage', $this->isHomePage());
-
-		$this->errMsg = (is_array($this->errMsg)) ? implode('<br/>', $this->errMsg) : $this->errMsg;
-		if ($this->errMsg) {
-			$this->errMsg = '<br/>'.$this->errMsg.'<br/><br/>';
-		}
-		$this->set('errMsg', $this->errMsg);
-		$this->set('aBreadCrumbs', $this->aBreadCrumbs);
 	}
 
 	function isHomePage() {
