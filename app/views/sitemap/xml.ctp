@@ -4,50 +4,17 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-<url>
-  <loc>http://<?=DOMAIN_NAME?>/</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>http://<?=DOMAIN_NAME?>/news/</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>http://<?=DOMAIN_NAME?>/product/</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>http://<?=DOMAIN_NAME?>/brand/</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>http://<?=DOMAIN_NAME?>/pages/show/about-us.html</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>http://<?=DOMAIN_NAME?>/pages/show/about-us2.html</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>http://<?=DOMAIN_NAME?>/pages/show/dealers.html</loc>
-  <changefreq>daily</changefreq>
-</url>
-<url>
-  <loc>http://<?=DOMAIN_NAME?>/contacts/</loc>
-  <changefreq>daily</changefreq>
-</url>
 <?
-	foreach($aCategories as $category) {
-		$url = $this->Router->catUrl('products', $category['Category']);
+	foreach($aMenu as $item) {
 ?>
 <url>
-  <loc>http://<?=DOMAIN_NAME.$url?></loc>
+  <loc>http://<?=DOMAIN_NAME?><?=$item['href']?></loc>
   <changefreq>daily</changefreq>
 </url>
 <?
 	}
-	foreach($aArticles as $article) {
-		$this->ArticleVars->init($article, $url, $title, $teaser, $src, '150x');
+	foreach($aCategories as $category) {
+		$url = $this->Router->catUrl('products', $category['Category']);
 ?>
 <url>
   <loc>http://<?=DOMAIN_NAME.$url?></loc>
