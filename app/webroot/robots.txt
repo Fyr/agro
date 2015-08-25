@@ -3,5 +3,6 @@ Disallow: /admin/
 Disallow: /css/
 Disallow: /js/
 Disallow: /files/
+Disallow: /products/
 Sitemap: http://agromotors.by/sitemap.xml
 Host: agromotors.by
