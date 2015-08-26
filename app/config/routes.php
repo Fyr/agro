@@ -15,7 +15,7 @@
 		'page' => '[0-9]+',
 		'object_type' => 'products'
 	));
-	Router::connect('/product/:category/:subcategory/:id.html', array(
+	Router::connect('/product/:category/:subcategory/:id', array(
 		'controller' => 'products',
 		'action' => 'view',
 		'category' => '[a-z0-9\-]+',
@@ -63,7 +63,7 @@
 		'page' => '[0-9]+',
 		'object_type' => 'products'
 	));
-	Router::connect('/zapchasti/:category/:subcategory/:id.html', array(
+	Router::connect('/zapchasti/:category/:subcategory/:id', array(
 		'controller' => 'products',
 		'action' => 'view',
 		'category' => '[a-z0-9\-]+',
@@ -97,7 +97,7 @@
 		'category' => '[a-z0-9\-]+',
 		'object_type' => 'products'
 	));
-	Router::connect('/zapchasti/', array(
+	Router::connect('/zapchasti', array(
 		'controller' => 'products',
 		'action' => 'index',
 		'object_type' => 'products'
@@ -107,12 +107,12 @@
 		'action' => 'index',
 		'page' => '[0-9]+'
 	));
-	Router::connect('/brand/:id.html', array(
+	Router::connect('/brand/:id', array(
 		'controller' => 'brands',
 		'action' => 'view',
 		'id' => '[a-z0-9\-]+'
 	));
-	Router::connect('/brand/', array(
+	Router::connect('/brand', array(
 		'controller' => 'brands',
 		'action' => 'index'
 	));
@@ -122,12 +122,12 @@
 		'action' => 'index',
 		'page' => '[0-9]+'
 	));
-	Router::connect('/magazini-zapchastei/:id.html', array(
+	Router::connect('/magazini-zapchastei/:id', array(
 		'controller' => 'dealers',
 		'action' => 'view',
 		'id' => '[a-z0-9\-]+'
 	));
-	Router::connect('/magazini-zapchastei/', array(
+	Router::connect('/magazini-zapchastei', array(
 		'controller' => 'dealers',
 		'action' => 'index'
 	));
@@ -137,12 +137,12 @@
 		'action' => 'redirect_old',
 		'page' => '[0-9]+'
 	));
-	Router::connect('/dealer/:id.html', array(
+	Router::connect('/dealer/:id', array(
 		'controller' => 'dealers',
 		'action' => 'redirect_old',
 		'id' => '[a-z0-9\-]+'
 	));
-	Router::connect('/dealer/', array(
+	Router::connect('/dealer', array(
 		'controller' => 'dealers',
 		'action' => 'redirect_old'
 	));
@@ -152,7 +152,7 @@
 		'action' => 'index',
 		'page' => '[0-9]+'
 	));
-	Router::connect('/news/:id.html', array(
+	Router::connect('/news/:id', array(
 		'controller' => 'news',
 		'action' => 'view',
 		'id' => '[a-z0-9\-]+'
@@ -163,7 +163,7 @@
 		'action' => 'index',
 		'page' => '[0-9]+'
 	));
-	Router::connect('/offers/:id.html', array(
+	Router::connect('/offers/:id', array(
 		'controller' => 'offers',
 		'action' => 'view',
 		'id' => '[a-z0-9\-]+'
@@ -174,7 +174,7 @@
 		'action' => 'index',
 		'page' => '[0-9]+'
 	));
-	Router::connect('/motors/:id.html', array(
+	Router::connect('/motors/:id', array(
 		'controller' => 'motors',
 		'action' => 'view',
 		'id' => '[a-z0-9\-]+'

@@ -19,19 +19,19 @@ class RouterHelper extends AppHelper {
 		$id = ($aArticle['Article']['page_id']) ? $aArticle['Article']['page_id'] : $aArticle['Article']['id'];
 		
 		if ($aArticle['Article']['object_type'] == 'photos') {
-			return $dir.$id.'.html';
+			return $dir.$id;
 		}
 		
 		if (in_array($aArticle['Article']['object_type'], array('news', 'offers', 'motors'))) {
-			return '/'.$aArticle['Article']['object_type'].'/'.$id.'.html';
+			return '/'.$aArticle['Article']['object_type'].'/'.$id;
 		}
 		
 		if ($aArticle['Article']['object_type'] == 'products') {
-			return $this->catUrl('products', $aArticle['Subcategory']).$id.'.html';
+			return $this->catUrl('products', $aArticle['Subcategory']).$id;
 		}
 		
 		if ($aArticle['Article']['object_type'] == 'brands' || $aArticle['Article']['object_type'] == 'companies') {
-			return $dir.$id.'.html';
+			return $dir.$id;
 		}
 		
 		if ($aArticle['Article']['object_type'] == 'pages') {
@@ -39,7 +39,7 @@ class RouterHelper extends AppHelper {
 		} else {
 			$category = (isset($aArticle['Category']['id']) && $aArticle['Category']['title']) ? $this->PHTranslit->convert($aArticle['Category']['title'], true).'-'.$aArticle['Category']['id'] : 'empty';
 		}
-		return $dir.$category.'/'.$id.'.html';
+		return $dir.$category.'/'.$id;
 	}
 	
 	function catUrl($objectType, $aCategory = null) {

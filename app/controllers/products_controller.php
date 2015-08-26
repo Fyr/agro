@@ -164,7 +164,7 @@ class ProductsController extends SiteController {
 			}
 		}
 		if (!$aArticle) {
-			return $this->redirect('/');
+			return $this->redirect('/404');
 		}
 		
 		if ($this->params['category'] !== $aArticle['Category']['page_id'] 

@@ -11,6 +11,18 @@ class SiteController extends AppController {
 		//Configure::write('Config.language', 'rus');
 		//Security::setHash("md5");
 		//$this->Auth->allow();
+		if (isset($this->params['url']) && isset($this->params['url']['url'])) {
+			
+			if (strpos($this->params['url']['url'], '.html') !== false) {
+				$this->redirect('/'.str_replace('.html', '', $this->params['url']['url']));
+				return;
+			}
+			if ($this->params['url']['url'] !== '/' && substr($this->params['url']['url'], -1) == '/' && !isset($this->params['url']['data'])) {
+				$this->redirect('/'.substr($this->params['url']['url'], 0, -1));
+				return;
+			}
+		}
+		
 		$this->beforeFilterMenu();
 		$this->beforeFilterLayout();
 	}
@@ -45,27 +57,27 @@ class AppController extends Controller {
 
 	var $aMenu = array(
 		'home' => array('href' => '/', 'title' => 'Главная'),
-		'news' => array('href' => '/news/', 'title' => 'Новости'),
-		'products' => array('href' => '/zapchasti/', 'title' => 'Запчасти'),
-		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
-		'offers' => array('href' => '/offers/', 'title' => 'Акции'),
-		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
-		'motors' => array('href' => '/motors/', 'title' => 'Техника'),
-		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
-		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
-		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
+		'news' => array('href' => '/news', 'title' => 'Новости'),
+		'products' => array('href' => '/zapchasti', 'title' => 'Запчасти'),
+		'remont' => array('href' => '/pages/show/remont', 'title' => 'Ремонт'),
+		'offers' => array('href' => '/offers', 'title' => 'Акции'),
+		'brands' => array('href' => '/brand', 'title' => 'Бренды'),
+		'motors' => array('href' => '/motors', 'title' => 'Техника'),
+		'about' => array('href' => '/pages/show/about-us', 'title' => 'О нас'),
+		'partner' => array('href' => '/magazini-zapchastei', 'title' => 'Дилеры'),
+		'contacts' => array('href' => '/contacts', 'title' => 'Контакты')
 	);
 
 	var $aBottomLinks = array(
 		'home' => array('href' => '/', 'title' => 'Главная'),
-		'news' => array('href' => '/news/', 'title' => 'Новости'),
-		'products' => array('href' => '/zaphasti/', 'title' => 'Запчасти'),
-		'remont' => array('href' => '/pages/show/remont.html', 'title' => 'Ремонт'),
-		'brands' => array('href' => '/brand/', 'title' => 'Бренды'),
-		'motors' => array('href' => '/motors/', 'title' => 'Техника'),
-		'about' => array('href' => '/pages/show/about-us.html', 'title' => 'О нас'),
-		'partner' => array('href' => '/magazini-zapchastei/', 'title' => 'Дилеры'),
-		'contacts' => array('href' => '/contacts/', 'title' => 'Контакты')
+		'news' => array('href' => '/news', 'title' => 'Новости'),
+		'products' => array('href' => '/zaphasti', 'title' => 'Запчасти'),
+		'remont' => array('href' => '/pages/show/remont', 'title' => 'Ремонт'),
+		'brands' => array('href' => '/brand', 'title' => 'Бренды'),
+		'motors' => array('href' => '/motors', 'title' => 'Техника'),
+		'about' => array('href' => '/pages/show/about-us', 'title' => 'О нас'),
+		'partner' => array('href' => '/magazini-zapchastei', 'title' => 'Дилеры'),
+		'contacts' => array('href' => '/contacts', 'title' => 'Контакты')
 	);
 	var $aBreadCrumbs = array();
 	

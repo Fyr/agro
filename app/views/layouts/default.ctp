@@ -89,7 +89,7 @@ $(document).ready(function(){
             
         </div>
         <div class="wrapper clearfix">
-            <form class="searchBlock" action="/products/" method="get">
+            <form class="searchBlock" action="/products" method="get">
                 <button class="submit">поиск</button>
                 <div class="outerSearch"><input type="text" name="data[filter][Article.title]" placeholder="Введите номер или название запчасти..." /></div>
             </form>

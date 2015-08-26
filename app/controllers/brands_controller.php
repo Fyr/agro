@@ -27,7 +27,7 @@ class BrandsController extends SiteController {
 		$id = (isset($this->params['id']) && $this->params['id']) ? $this->params['id'] : 0;
 		$aArticle = $this->Brand->findByPageId($id);
 		if (!$aArticle) {
-			$this->redirect('/404.html');
+			$this->redirect('/404');
 		}
 		$aArticle['Article'] = $aArticle['Brand'];
 		$this->set('aArticle', $aArticle);

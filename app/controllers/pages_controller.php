@@ -45,9 +45,14 @@ class PagesController extends SiteController {
 		$this->pageTitle = (isset($aArticle['Seo']['title']) && $aArticle['Seo']['title']) ? $aArticle['Seo']['title'] : $aArticle['Article']['title'];
 		$this->data['SEO'] = $aArticle['Seo'];
 	}
+	
 	function show($pageID) {
 		$pageID = str_replace('.html', '', $pageID);
 		$aArticle = $this->SitePage->findByPage_id($pageID);
+		if (!$aArticle) {
+			$this->redirect('/404');
+			return;
+		}
 		$this->set('aArticle', $aArticle);
 
 		$this->aBreadCrumbs = array('/' => 'Главная', $aArticle['Article']['title']);
@@ -71,6 +76,4 @@ class PagesController extends SiteController {
 	function inprogress() {
 	}
 
-	function nonExist() {
-	}
 }
