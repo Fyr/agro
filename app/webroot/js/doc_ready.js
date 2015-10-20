@@ -90,7 +90,6 @@ $(document).ready(function(){
 		});
 	});
 	if ($('.fancybox').length) {
-		console.log($('.fancybox').length);
 		$('.fancybox').fancybox({
 			padding: 5
 		});

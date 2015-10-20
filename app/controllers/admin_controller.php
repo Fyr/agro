@@ -5,7 +5,7 @@ class AdminController extends AppController {
 	var $components = array('Auth', 'articles.PCArticle', 'grid.PCGrid', 'params.PCParam');
 	var $helpers = array('Text', 'Session', 'core.PHFcke', 'core.PHCore', 'core.PHA', 'grid.PHGrid');
 
-	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory', 'tags.TagcloudLink', 'SitePage', 'SiteCompany', 'SlotPlace', 'BannerType', 'Banner');
+	var $uses = array('articles.Article', 'media.Media', 'category.Category', 'tags.Tag', 'tags.TagObject', 'seo.Seo', 'SiteArticle', 'SiteProduct', 'params.Param', 'params.ParamObject', 'params.ParamValue', 'Brand', 'SiteCategory', 'tags.TagcloudLink', 'SitePage', 'SiteCompany', 'SlotPlace', 'BannerType', 'Banner', 'Catalog');
 	// var $helpers = array('Html'); // 'Form', 'Fck', 'Ia'
 
 	var $aMenu = array(
@@ -26,6 +26,7 @@ class AdminController extends AppController {
 		'tagcloud' => '/admin/tagcloud/',
 		'Dealers' => '/admin/companiesList/',
 		'Banners' => '/admin/bannerList/',
+		'Catalogs' => '/admin/catalogList/',
 		'Settings' => '/admin/settings',
 		
 	);
@@ -514,6 +515,32 @@ class AdminController extends AppController {
 		
 		$this->set('slotPlaceOptions', $this->SlotPlace->getOptions());
 		$this->set('bannerTypeOptions', $this->BannerType->getOptions());
+	}
+	
+	function catalogList() {
+		$this->currMenu = 'Catalog';
+		$this->grid['Catalog'] = array(
+			'fields' => array('title', 'url', 'descr' /* file */, 'published', 'sorting'),
+			'captions' => array('Catalog.descr' => __('File', true)),
+			'order' => array('sorting' => 'asc')
+		);
+		$aRowset = $this->PCGrid->paginate('Catalog');
+	}
+	
+	function catalogEdit($id = 0) {
+		$this->currMenu = 'Catalog';
+		
+		if (isset($this->data)) {
+			$this->Catalog->save($this->data);
+			$banner = $this->Catalog->findById($id);
+			
+			return $this->redirect('/admin/catalogEdit/'.$this->Catalog->id);
+		} elseif ($id) {
+			$this->data = $this->Catalog->findById($id);
+		} else {
+			$this->data['Catalog']['published'] = 1;
+			$this->data['Catalog']['sorting'] = 1;
+		}
 	}
 	
 	function companiesList() {

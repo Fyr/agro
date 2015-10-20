@@ -45,6 +45,21 @@ screen.colorDepth:screen.pixelDepth))+";u"+escape(document.URL)+
 "border='0' width='88' height='31'><\/a>")
 //--></script><!--/LiveInternet-->
 </div>
+<!-- Код тега ремаркетинга Google -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 940736125;
+var google_custom_params = window.google_tag_params;
+var google_remarketing_only = true;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/940736125/?value=0&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
 <?
 	}
 	if (!TEST_ENV) {

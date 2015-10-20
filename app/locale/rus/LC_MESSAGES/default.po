@@ -534,3 +534,21 @@ msgstr "Новая техника"
 
 msgid "Edit motor"
 msgstr "Редактировать технику"
+
+msgid "Catalogs"
+msgstr "Каталоги"
+
+msgid "New catalog"
+msgstr "Новый каталог"
+
+msgid "Edit catalog"
+msgstr "Редактировать каталог"
+
+msgid "File"
+msgstr "Файл"
+
+msgid "Image"
+msgstr "Фото"
+
+msgid "Set as main"
+msgstr "Назначить главным"
