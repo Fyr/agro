@@ -14,7 +14,7 @@ $aAllowedTitles = array(
 	"image" => __('Image', true),
 	"video" => __('Video', true),
 	"audio" => __('Audio', true),
-	"raw_file" => __('PDF doc.', true)
+	"raw_file" => __('File', true)
 );
 if (count($aAllowedTypes) > 1) {
 ?>

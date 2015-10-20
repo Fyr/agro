@@ -50,7 +50,7 @@ if ($aMedia) {
 ?>
 	<td valign="middle">
 		<span class="media_setMain_<?=$media['id']?>">
-			<input class="autocompleteOff fixIcon" type="radio" name="set_main[<?=$media['media_type']?>]" value="<?=$media['id']?>" onclick="media_onSetMain(<?=$media['id']?>)" <?=$selected?> style="left: -3px; top: 2px;" /> <span>Set as main</span>
+			<input class="autocompleteOff fixIcon" type="radio" name="set_main[<?=$media['media_type']?>]" value="<?=$media['id']?>" onclick="media_onSetMain(<?=$media['id']?>)" <?=$selected?> style="left: -3px; top: 2px;" /> <span><? __('Set as main')?></span>
 		</span>
 		<br />
 		<br />

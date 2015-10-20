@@ -51,7 +51,7 @@ class PHMediaHelper extends AppHelper {
 	}
 	
 	function getTypePath($type) {
-		$basePath = (in_array(strtolower($type), array('news', 'page', 'companies', 'banner', 'motors'))) ? PATH_FILES_UPLOAD : PATH_FILES;
+		$basePath = (in_array(strtolower($type), array('news', 'page', 'companies', 'banner', 'motors', 'catalog'))) ? PATH_FILES_UPLOAD : PATH_FILES;
 		return $basePath.strtolower($type).'/';
 	}
 
@@ -66,7 +66,7 @@ class PHMediaHelper extends AppHelper {
 
     function getRawUrl($type, $id, $filename) {
     	$page = floor($id/100);
-    	return '/files/'.$type.'/'.$page.'/'.$id.'/'.rawurlencode($filename);
+    	return '/files/'.strtolower($type).'/'.$page.'/'.$id.'/'.rawurlencode($filename);
     }
 
 }

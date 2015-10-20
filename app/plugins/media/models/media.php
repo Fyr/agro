@@ -73,17 +73,17 @@ class Media extends AppModel
 				$newFName = $this->uploadFile($data['inputName'], $path, &$justName, &$justExt);
 				$aSave = array('id' => $id, 'file' => $justName, 'ext' => $justExt);
 				
+				// Save orig file size
+				$file = $this->PHMedia->getFileName($objectType, $id, null, $justName.$justExt);
+				$aSave['orig_fsize'] = filesize($file);
+				
 				if ($data['media_type'] == 'image') {
-					// Save original image resolution and file size
-					$file = $this->PHMedia->getFileName($objectType, $id, null, $justName.$justExt);
-					
+					// Save original image resolution
 					App::import('Vendor', 'Image', array('file' => '../plugins/media/vendors/image.class.php'));
 					$image = new Image();
 					$image->load($file);
-					$aSave = array_merge($aSave, array('orig_w' => $image->getSizeX(), 'orig_h' => $image->getSizeY(), 'orig_fsize' => filesize($file)));
-					
-					// Set main image if it was first image
-					// $this->initMain($object_type, $object_id);
+					$aSave['orig_w'] = $image->getSizeX();
+					$aSave['orig_h'] = $image->getSizeY();
 				}
 				
 				$_ret = $_ret && parent::save($aSave);
