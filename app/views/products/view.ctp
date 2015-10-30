@@ -94,7 +94,7 @@
 	if ($aArticle['Article']['show_detailnum']) {
 		$aParamValues[''] = array(
 			'ParamValue' => array('param_id' => '', 'value' => $aArticle['Article']['detail_num']),
-			'Param' => array('title' => 'Номер детали', 'param_type' => 4)
+			'Param' => array('title' => 'Номер запчасти', 'param_type' => 4)
 		);
 		ksort($aParamValues);
 	}

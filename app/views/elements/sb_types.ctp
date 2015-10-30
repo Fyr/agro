@@ -1,9 +1,10 @@
 <ul class="catalog" id="catalog">
 <?
 	foreach($aTypes['type_'] as $type) {
+		$url = (isset($aTypes['type_'.$type['id']])) ? 'javascript: void(0)' : $this->Router->catUrl('products', $type);
 ?>
 	<li id="cat-nav<?=$type['id']?>">
-        <a href="javascript: void(0)" class="firstLevel"><span class="icon arrow"></span><?=$type['title']?></a>
+        <a href="<?=$url?>" class="firstLevel"><span class="icon arrow"></span><?=$type['title']?></a>
 <?
 		if (isset($aTypes['type_'.$type['id']])) {
 ?>

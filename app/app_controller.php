@@ -107,8 +107,6 @@ class AppController extends Controller {
 
 		$this->set('pageTitle', $this->pageTitle);
 		$this->set('currMenu', $this->currMenu);
-
-		$this->set('aBottomLinks', $this->aBottomLinks);
 		$this->set('currLink', $this->currLink);
 
 		$this->set('homePage', $this->homePage);
@@ -128,6 +126,11 @@ class AppController extends Controller {
 			unset($this->aMenu['motors']);
 		}
 		$this->set('aMenu', $this->aMenu);
+		
+		if (DOMAIN_NAME == 'agromotors.ru') {
+			unset($this->aBottomLinks['motors']);
+		}
+		$this->set('aBottomLinks', $this->aBottomLinks);
 	}
 	
 	/**

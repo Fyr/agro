@@ -63,19 +63,19 @@
 		'page' => '[0-9]+',
 		'object_type' => 'products'
 	));
+	Router::connect('/zapchasti/:category/page/:page', array(
+		'controller' => 'products',
+		'action' => 'index',
+		'category' => '[a-z0-9\-]+',
+		'page' => '[0-9]+',
+		'object_type' => 'products'
+	));
 	Router::connect('/zapchasti/:category/:subcategory/:id', array(
 		'controller' => 'products',
 		'action' => 'view',
 		'category' => '[a-z0-9\-]+',
 		'subcategory' => '[a-z0-9\-]+',
 		'id' => '[a-z0-9\-]+',
-		'object_type' => 'products'
-	));
-	Router::connect('/zapchasti/:category/page/:page', array(
-		'controller' => 'products',
-		'action' => 'index',
-		'category' => '[a-z0-9\-]+',
-		'page' => '[0-9]+',
 		'object_type' => 'products'
 	));
 	Router::connect('/zapchasti/page/:page', array(

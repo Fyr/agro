@@ -168,7 +168,7 @@ class ProductsController extends SiteController {
 		}
 		
 		if ($this->params['category'] !== $aArticle['Category']['page_id'] 
-				|| $this->params['subcategory'] !== $aArticle['Subcategory']['page_id']) {
+				|| ($this->params['subcategory'] !== NO_SUBCAT_SLUG && $this->params['subcategory'] !== $aArticle['Subcategory']['page_id'])) {
 			return $this->redirect($this->Router->url($aArticle));
 		}
 		
@@ -196,10 +196,12 @@ class ProductsController extends SiteController {
 		$this->aBreadCrumbs = array(
 			'/' => 'Home', 
 			$this->Router->getDir('products') => 'Products', 
-			$this->Router->catUrl('products', $this->category['Article']) => $this->category['Article']['title'],
-			$this->Router->catUrl('products', $this->subcategory['Article']) => $this->subcategory['Article']['title'],
-			'View product'
+			$this->Router->catUrl('products', $this->category['Article']) => $this->category['Article']['title']
 		);
+		if ($this->subcategory) {
+			$this->aBreadCrumbs[$this->Router->catUrl('products', $this->subcategory['Article'])] = $this->subcategory['Article']['title'];
+		}
+		$this->aBreadCrumbs[] = 'View product';
 		
 		$conditions = array('Brand.object_type' => 'brands', 'Brand.id' => $aArticle['Article']['brand_id']);
 		$brand = $this->Brand->find('first', compact('conditions'));

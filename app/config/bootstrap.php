@@ -14,6 +14,8 @@ define('PATH_FILES', 'D:/Projects/vitacars.dev/wwwroot/app/webroot/files/');
 
 require_once('extra.php');
 
+define('NO_SUBCAT_SLUG', 'kupit');
+
 Configure::write('params.motor', 6);
 Configure::write('params.price_by', 47);
 Configure::write('params.price_ru', 48);

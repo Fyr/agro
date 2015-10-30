@@ -1,6 +1,6 @@
 <?
 class RouterHelper extends AppHelper {
-	var $helpers = array('articles.PHTranslit');
+	var $helpers = array('articles.PHTranslit', 'core.PHA');
 	var $aCategories = array();
 	
 	function __construct($options = null) {
@@ -27,6 +27,14 @@ class RouterHelper extends AppHelper {
 		}
 		
 		if ($aArticle['Article']['object_type'] == 'products') {
+			if (!isset($aArticle['Subcategory']['id']) || !$aArticle['Subcategory']['id']) {
+				$aArticle['Subcategory'] = array(
+					'id' => 0,
+					'title' => __('No subcategory', true),
+					'object_id' => $aArticle['Category']['id'],
+					'page_id' => NO_SUBCAT_SLUG
+				);
+			}
 			return $this->catUrl('products', $aArticle['Subcategory']).$id;
 		}
 		
@@ -73,6 +81,7 @@ class RouterHelper extends AppHelper {
 		$category.= (isset($this->params['subcategory']) && $this->params['subcategory']) ? $this->params['subcategory'].'/' : '';
 		$url = str_replace(array('/article/', '/products/'), $this->getDir($objectType), $url);
 		$url = str_replace('index/', $category, str_replace('page:', 'page/', $url));
-		return str_replace('page/1', '', $url);
+		// return str_replace('page/1', '', $url);
+		return preg_replace('/page\/1$/', '', $url);
 	}
 }
